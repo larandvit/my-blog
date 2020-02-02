@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Expand Logical Volume in CentOS/RHEL 7 - Vitaly Saversky's Blog</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="canonical" href="/expand-logical-volume-in-centosrhel-7.html">
+
+        <meta name="author" content="Vitaly Saversky" />
+        <meta name="keywords" content="lvm,centos,linux,rhel" />
+        <meta name="description" content="As Linux systems have root file systems on a logical volume, it can be used Logical Volume Management (LVM) to resize the volume. The exercise of logical volume expanding is completed in case of adding an extra disk to a physical system or having a pool of storage in a …" />
+
+        <meta property="og:site_name" content="Vitaly Saversky's Blog" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Expand Logical Volume in CentOS/RHEL 7"/>
+        <meta property="og:url" content="/expand-logical-volume-in-centosrhel-7.html"/>
+        <meta property="og:description" content="As Linux systems have root file systems on a logical volume, it can be used Logical Volume Management (LVM) to resize the volume. The exercise of logical volume expanding is completed in case of adding an extra disk to a physical system or having a pool of storage in a …"/>
+        <meta property="article:published_time" content="2020-01-29" />
+            <meta property="article:section" content="Linux" />
+            <meta property="article:tag" content="lvm" />
+            <meta property="article:tag" content="centos" />
+            <meta property="article:tag" content="linux" />
+            <meta property="article:tag" content="rhel" />
+            <meta property="article:author" content="Vitaly Saversky" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="/theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="/theme/css/pygments/monokai.css" rel="stylesheet">
+    <link href="/theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
+
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <a href="/" class="navbar-brand">
+Vitaly Saversky's Blog            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><span>
+                <form class="navbar-search" action="/search.html">
+                  <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
+                </form></span>
+              </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+            <ol class="breadcrumb">
+                <li><a href="" title="Vitaly Saversky's Blog"><i class="fa fa-home fa-lg"></i></a></li>
+                <li><a href="/category/linux.html" title="Linux">Linux</a></li>
+                <li class="active">Expand Logical Volume in CentOS/RHEL 7</li>
+            </ol>
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="/expand-logical-volume-in-centosrhel-7.html"
+                       rel="bookmark"
+                       title="Permalink to Expand Logical Volume in CentOS/RHEL 7">
+                        Expand Logical Volume in CentOS/RHEL 7
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2020-01-29T00:00:00-05:00"> Wed 29 January 2020</time>
+    </span>
+
+
+
+        <span class="label label-default">Category</span>
+        <a href="/category/linux.html">Linux</a>
+
+
+<span class="label label-default">Tags</span>
+	<a href="/tag/lvm.html">lvm</a>
+        /
+	<a href="/tag/centos.html">centos</a>
+        /
+	<a href="/tag/linux.html">linux</a>
+        /
+	<a href="/tag/rhel.html">rhel</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>As Linux systems have root file systems on a logical volume, it can be used Logical Volume Management (LVM) to resize the volume. The exercise of logical volume expanding is completed in case of adding an extra disk to a physical system or having a pool of storage in a virtual environment.</p>
+<ol>
+<li>
+<p>Run <strong>fdisk</strong> or <strong>gdisk</strong> partition tool. <strong>gdisk</strong> is used if the partition layout is GPT otherwise <strong>fdisk</strong> has to be used. <strong>gdisk</strong> will make your system unbootable if you don't have GPT partition. Both tools work identically when a new partiton is created.</p>
+<p>How to figure out if GPT partition is present in your system? Assiming that <strong>sda</strong> is device with available space, run <strong>gdisk /dev/sda</strong> command.</p>
+<p>This screen shows that your partition is GPT.</p>
+<div class="highlight"><pre><span></span>$ gdisk /dev/sda
+
+GPT fdisk (gdisk) version 0.8.10
+
+Partition table scan:
+  MBR: protective
+  BSD: not present
+  APM: not present
+  GPT: present
+
+Found valid GPT with protective MBR; using GPT.
+</pre></div>
+
+
+<p>In case of MBR partition your screen is.</p>
+<div class="highlight"><pre><span></span>$ gdisk /dev/sda
+
+GPT fdisk (gdisk) version 0.8.10
+
+Partition table scan:
+  MBR: MBR only
+  BSD: not present
+  APM: not present
+  GPT: not present
+
+***************************************************************
+Found invalid GPT and valid MBR; converting MBR to GPT format
+in memory. THIS OPERATION IS POTENTIALLY DESTRUCTIVE! Exit by
+typing &#39;q&#39; if you don&#39;t want to convert your MBR partitions
+to GPT format!
+***************************************************************
+</pre></div>
+
+
+</li>
+<li>
+<p>Create a new logical volume partition. Enter <strong>8E00</strong> partition code.</p>
+<div class="highlight"><pre><span></span>Command (? for help): n
+
+Partition number (6-128, default 6): 
+First sector (31457280-52428766, default = 31457280) or {+-}size{KMGTP}: 
+Last sector (31457280-52428766, default = 52428766) or {+-}size{KMGTP}: 
+Current type is &#39;Linux filesystem&#39;
+Hex code or GUID (L to show codes, Enter = 8300): 8E00
+Changed type of partition to &#39;Linux LVM&#39;
+</pre></div>
+
+
+</li>
+<li>
+<p>Apply changes.</p>
+<div class="highlight"><pre><span></span>Command (? for help): w
+
+Final checks complete. About to write GPT data. THIS WILL OVERWRITE EXISTING
+PARTITIONS!!
+
+Do you want to proceed? (Y/N): Y
+OK; writing new GUID partition table (GPT) to /dev/sda.
+Warning: The kernel is still using the old partition table.
+The new table will be used at the next reboot.
+The operation has completed successfully.
+</pre></div>
+
+
+</li>
+<li>
+<p>Notify the operation system about changes in the partition tables.</p>
+<div class="highlight"><pre><span></span>$ partprobe
+</pre></div>
+
+
+</li>
+<li>
+<p>Validate the new created partition. It can be used either fdisk or gdisk partition tool</p>
+<div class="highlight"><pre><span></span>$ fdisk -l /dev/sda
+
+WARNING: fdisk GPT support is currently new, and therefore in an experimental phase. Use at your own discretion.
+
+Disk /dev/sda: 26.8 GB, 26843545600 bytes, 52428800 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: gpt
+Disk identifier: 71DD2E79-BD1C-4713-9880-22664C87E57B
+
+#         Start          End    Size  Type            Name
+1         2048      2099199      1G  Linux filesyste Linux filesystem
+2      2099200     16777215      7G  Linux LVM       Linux LVM
+3     16777216     20971519      2G  Linux LVM       Linux LVM
+4     20971520     31457279      5G  Linux LVM       Linux LVM
+5           34         2047   1007K  BIOS boot       BIOS boot partition
+6     31457280     52428766     10G  Linux LVM       Linux LVM
+</pre></div>
+
+
+</li>
+<li>
+<p>Find out what logical groups/volumes are available.</p>
+<div class="highlight"><pre><span></span>$ lvs
+
+  LV   VG     Attr       LSize   Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+  root centos -wi-ao---- &lt;13.19g
+  swap centos -wi-ao---- 820.00m
+</pre></div>
+
+
+</li>
+<li>
+<p>Our intertest is to add space to the root file system. The logical volume path is <strong>centos/root</strong>. In case of RHEL, it might be <strong>rhel/root</strong>.</p>
+</li>
+<li>
+<p>Create a physical volume.</p>
+<div class="highlight"><pre><span></span>$ pvcreate /dev/sda6
+
+WARNING: ext4 signature detected on /dev/sda6 at offset 1080. Wipe it? [y/n]: y
+Wiping ext4 signature on /dev/sda6.
+Physical volume &quot;/dev/sda6&quot; successfully created.
+</pre></div>
+
+
+</li>
+<li>
+<p>Extend <strong>centos</strong> volume group.</p>
+<div class="highlight"><pre><span></span>$ vgextend centos /dev/sda6
+
+Volume group &quot;centos&quot; successfully extended
+</pre></div>
+
+
+</li>
+<li>
+<p>Figure out exact free space in PE. The field name is <strong>Free  PE / Size</strong> and the value in the sample is <strong>2559</strong></p>
+<div class="highlight"><pre><span></span>$ vgdisplay
+
+--- Volume group ---
+VG Name               centos
+System ID             
+Format                lvm2
+Metadata Areas        4
+Metadata Sequence No  8
+VG Access             read/write
+VG Status             resizable
+MAX LV                0
+Cur LV                2
+Open LV               2
+Max PV                0
+Cur PV                4
+Act PV                4
+VG Size               23.98 GiB
+PE Size               4.00 MiB
+Total PE              6140
+Alloc PE / Size       3581 / &lt;13.99 GiB
+Free  PE / Size       2559 / &lt;10.00 GiB
+VG UUID               ZPaYGz-7hbZ-2H6y-RS9W-x13x-2K81-pXCsA3
+</pre></div>
+
+
+</li>
+<li>
+<p>Extend <strong>centos/root</strong> logical volume</p>
+<div class="highlight"><pre><span></span>$ lvextend -l+2559 centos/root
+
+Size of logical volume centos/root changed from &lt;13.19 GiB (3376 extents) to 23.18 GiB (5935 extents).
+Logical volume centos/root successfully resized.
+</pre></div>
+
+
+</li>
+<li>
+<p>XFS file system may be grown while mounted using the xfs_growfs command.</p>
+<div class="highlight"><pre><span></span>$ xfs_growfs /dev/centos/root
+
+meta-data=/dev/mapper/centos-root isize=512    agcount=9, agsize=406016 blks
+         =                       sectsz=512   attr=2, projid32bit=1
+         =                       crc=1        finobt=0 spinodes=0
+data     =                       bsize=4096   blocks=3457024, imaxpct=25
+         =                       sunit=0      swidth=0 blks
+naming   =version 2              bsize=4096   ascii-ci=0 ftype=1
+log      =internal               bsize=4096   blocks=2560, version=2
+         =                       sectsz=512   sunit=0 blks, lazy-count=1
+realtime =none                   extsz=4096   blocks=0, rtextents=0
+data blocks changed from 3457024 to 6077440
+</pre></div>
+
+
+</li>
+</ol>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Recent Posts -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+  <ul class="list-group" id="recentposts">
+    <li class="list-group-item"><a href="/resize-disk-in-oracle-vm-virtualbox.html">Resize Disk in Oracle VM VirtualBox</a></li>
+    <li class="list-group-item"><a href="/expand-logical-volume-in-centosrhel-7.html">Expand Logical Volume in CentOS/RHEL 7</a></li>
+    <li class="list-group-item"><a href="/convert-mbr-partition-into-gpt-in-centosrhel-7.html">Convert MBR Partition into GPT in CentOS/RHEL 7</a></li>
+    <li class="list-group-item"><a href="/redirect-http-to-https-in-synology-nas-nginx.html">Redirect HTTP to HTTPS in Synology NAS Nginx</a></li>
+    <li class="list-group-item"><a href="/extract-number-in-microsoft-accessexcel.html">Extract Number in Microsoft Access/Excel</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Recent Posts -->
+
+<!-- Sidebar/Categories -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4>
+  <ul class="list-group" id="categories">
+    <li class="list-group-item">
+      <a href="/category/linux.html"><i class="fa fa-folder-open fa-lg"></i>Linux</a>
+    </li>
+    <li class="list-group-item">
+      <a href="/category/microsoft-office.html"><i class="fa fa-folder-open fa-lg"></i>Microsoft Office</a>
+    </li>
+    <li class="list-group-item">
+      <a href="/category/synology-nas.html"><i class="fa fa-folder-open fa-lg"></i>Synology NAS</a>
+    </li>
+    <li class="list-group-item">
+      <a href="/category/virtualization.html"><i class="fa fa-folder-open fa-lg"></i>Virtualization</a>
+    </li>
+    <li class="list-group-item">
+      <a href="/category/windows-tools.html"><i class="fa fa-folder-open fa-lg"></i>Windows Tools</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Categories -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-4">
+      <a href="/tag/access.html">access</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="/tag/centos.html">centos</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/diskpart.html">diskpart</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/dsm.html">dsm</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/excel.html">excel</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/gpt.html">gpt</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/http.html">http</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/https.html">https</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="/tag/linux.html">linux</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/lvm.html">lvm</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/mbr.html">mbr</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/microsoft.html">microsoft</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/nas.html">nas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/nginx.html">nginx</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/oracle.html">oracle</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/partition.html">partition</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/redirect.html">redirect</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/regexp.html">regexp</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/resize.html">resize</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="/tag/rhel.html">rhel</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/scanner.html">scanner</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/setup.html">setup</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/synology.html">synology</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/tool.html">tool</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/usb.html">usb</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/virtualbox.html">virtualbox</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/vm.html">vm</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/windows.html">windows</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2020 Vitaly Saversky
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="/theme/js/respond.min.js"></script>
+
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-156524189-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- End Google Analytics Code -->
+
+
+</body>
+</html>

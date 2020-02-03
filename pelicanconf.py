@@ -39,7 +39,7 @@ DEFAULT_PAGINATION = False
 PLUGINS = [ 'i18n_subsites', 'tipue_search', 'tag_cloud' ]
 PLUGIN_PATHS = [ 'pelican-plugins/', ]
 
-THEME = "pelican-bootstrap3"
+THEME = "pelican-themes/pelican-bootstrap3"
 JINJA_ENVIRONMENT = {'extensions': ['jinja2.ext.i18n']}
 
 BOOTSTRAP_THEME = 'flatly'

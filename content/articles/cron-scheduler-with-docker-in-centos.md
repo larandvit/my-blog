@@ -90,4 +90,4 @@ To create and start a container, use the command.
 To access the container in a terminal, run the command.
 
     :::bash
-    sudo docker exec -it parking /bin/bash
+    docker exec -it parking /bin/bash

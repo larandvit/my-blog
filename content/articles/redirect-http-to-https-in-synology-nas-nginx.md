@@ -122,3 +122,5 @@ Synology DiskStation Manager (DSM) doesn't include GUI based functionality to se
         :::bash
         synoservicecfg --restart nginx
 
+7. The last important step is to refresh your browser. When you open your web site with **http**, it's still showing as **http** and don't redirect to **https**. Just click **Ctrl-F5**.
+

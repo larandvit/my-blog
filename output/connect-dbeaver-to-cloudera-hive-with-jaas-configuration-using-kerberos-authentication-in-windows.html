@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>Connect DBeaver to Cloudera Hive with JAAS Configuration using Kerberos Authentication in Windows - Vitaly Saversky's Blog</title>
+    <title>Connect DBeaver to Cloudera Hive with JAAS Configuration using Kerberos Authentication in Windows - tech jogging</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -15,7 +15,7 @@
         <meta name="keywords" content="dbeaver,hive,windows,jaas,kerberos,authentication,cloudera" />
         <meta name="description" content="DBeaver allows connecting to a wide range of databases including Cloudera Hive. Hive driver is part of DBeaver installation but it uses basic authentication with user name and password. Kerberos authentication is another option to connect to Hive. It can be accomplished by adding a new driver to DBeaver. The …" />
 
-        <meta property="og:site_name" content="Vitaly Saversky's Blog" />
+        <meta property="og:site_name" content="tech jogging" />
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="Connect DBeaver to Cloudera Hive with JAAS Configuration using Kerberos Authentication in Windows"/>
         <meta property="og:url" content="/connect-dbeaver-to-cloudera-hive-with-jaas-configuration-using-kerberos-authentication-in-windows.html"/>
@@ -56,7 +56,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a href="/" class="navbar-brand">
-Vitaly Saversky's Blog            </a>
+tech jogging            </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
@@ -84,7 +84,7 @@ Vitaly Saversky's Blog            </a>
     <div class="row">
         <div class="col-sm-9">
             <ol class="breadcrumb">
-                <li><a href="" title="Vitaly Saversky's Blog"><i class="fa fa-home fa-lg"></i></a></li>
+                <li><a href="" title="tech jogging"><i class="fa fa-home fa-lg"></i></a></li>
                 <li><a href="/category/dbeaver.html" title="DBeaver">DBeaver</a></li>
                 <li class="active">Connect DBeaver to Cloudera Hive with JAAS Configuration using Kerberos Authentication in Windows</li>
             </ol>
@@ -241,9 +241,9 @@ Vitaly Saversky's Blog            </a>
 </li>
 <li>
 <p>Create Kerberos authentication file</p>
-<p>The Kerberos tools are part of java installation and you need to figure out the location of your jre installation.</p>
+<p>The Kerberos tools are part of java installation and you need to figure out the location of your jre installation. It's assumed java 8 is installed in C:\Program Files\Java\jre1.8.0_192 folder.</p>
 <p>Option #1. Kerberos credential cache.</p>
-<p>Run Windows Command Prompt with command to create a cache file with your credentials. You can play with settings to accommodate your requirements.</p>
+<p>Run Windows Command Prompt with the command to create a cache file with your credentials. You can play with settings to accommodate your requirements.</p>
 <div class="highlight"><pre><span></span><span class="s2">&quot;C:\Program Files\Java\jre1.8.0_192\bin\kinit&quot;</span>
 </pre></div>
 
@@ -255,7 +255,7 @@ New ticket is stored in cache file C:\Users\mywindowsuser\krb5cc_mywindowsuser
 
 
 <p>Option #2. Kerberos keytab file.</p>
-<p>Run Windows Command Prompt with command create a new keytab file with your credentials.</p>
+<p>Run Windows Command Prompt with the command create a new keytab file with your credentials.</p>
 <div class="highlight"><pre><span></span><span class="s2">&quot;C:\Program Files\Java\jre1.8.0_192\bin\ktab&quot;</span> -a mywindowsuser -k mywindowsuser.keytab
 </pre></div>
 

@@ -49,5 +49,10 @@ DIRECT_TEMPLATES = ['index', 'tags', 'categories', 'authors', 'archives', 'searc
 
 GOOGLE_ANALYTICS = 'UA-156524189-1'
 
+STATIC_PATHS = ['extra']
+EXTRA_PATH_METADATA = {
+    'extra/favicon.ico': {'path': 'favicon.ico'}
+}
+
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True

@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Connect DBeaver to Cloudera Hive with JAAS Configuration using Kerberos Authentication in Windows - Vitaly Saversky's Blog</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="canonical" href="/connect-dbeaver-to-cloudera-hive-with-jaas-configuration-using-kerberos-authentication-in-windows.html">
+
+        <meta name="author" content="Vitaly Saversky" />
+        <meta name="keywords" content="dbeaver,hive,windows,jaas,kerberos,authentication,cloudera" />
+        <meta name="description" content="DBeaver allows connecting to a wide range of databases including Cloudera Hive. Hive driver is part of DBeaver installation but it uses basic authentication with user name and password. Kerberos authentication is another option to connect to Hive. It can be accomplished by adding a new driver to DBeaver. The …" />
+
+        <meta property="og:site_name" content="Vitaly Saversky's Blog" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Connect DBeaver to Cloudera Hive with JAAS Configuration using Kerberos Authentication in Windows"/>
+        <meta property="og:url" content="/connect-dbeaver-to-cloudera-hive-with-jaas-configuration-using-kerberos-authentication-in-windows.html"/>
+        <meta property="og:description" content="DBeaver allows connecting to a wide range of databases including Cloudera Hive. Hive driver is part of DBeaver installation but it uses basic authentication with user name and password. Kerberos authentication is another option to connect to Hive. It can be accomplished by adding a new driver to DBeaver. The …"/>
+        <meta property="article:published_time" content="2020-03-07" />
+            <meta property="article:section" content="DBeaver" />
+            <meta property="article:tag" content="dbeaver" />
+            <meta property="article:tag" content="hive" />
+            <meta property="article:tag" content="windows" />
+            <meta property="article:tag" content="jaas" />
+            <meta property="article:tag" content="kerberos" />
+            <meta property="article:tag" content="authentication" />
+            <meta property="article:tag" content="cloudera" />
+            <meta property="article:author" content="Vitaly Saversky" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="/theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="/theme/css/pygments/monokai.css" rel="stylesheet">
+    <link href="/theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
+
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="/" class="navbar-brand">
+Vitaly Saversky's Blog            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="/pages/about.html">
+                             About
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><span>
+                <form class="navbar-search" action="/search.html">
+                  <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
+                </form></span>
+              </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+            <ol class="breadcrumb">
+                <li><a href="" title="Vitaly Saversky's Blog"><i class="fa fa-home fa-lg"></i></a></li>
+                <li><a href="/category/dbeaver.html" title="DBeaver">DBeaver</a></li>
+                <li class="active">Connect DBeaver to Cloudera Hive with JAAS Configuration using Kerberos Authentication in Windows</li>
+            </ol>
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="/connect-dbeaver-to-cloudera-hive-with-jaas-configuration-using-kerberos-authentication-in-windows.html"
+                       rel="bookmark"
+                       title="Permalink to Connect DBeaver to Cloudera Hive with JAAS Configuration using Kerberos Authentication in Windows">
+                        Connect DBeaver to Cloudera Hive with JAAS Configuration using Kerberos Authentication in Windows
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2020-03-07T00:00:00-05:00"> Sat 07 March 2020</time>
+    </span>
+
+
+
+        <span class="label label-default">Category</span>
+        <a href="/category/dbeaver.html">DBeaver</a>
+
+
+<span class="label label-default">Tags</span>
+	<a href="/tag/dbeaver.html">dbeaver</a>
+        /
+	<a href="/tag/hive.html">hive</a>
+        /
+	<a href="/tag/windows.html">windows</a>
+        /
+	<a href="/tag/jaas.html">jaas</a>
+        /
+	<a href="/tag/kerberos.html">kerberos</a>
+        /
+	<a href="/tag/authentication.html">authentication</a>
+        /
+	<a href="/tag/cloudera.html">cloudera</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>DBeaver allows connecting to a wide range of databases including Cloudera Hive. Hive driver is part of DBeaver installation but it uses basic authentication with user name and password. Kerberos authentication is another option to connect to Hive. It can be accomplished by adding a new driver to DBeaver. The DBeaver driver is based on Cloudera JDBC Driver for Hive and JAAS configuration file.</p>
+<h2>Legend</h2>
+<p>Before going forward, let's get agreed with the initial information used in configuration files. You can easily replace it with configurations applicable to your cases. It will be a kind of a template.</p>
+<ol>
+<li>
+<p>Windows user name: mywindowsuser.</p>
+</li>
+<li>
+<p>Hive name host: hivehost.</p>
+</li>
+<li>
+<p>Kerberos realm if your organization supports multiple regions: REGION.SAMPLE.COM.</p>
+</li>
+<li>
+<p>Hive port: 10000.</p>
+</li>
+</ol>
+<h2>Prerequisites</h2>
+<ol>
+<li>
+<p>Kerberos configuration file: krb5.conf. The file can be taken from any of Hive nodes. The file is located in, for example, CentOS, <strong>/etc</strong> folder.</p>
+</li>
+<li>
+<p>One of the files below. It depends on which method is chosen.</p>
+<p>a) Kerberos credential cache: krb5cc_mywindowsuser. This file contains your Windows kerberized credentials. Using this file will request to renew it.</p>
+<p>b) Kerberos keytab file: mywindowsuser.keytab. This file stores your Windows kerberized credentials. It doesn't request renewal.</p>
+</li>
+</ol>
+<h2>Setup</h2>
+<p>The following sample based on <strong>DBeaver EE v. 6.3.0 64 bit</strong> and <strong>Cloudera Hive JDBC driver v. 2.6.5.1007</strong>.</p>
+<ol>
+<li>
+<p><a href="https://www.cloudera.com/downloads/connectors/hive/jdbc/2-6-5.html">Download</a> and unzip Cloudera Hive JDBC driver. </p>
+<p>Place the unzipped folder to the permanent location. DBeaver reads it from that location every time when the driver is used.</p>
+<p>It's advisable to read the driver documentation from <strong>./hive_jdbc_2.6.5.1007/docs</strong> folder. <strong>Registering the Driver Class</strong> section tells the class name used in DBeaver driver setup and <strong>Using Kerberos</strong> section explains each parameter utilized in the driver setup.</p>
+</li>
+<li>
+<p>Append those 4 lines to <strong>dbeaver.ini</strong> file. The location of the <strong>ini</strong> file can be different. If you have installed DBeaver, it will be in <strong>C:\Program Files\DBeaverEE</strong> folder. If you use zipped installation, it will be a root folder where it has been unzipped.</p>
+<div class="highlight"><pre><span></span><span class="na">-Djavax.security.auth.useSubjectCredsOnly</span><span class="o">=</span><span class="s">false</span>
+<span class="na">-Dsun.security.krb5.debug</span><span class="o">=</span><span class="s">true</span>
+<span class="na">-Djava.security.krb5.conf</span><span class="o">=</span><span class="s">C:/Users/mywindowsuser/DBeaver/krb5.ini</span>
+<span class="na">-Djava.security.auth.login.config</span><span class="o">=</span><span class="s">C:/Users/mywindowsuser/DBeaver/jaas.conf</span>
+</pre></div>
+
+
+<p>It's very critical to use correct path separator. It has to be <strong>"/"</strong> forward slash character or you have to use <strong>"\\"</strong> double back slash characters.</p>
+<p>After successful completion of the setup, you need to remove the line.</p>
+<div class="highlight"><pre><span></span><span class="na">-Dsun.security.krb5.debug</span><span class="o">=</span><span class="s">true</span>
+</pre></div>
+
+
+<p>The final <strong>beaver.ini</strong> file is</p>
+<div class="highlight"><pre><span></span><span class="na">-startup</span>
+<span class="na">plugins/org.eclipse.equinox.launcher_1.5.600.v20191014-2022.jar</span>
+<span class="na">--launcher.library</span>
+<span class="na">plugins/org.eclipse.equinox.launcher.win32.win32.x86_64_1.1.1100.v20190907-0426</span>
+<span class="na">-vmargs</span>
+<span class="na">-XX:+IgnoreUnrecognizedVMOptions</span>
+<span class="na">--add-modules</span><span class="o">=</span><span class="s">ALL-SYSTEM</span>
+<span class="na">-Xms128m</span>
+<span class="na">-Xmx2048m</span>
+<span class="na">-Djavax.security.auth.useSubjectCredsOnly</span><span class="o">=</span><span class="s">false</span>
+<span class="na">-Dsun.security.krb5.debug</span><span class="o">=</span><span class="s">true</span>
+<span class="na">-Djava.security.krb5.conf</span><span class="o">=</span><span class="s">C:/Users/mywindowsuser/DBeaver/krb5.ini</span>
+<span class="na">-Djava.security.auth.login.config</span><span class="o">=</span><span class="s">C:/Users/mywindowsuser/DBeaver/jaas.conf</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>Move <strong>krb5.conf</strong> file with new <strong>krb5.ini</strong> name to <strong>C:/Users/mywindowsuser/DBeaver</strong> folder. You don't need to do any changes to the file.</p>
+</li>
+<li>
+<p>Create JAAS configuration file</p>
+<p>Option #1. Kerberos credential cache.</p>
+<div class="highlight"><pre><span></span><span class="na">Client {</span>
+<span class="na">com.sun.security.auth.module.Krb5LoginModule required</span>
+<span class="na">debug</span><span class="o">=</span><span class="s">true</span>
+<span class="na">doNotPrompt</span><span class="o">=</span><span class="s">true</span>
+<span class="na">useKeyTab</span><span class="o">=</span><span class="s">true</span>
+<span class="na">keyTab</span><span class="o">=</span><span class="s">&quot;C:/Users/mywindowsuser/krb5cc_mywindowsuser&quot;</span>
+<span class="na">useTicketCache</span><span class="o">=</span><span class="s">true</span>
+<span class="na">renewTGT</span><span class="o">=</span><span class="s">true</span>
+<span class="na">principal</span><span class="o">=</span><span class="s">&quot;mywindowsuser@REGION.SAMPLE.COM&quot;;</span>
+<span class="na">};</span>
+</pre></div>
+
+
+<p>Option #2. Kerberos keytab file.</p>
+<div class="highlight"><pre><span></span><span class="na">Client {</span>
+<span class="na">com.sun.security.auth.module.Krb5LoginModule required</span>
+<span class="na">debug</span><span class="o">=</span><span class="s">true</span>
+<span class="na">doNotPrompt</span><span class="o">=</span><span class="s">true</span>
+<span class="na">useKeyTab</span><span class="o">=</span><span class="s">true</span>
+<span class="na">keyTab</span><span class="o">=</span><span class="s">&quot;mywindowsuser.keytab&quot;</span>
+<span class="na">useTicketCache</span><span class="o">=</span><span class="s">false</span>
+<span class="na">renewTGT</span><span class="o">=</span><span class="s">false</span>
+<span class="na">principal</span><span class="o">=</span><span class="s">&quot;mywindowsuser@REGION.SAMPLE.COM&quot;;</span>
+<span class="na">};</span>
+</pre></div>
+
+
+<p>After successful completion of the setup, you need to remove the line.</p>
+<div class="highlight"><pre><span></span><span class="na">debug</span><span class="o">=</span><span class="s">true</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>Create Kerberos authentication file</p>
+<p>The Kerberos tools are part of java installation and you need to figure out the location of your jre installation.</p>
+<p>Option #1. Kerberos credential cache.</p>
+<p>Run Windows Command Prompt with command to create a cache file with your credentials. You can play with settings to accommodate your requirements.</p>
+<div class="highlight"><pre><span></span><span class="s2">&quot;C:\Program Files\Java\jre1.8.0_192\bin\kinit&quot;</span>
+</pre></div>
+
+
+<p>The successful completion is.</p>
+<div class="highlight"><pre><span></span>Password for mywindowsuser@REGION.SAMPLE.COM:
+New ticket is stored in cache file C:\Users\mywindowsuser\krb5cc_mywindowsuser
+</pre></div>
+
+
+<p>Option #2. Kerberos keytab file.</p>
+<p>Run Windows Command Prompt with command create a new keytab file with your credentials.</p>
+<div class="highlight"><pre><span></span><span class="s2">&quot;C:\Program Files\Java\jre1.8.0_192\bin\ktab&quot;</span> -a mywindowsuser -k mywindowsuser.keytab
+</pre></div>
+
+
+<p>The successful completion is.</p>
+<div class="highlight"><pre><span></span>Password for mywindowsuser@REGION.SAMPLE.COM:
+Done!
+Service key for mywindowsuser is saved in myserviceuser.keytab
+</pre></div>
+
+
+</li>
+<li>
+<p>Create a new driver in DBeaver</p>
+<p>Option #1. Kerberos credential cache.</p>
+<ul>
+<li>Driver Name: <strong>Hive-Cloudera</strong></li>
+<li>Class Name: <strong>com.cloudera.hive.jdbc41.HS2Driver</strong></li>
+<li>URL Template: <strong>jdbc:hive2://hivehost:10000/{database};AuthMech=1;KrbRealm=REGION.SAMPLE.COM;KrbServiceName=hive;KrbHostFQDN=hivehost.region.sample.com;KrbAuthType=2;</strong></li>
+<li>Default Port: <strong>10000</strong></li>
+<li>Category: <strong>Hadoop</strong></li>
+<li>Add jar file to the driver: <strong>./hive_jdbc_2.6.5.1007/ClouderaHiveJDBC41-2.6.5.1007/HiveJDBC41.jar</strong><br><br></li>
+</ul>
+<p>Option #2. Kerberos keytab file.</p>
+<ul>
+<li>Driver Name: <strong>Hive-Cloudera</strong></li>
+<li>Class Name: <strong>com.cloudera.hive.jdbc41.HS2Driver</strong></li>
+<li>URL Template: <strong>jdbc:hive2://hivehost:10000/{database};AuthMech=1;KrbRealm=REGION.SAMPLE.COM;KrbServiceName=hive;KrbHostFQDN=hivehost.region.sample.com;KrbAuthType=1;</strong></li>
+<li>Default Port: <strong>10000</strong></li>
+<li>Category: <strong>Hadoop</strong></li>
+<li>Add jar file to the driver: <strong>./hive_jdbc_2.6.5.1007/ClouderaHiveJDBC41-2.6.5.1007/HiveJDBC41.jar</strong><br><br></li>
+</ul>
+</li>
+<li>
+<p>Create a new connection in DBeaver</p>
+<p>Utilize the driver created on step #7. The name is <strong>Hive-Cloudera</strong>. </p>
+<p>Add <strong>default</strong> to Database/Schema field.</p>
+<p>Flag <strong>Save password locally</strong>.</p>
+<p>Test your new connection clicking <strong>Test Connection</strong> button.</p>
+</li>
+</ol>
+<h2>Troubleshooting</h2>
+<p>Check the debug log in <strong>C:\Users\mywindowsuser\AppData\Roaming\DBeaverData\workspace6.metadata\dbeaver-debug.log</strong> folder.</p>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Recent Posts -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+  <ul class="list-group" id="recentposts">
+    <li class="list-group-item"><a href="/connect-dbeaver-to-cloudera-hive-with-jaas-configuration-using-kerberos-authentication-in-windows.html">Connect DBeaver to Cloudera Hive with JAAS Configuration using Kerberos Authentication in Windows</a></li>
+    <li class="list-group-item"><a href="/cron-scheduler-with-docker-container-in-centosrhel-7.html">Cron Scheduler with Docker Container in CentOS/RHEL 7</a></li>
+    <li class="list-group-item"><a href="/resize-disk-in-oracle-vm-virtualbox.html">Resize Disk in Oracle VM VirtualBox</a></li>
+    <li class="list-group-item"><a href="/expand-logical-volume-in-centosrhel-7.html">Expand Logical Volume in CentOS/RHEL 7</a></li>
+    <li class="list-group-item"><a href="/convert-mbr-partition-into-gpt-in-centosrhel-7.html">Convert MBR Partition into GPT in CentOS/RHEL 7</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Recent Posts -->
+
+<!-- Sidebar/Categories -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4>
+  <ul class="list-group" id="categories">
+    <li class="list-group-item">
+      <a href="/category/dbeaver.html"><i class="fa fa-folder-open fa-lg"></i>DBeaver</a>
+    </li>
+    <li class="list-group-item">
+      <a href="/category/docker.html"><i class="fa fa-folder-open fa-lg"></i>Docker</a>
+    </li>
+    <li class="list-group-item">
+      <a href="/category/linux.html"><i class="fa fa-folder-open fa-lg"></i>Linux</a>
+    </li>
+    <li class="list-group-item">
+      <a href="/category/microsoft-office.html"><i class="fa fa-folder-open fa-lg"></i>Microsoft Office</a>
+    </li>
+    <li class="list-group-item">
+      <a href="/category/synology-nas.html"><i class="fa fa-folder-open fa-lg"></i>Synology NAS</a>
+    </li>
+    <li class="list-group-item">
+      <a href="/category/virtualization.html"><i class="fa fa-folder-open fa-lg"></i>Virtualization</a>
+    </li>
+    <li class="list-group-item">
+      <a href="/category/windows-tools.html"><i class="fa fa-folder-open fa-lg"></i>Windows Tools</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Categories -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-4">
+      <a href="/tag/access.html">access</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/authentication.html">authentication</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="/tag/centos.html">centos</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/cloudera.html">cloudera</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/container.html">container</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/cron.html">cron</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/crontab.html">crontab</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/dbeaver.html">dbeaver</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/diskpart.html">diskpart</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/docker.html">docker</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/dsm.html">dsm</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/excel.html">excel</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/gpt.html">gpt</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/hive.html">hive</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/http.html">http</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/https.html">https</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/jaas.html">jaas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/kerberos.html">kerberos</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="/tag/linux.html">linux</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/lvm.html">lvm</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/mbr.html">mbr</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/microsoft.html">microsoft</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/nas.html">nas</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/nginx.html">nginx</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/oracle.html">oracle</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/partition.html">partition</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/redirect.html">redirect</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/regexp.html">regexp</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/resize.html">resize</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="/tag/rhel.html">rhel</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/scanner.html">scanner</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/setup.html">setup</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/synology.html">synology</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/tool.html">tool</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/usb.html">usb</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/virtualbox.html">virtualbox</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="/tag/vm.html">vm</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="/tag/windows.html">windows</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2020 Vitaly Saversky
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="/theme/js/respond.min.js"></script>
+
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-156524189-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- End Google Analytics Code -->
+
+
+</body>
+</html>

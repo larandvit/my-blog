@@ -1,8 +1,6 @@
 Title: About
 Date: 2020-02-24
 
-Hello. I'm Vitaly. Nice to meet you here. 
-
 Starting this blog, I want to accomplish some goals. The most important goal is to share my knowledge and experience with others. It's my contribution back to the community of technology gurus who helped me be where I am now. I haven't done anything special. I've just learnt information from different sources, validated, refined, added my research, and published back. I appreciate everybody who makes information open and available to public. We are growing together helping each other.
 
 The second goal is to create my personal repository as a quick way to refresh my memory in case of forgetting something. In many cases, we are doing a lot of staff but we can't keep it in our heads. When we need it again, we try to reinvent the wheel because we can't recall what it was done before.

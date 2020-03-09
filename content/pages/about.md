@@ -7,4 +7,4 @@ The second goal is to create my personal repository as a quick way to refresh my
 
 The last goal is to express myself. This is when I can be creative without any limits. It's my way to go and I'm happy to be successful.
 
-If you want to contact me, please drop a line [here](mailto:larandvit@hotmail.com). You can find me on [git](https://github.com/larandvit) as well.
+If you want to contact me, please drop me a line [here](mailto:larandvit@hotmail.com). You can find me on [git](https://github.com/larandvit) as well.

@@ -56,5 +56,7 @@ EXTRA_PATH_METADATA = {
 
 SITELOGO = 'extra/site_logo.png'
 
+DISQUS_SITENAME = 'techjogging'
+
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True

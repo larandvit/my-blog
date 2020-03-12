@@ -170,4 +170,4 @@ The following sample based on **DBeaver EE v. 6.3.0 64 bit** and **Cloudera Hive
 
 ## Troubleshooting
 
-Check the debug log in **C:\Users\mywindowsuser\AppData\Roaming\DBeaverData\workspace6\.metadata\dbeaver-debug.log** folder.
+Check the debug log in **C:\Users\mywindowsuser\AppData\Roaming\DBeaverData\workspace6\\.metadata\dbeaver-debug.log** folder.

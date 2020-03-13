@@ -160,7 +160,7 @@ The following sample based on **DBeaver EE v. 6.3.0 64 bit** and **Cloudera Hive
 
 7. Create a new connection in DBeaver
 
-    Utilize the driver created on step #7. The name is **Hive-Cloudera**. 
+    Utilize the driver created on step #6. The name is **Hive-Cloudera**. 
 
     Add **default** to Database/Schema field.
 

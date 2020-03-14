@@ -22,13 +22,13 @@ DISPLAY_CATEGORIES_ON_MENU = None
 
 SHOW_ARTICLE_CATEGORY = True
 
-DISPLAY_BREADCRUMBS = True
-DISPLAY_CATEGORY_IN_BREADCRUMBS = True
+DISPLAY_BREADCRUMBS = False
+DISPLAY_CATEGORY_IN_BREADCRUMBS = False
 
 DISPLAY_ARTICLE_INFO_ON_INDEX = True
 
-DISPLAY_TAGS_ON_SIDEBAR = True
-DISPLAY_TAGS_INLINE = True
+DISPLAY_TAGS_ON_SIDEBAR = False
+DISPLAY_TAGS_INLINE = False
 
 DISPLAY_CATEGORIES_ON_SIDEBAR = True
 
@@ -36,7 +36,7 @@ DISPLAY_RECENT_POSTS_ON_SIDEBAR = True
 
 DEFAULT_PAGINATION = False
 
-PLUGINS = [ 'i18n_subsites', 'tipue_search', 'tag_cloud' ]
+PLUGINS = [ 'i18n_subsites', 'tipue_search', 'more_categories' ]
 PLUGIN_PATHS = [ 'pelican-plugins/', ]
 
 THEME = "pelican-themes/pelican-bootstrap3"

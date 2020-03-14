@@ -1,7 +1,6 @@
 Title: Convert MBR Partition into GPT in CentOS/RHEL 7
 Date: 2020-01-28
-Category: Linux
-Tags: mbr, gpt, centos, partition, linux, rhel
+Category: Linux, MBR, GPT, CentOS, Partition, RHEL
 
 Master Boot Record (MBR) partitioned disks are replaced with newer GUID Partition Table (GPT) standard but MBR is still used widely as a default format. GPT layout for the partition tables has a lot of benefits comparing with MBR one. Along with supporting significantly larger size of disks, it introduces faster and more stable booting. GPT requests to support Unified Extensible Firmware Interface (UEFI) boot.
 

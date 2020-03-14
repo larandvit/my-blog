@@ -1,7 +1,6 @@
 Title: Redirect HTTP to HTTPS in Synology NAS Nginx
 Date: 2020-01-21
-Category: Synology NAS
-Tags: http, https, redirect, synology, nas, dsm, nginx
+Category: Synology NAS, Http, Https, DSM, Nginx
 
 Synology DiskStation Manager (DSM) doesn't include GUI based functionality to set up a redirect HTTP web traffic to secured HTTPS version of your web site. The default web server in DSM 6 is Nginx and the configuration of the web server should be adjusted. It can be accomplished making manual changes to the Nginx web server moustache template.
 

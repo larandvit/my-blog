@@ -1,7 +1,6 @@
 Title: Clean Up USB Flash Drive
 Date: 2020-01-11
-Category: Windows Tools
-Tags: windows, tool, diskpart, usb
+Category: Windows, Diskpart, USB
 
 When a USB flash drive is used in Linux or as an ISO image is recorded to it, USB drive might be is not usable in Windows. **diskpart** Windows tool can be used to clean up and re-partition USB flash drive.
 

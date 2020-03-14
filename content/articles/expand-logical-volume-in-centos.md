@@ -1,7 +1,6 @@
 Title: Expand Logical Volume in CentOS/RHEL 7
 Date: 2020-01-29
-Category: Linux
-Tags: lvm, centos, linux, rhel
+Category: Linux, LVM, CentOS, RHEL
 
 As Linux systems have root file systems on a logical volume, it can be used Logical Volume Management (LVM) to resize the volume. The exercise of logical volume expanding is completed in case of adding an extra disk to a physical system or having a pool of storage in a virtual environment.
 

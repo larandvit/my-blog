@@ -1,7 +1,6 @@
 Title: Connect DBeaver to Cloudera Hive with JAAS Configuration using Kerberos Authentication in Windows
 Date: 2020-03-07
-Category: DBeaver
-Tags: dbeaver, hive, windows, jaas, kerberos, authentication, cloudera
+Category: DBeaver, Hive, Windows, JAAS, Kerberos, Authentication, Cloudera
 
 DBeaver allows connecting to a wide range of databases including Cloudera Hive. Hive driver is part of DBeaver installation but it uses basic authentication with user name and password. Kerberos authentication is another option to connect to Hive. It can be accomplished by adding a new driver to DBeaver. The DBeaver driver is based on Cloudera JDBC Driver for Hive and JAAS configuration file.
 

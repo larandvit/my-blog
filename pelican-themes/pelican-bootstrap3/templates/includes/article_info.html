@@ -28,7 +28,9 @@
 
     {% if SHOW_ARTICLE_CATEGORY %}
         <span class="label label-default">{{ _('Category') }}</span>
-        <a href="{{ SITEURL }}/{{ article.category.url }}">{{ article.category }}</a>
+        {% for cat in article.categories or [article.category] %}
+            <a href="{{ SITEURL }}/{{ cat.url }}">{{ cat }}</a>{{ ', ' if not loop.last }}
+        {% endfor %}
     {% endif %}
 
     {% if PDF_PROCESSOR %}

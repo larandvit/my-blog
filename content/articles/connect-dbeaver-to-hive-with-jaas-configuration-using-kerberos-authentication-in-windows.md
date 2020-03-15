@@ -19,13 +19,13 @@ Before going forward, let's get agreed with the initial information used in conf
 
 ## Prerequisites
 
-1. Kerberos configuration file: krb5.conf. The file can be taken from any of Hive nodes. The file is located in, for example, CentOS, **/etc** folder.
+1. Kerberos configuration file: krb5.conf. It can be obtained from your Kerberos administrator or from the **/etc/krb5.conf** folder on the machine that is hosting the Hive Server 2 instance.
 
 2. One of the files below. It depends on which method is chosen.
 
     a) Kerberos credential cache: krb5cc_mywindowsuser. This file contains your Windows kerberized credentials. Using this file will request to renew it.
 
-    b) Kerberos keytab file: mywindowsuser.keytab. This file stores your Windows kerberized credentials. It doesn't request renewal.
+    b) Kerberos keytab file: mywindowsuser.keytab. This file stores your Windows kerberized credentials. It doesn't request renewal. See [Create keytab File for Kerberos Authentication in Windows]({filename}/articles/create-keytab-file-for-kerberos-authentication-in-windows.md) article.
 
 ## Setup
 

@@ -6,12 +6,16 @@
 
          xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
+   	<loc>https://techjogging.com/create-keytab-file-for-kerberos-authentication-in-windows.html</loc>
+   	<lastmod>2020-03-15</lastmod>
+   </url>
+   <url>
    	<loc>https://techjogging.com/build-dbeaver-installation-package-to-access-hive-with-jaas-configuration-using-kerberos-authentication-in-windows.html</loc>
-   	<lastmod>2020-03-14</lastmod>
+   	<lastmod>2020-03-15</lastmod>
    </url>
    <url>
    	<loc>https://techjogging.com/connect-dbeaver-to-cloudera-hive-with-jaas-configuration-using-kerberos-authentication-in-windows.html</loc>
-   	<lastmod>2020-03-14</lastmod>
+   	<lastmod>2020-03-15</lastmod>
    </url>
    <url>
    	<loc>https://techjogging.com/cron-scheduler-with-docker-container-in-centosrhel-7.html</loc>

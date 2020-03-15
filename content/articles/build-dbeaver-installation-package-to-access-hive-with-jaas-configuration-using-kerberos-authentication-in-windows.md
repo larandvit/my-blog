@@ -16,7 +16,7 @@ The following sample based on **Cloudera Hive JDBC driver v. 2.6.5.1007** and **
 
         :::text
         C:\dbeaver-ce-7.0.0-win32.win32.x86_64\DBeaverData
-        ├───drivers
+        └───drivers
             └───hive_jdbc_2.6.5.1007
                 ├───ClouderaHiveJDBC41-2.6.5.1007
                 │       HiveJDBC41.jar

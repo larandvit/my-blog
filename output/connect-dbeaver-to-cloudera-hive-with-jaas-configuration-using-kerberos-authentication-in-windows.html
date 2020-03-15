@@ -130,12 +130,12 @@
 <h2>Prerequisites</h2>
 <ol>
 <li>
-<p>Kerberos configuration file: krb5.conf. The file can be taken from any of Hive nodes. The file is located in, for example, CentOS, <strong>/etc</strong> folder.</p>
+<p>Kerberos configuration file: krb5.conf. It can be obtained from your Kerberos administrator or from the <strong>/etc/krb5.conf</strong> folder on the machine that is hosting the Hive Server 2 instance.</p>
 </li>
 <li>
 <p>One of the files below. It depends on which method is chosen.</p>
 <p>a) Kerberos credential cache: krb5cc_mywindowsuser. This file contains your Windows kerberized credentials. Using this file will request to renew it.</p>
-<p>b) Kerberos keytab file: mywindowsuser.keytab. This file stores your Windows kerberized credentials. It doesn't request renewal.</p>
+<p>b) Kerberos keytab file: mywindowsuser.keytab. This file stores your Windows kerberized credentials. It doesn't request renewal. See <a href="/create-keytab-file-for-kerberos-authentication-in-windows.html">Create keytab File for Kerberos Authentication in Windows</a> article.</p>
 </li>
 </ol>
 <h2>Setup</h2>
@@ -323,11 +323,11 @@ Service key for mywindowsuser is saved in myserviceuser.keytab
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
+    <li class="list-group-item"><a href="/create-keytab-file-for-kerberos-authentication-in-windows.html">Create keytab File for Kerberos Authentication in Windows</a></li>
     <li class="list-group-item"><a href="/build-dbeaver-installation-package-to-access-hive-with-jaas-configuration-using-kerberos-authentication-in-windows.html">Build DBeaver Installation Package to Access Hive with JAAS Configuration Using Kerberos Authentication in Windows</a></li>
     <li class="list-group-item"><a href="/connect-dbeaver-to-cloudera-hive-with-jaas-configuration-using-kerberos-authentication-in-windows.html">Connect DBeaver to Cloudera Hive with JAAS Configuration using Kerberos Authentication in Windows</a></li>
     <li class="list-group-item"><a href="/cron-scheduler-with-docker-container-in-centosrhel-7.html">Cron Scheduler with Docker Container in CentOS/RHEL 7</a></li>
     <li class="list-group-item"><a href="/resize-disk-in-oracle-vm-virtualbox.html">Resize Disk in Oracle VM VirtualBox</a></li>
-    <li class="list-group-item"><a href="/expand-logical-volume-in-centosrhel-7.html">Expand Logical Volume in CentOS/RHEL 7</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->
@@ -383,6 +383,9 @@ Service key for mywindowsuser is saved in myserviceuser.keytab
     </li>
     <li class="list-group-item">
       <a href="/category/kerberos.html"><i class="fa fa-folder-open fa-lg"></i>Kerberos</a>
+    </li>
+    <li class="list-group-item">
+      <a href="/category/keytab.html"><i class="fa fa-folder-open fa-lg"></i>Keytab</a>
     </li>
     <li class="list-group-item">
       <a href="/category/linux.html"><i class="fa fa-folder-open fa-lg"></i>Linux</a>

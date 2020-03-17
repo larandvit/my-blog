@@ -45,7 +45,7 @@ JINJA_ENVIRONMENT = {'extensions': ['jinja2.ext.i18n']}
 BOOTSTRAP_THEME = 'flatly'
 PYGMENTS_STYLE = 'monokai'
 
-DIRECT_TEMPLATES = ['index', 'tags', 'categories', 'authors', 'archives', 'search']
+DIRECT_TEMPLATES = ['index', 'categories', 'search']
 
 GOOGLE_ANALYTICS = 'UA-156524189-1'
 

@@ -115,15 +115,128 @@
 
 
 <ul>
-<li>[Windows user name] - mywindowsname</li>
-<li>[Real name] - SAMPLE.COM</li>
-<li>[Password] - mywindowsname user password</li>
-<li>[Encryption type] - RC4-HMAC-NT</li>
-<li>[Principle type] - KRB5_NT_PRINCIPAL which is Kerberos protocol 5</li>
-<li>[Key version number] - 0</li>
-<li>[Keytab file path] - c:\kerberos\keytabname.keytab</li>
+<li>[Windows user name] - mywindowsname.</li>
+<li>[Real name] - SAMPLE.COM.</li>
+<li>[Password] - mywindowsname user password.</li>
+<li>[Encryption type] - RC4-HMAC-NT. See <a href="https://tools.ietf.org/html/rfc3961#section-8">RFC 3961, section 8</a>.</li>
+<li>[Principle type] - KRB5_NT_PRINCIPAL which is Kerberos protocol 5.</li>
+<li>[Key version number] - 0.</li>
+<li>[Keytab file path] - c:\kerberos\keytabname.keytab.</li>
 </ul>
-<p>Available encryption types as per <a href="https://tools.ietf.org/html/rfc3961#section-8">RFC 3961, section 8</a>.</p>
+<h2>2. ktab</h2>
+<p>It requests to install Java JRE or SDK or open source equivalent, for example, OpenJDK. The tool has a limited set of options.</p>
+<p>It can't be defined encryption and principle types. It will be used Kerberos protocol 5 and it will be created multiple encryption types.</p>
+<div class="highlight"><pre><span></span>ktab -a <span class="o">[</span>Windows user name<span class="o">]</span>@<span class="o">[</span>Realm name<span class="o">]</span> <span class="o">[</span>Password<span class="o">]</span> -n <span class="o">[</span>Key version number<span class="o">]</span> -k <span class="o">[</span>Keytab file path<span class="o">]</span>
+</pre></div>
+
+
+<p>List all encryption types stored in a keytab file</p>
+<div class="highlight"><pre><span></span>ktab -l -e -k <span class="o">[</span>Keytab file path<span class="o">]</span>
+</pre></div>
+
+
+<p>If multiple encryption types are not accepted in authentication process, it can be left one encryption type and the rest can be deleted. </p>
+<div class="highlight"><pre><span></span>ktab -d <span class="o">[</span>Windows user name<span class="o">]</span>@<span class="o">[</span>Realm name<span class="o">]</span> -f -e <span class="o">[</span>Number of encryption type<span class="o">]</span> -k <span class="o">[</span>Keytab file path<span class="o">]</span>
+</pre></div>
+
+
+<ul>
+<li>[Number of encryption type] - 16. As per RFC 3961, section 8.</li>
+</ul>
+<h2>3. Usage Samples</h2>
+<h3>3.1. DBeaver connection to Hive with Kerberos Authentication</h3>
+<p>It can be created multiple encryption types in a keytab file.</p>
+<ul>
+<li>
+<p>Create a keytab file</p>
+<div class="highlight"><pre><span></span>ktab -a mywindowsname@SAMPLE.COM mypassword -n <span class="m">0</span> -k c:<span class="se">\k</span>erberos<span class="se">\m</span>ywindowsname.keytab
+
+Done!
+Service key <span class="k">for</span> mywindowsname@SAMPLE.COM is saved in c:<span class="se">\k</span>erberos<span class="se">\m</span>ywindowsname.keytab
+</pre></div>
+
+
+</li>
+<li>
+<p>List content of the keytab file</p>
+<div class="highlight"><pre><span></span>ktab -l -e -k c:<span class="se">\k</span>erberos<span class="se">\m</span>ywindowsname.keytab
+
+Keytab name: c:<span class="se">\k</span>erberos<span class="se">\m</span>ywindowsname.keytab
+KVNO Principal
+---- ---------------------------------------------------------------
+   <span class="m">0</span> mywindowsname@SAMPLE.COM <span class="o">(</span><span class="m">18</span>:AES256 CTS mode with HMAC SHA1-96<span class="o">)</span>
+   <span class="m">0</span> mywindowsname@SAMPLE.COM <span class="o">(</span><span class="m">17</span>:AES128 CTS mode with HMAC SHA1-96<span class="o">)</span>
+   <span class="m">0</span> mywindowsname@SAMPLE.COM <span class="o">(</span><span class="m">16</span>:DES3 CBC mode with SHA1-KD<span class="o">)</span>
+   <span class="m">0</span> mywindowsname@SAMPLE.COM <span class="o">(</span><span class="m">23</span>:RC4 with HMAC<span class="o">)</span>
+</pre></div>
+
+
+</li>
+</ul>
+<h3>3.2. Talend tHDFSConnection Component with Kerberos Authentication</h3>
+<p>It should be one encryption type in a keytab file, for example, 23.</p>
+<ul>
+<li>
+<p>Create a keytab file</p>
+<div class="highlight"><pre><span></span>ktab -a mywindowsname@SAMPLE.COM mypassword -n <span class="m">0</span> -k c:<span class="se">\k</span>erberos<span class="se">\m</span>ywindowsname.keytab
+
+Done!
+Service key <span class="k">for</span> mywindowsname@SAMPLE.COM is saved in c:<span class="se">\k</span>erberos<span class="se">\m</span>ywindowsname.keytab
+</pre></div>
+
+
+</li>
+<li>
+<p>List content of the keytab file</p>
+<div class="highlight"><pre><span></span>ktab -l -e -k c:<span class="se">\k</span>erberos<span class="se">\m</span>ywindowsname.keytab
+
+Keytab name: c:<span class="se">\k</span>erberos<span class="se">\m</span>ywindowsname.keytab
+KVNO Principal
+---- ---------------------------------------------------------------
+   <span class="m">0</span> mywindowsname@SAMPLE.COM <span class="o">(</span><span class="m">18</span>:AES256 CTS mode with HMAC SHA1-96<span class="o">)</span>
+   <span class="m">0</span> mywindowsname@SAMPLE.COM <span class="o">(</span><span class="m">17</span>:AES128 CTS mode with HMAC SHA1-96<span class="o">)</span>
+   <span class="m">0</span> mywindowsname@SAMPLE.COM <span class="o">(</span><span class="m">16</span>:DES3 CBC mode with SHA1-KD<span class="o">)</span>
+   <span class="m">0</span> mywindowsname@SAMPLE.COM <span class="o">(</span><span class="m">23</span>:RC4 with HMAC<span class="o">)</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>Delete unused encryption types ## 16-18</p>
+<div class="highlight"><pre><span></span>ktab -d mywindowsname@SAMPLE.COM -f -e <span class="m">16</span> -k c:<span class="se">\k</span>erberos<span class="se">\m</span>ywindowsname.keytab
+
+Done! <span class="m">1</span> entries removed.
+
+ktab -d mywindowsname@SAMPLE.COM -f -e <span class="m">17</span> -k c:<span class="se">\k</span>erberos<span class="se">\m</span>ywindowsname.keytab
+
+Done! <span class="m">1</span> entries removed.
+
+ktab -d mywindowsname@SAMPLE.COM -f -e <span class="m">18</span> -k c:<span class="se">\k</span>erberos<span class="se">\m</span>ywindowsname.keytab
+
+Done! <span class="m">1</span> entries removed.
+</pre></div>
+
+
+</li>
+<li>
+<p>List content of the keytab file again</p>
+<div class="highlight"><pre><span></span>ktab -l -e -k c:<span class="se">\k</span>erberos<span class="se">\m</span>ywindowsname.keytab
+
+Keytab name: c:<span class="se">\k</span>erberos<span class="se">\m</span>ywindowsname.keytab
+KVNO Principal
+---- ---------------------------------------------------------------
+   <span class="m">0</span> mywindowsname@SAMPLE.COM <span class="o">(</span><span class="m">23</span>:RC4 with HMAC<span class="o">)</span>
+</pre></div>
+
+
+</li>
+</ul>
+<h3>3.3. Windows</h3>
+<p>It depends on Windows account settings how many encryption types and what types can be used.</p>
+<p>Windows account properties dialog contains the next options for Kerberos authentication.</p>
+<p><img alt="Windows account properties Kerberos authentication options" src="/images/create_keytab-file-for-kerberos-authentication-in-windows/windows-account-properties-kerberos-authentication-options.png"></br></br></p>
+<h2>4. Encryption types</h2>
+<p>As per <a href="https://tools.ietf.org/html/rfc3961#section-8">RFC 3961, section 8</a>.</p>
 <table style="border-collapse: collapse; border: 1px solid black;">
 <tr style="border: 1px solid black;"><th style="padding:5px;border: 1px solid black;">Encryption Type</th><th style="padding:5px;border: 1px solid black;">Code</th><th style="padding:5px;border: 1px solid black;">Section or Comment</th></tr>
 <tr style="border: 1px solid black;"><td style="padding:5px;border: 1px solid black;">des-cbc-crc</td><td style="padding:5px;border: 1px solid black;">1</td><td style="padding:5px;border: 1px solid black;">6.2.3</td></tr>
@@ -149,32 +262,6 @@
 </table>
 
 <p><br></p>
-<p>For example,</p>
-<ul>
-<li>Windows account </li>
-</ul>
-<p>Account properties dialog contains the next options for Kerberos authentication. </p>
-<p><img alt="Windows account properties Kerberos authentication options" src="/images/create_keytab-file-for-kerberos-authentication-in-windows/windows-account-properties-kerberos-authentication-options.png"></br></br></p>
-<h2>2. ktab</h2>
-<p>It requests to install Java JRE or SDK or open source equivalent, for example, OpenJDK. The tool has a limited set of options.</p>
-<p>It can't be defined encryption and principle types. It will be used Kerberos protocol 5 and it will be created multiple encryption types.</p>
-<div class="highlight"><pre><span></span>ktab -a <span class="o">[</span>Windows user name<span class="o">]</span>@<span class="o">[</span>Realm name<span class="o">]</span> <span class="o">[</span>Password<span class="o">]</span> -n <span class="o">[</span>Key version number<span class="o">]</span> -k <span class="o">[</span>Keytab file path<span class="o">]</span>
-</pre></div>
-
-
-<p>List all encryption types stored in a keytab file</p>
-<div class="highlight"><pre><span></span>ktab -l -e -k <span class="o">[</span>Keytab file path<span class="o">]</span>
-</pre></div>
-
-
-<p>If multiple encryption types are not accepted in authentication process, it can be left one encryption type and the rest can be deleted. </p>
-<div class="highlight"><pre><span></span>ktab -d <span class="o">[</span>Windows user name<span class="o">]</span>@<span class="o">[</span>Realm name<span class="o">]</span> -f -e <span class="o">[</span>Number of encryption type<span class="o">]</span> -k <span class="o">[</span>Keytab file path<span class="o">]</span>
-</pre></div>
-
-
-<ul>
-<li>[Number of encryption type] - 16. As per RFC 3961, section 8.</li>
-</ul>
             </div>
             <!-- /.entry-content -->
     <hr/>

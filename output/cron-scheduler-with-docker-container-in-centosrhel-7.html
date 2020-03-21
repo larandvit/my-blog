@@ -113,30 +113,7 @@
                 <p>Using cron with the official CentOS Docker image requests activating systemd, keeping container running, and opening a Docker container in privileged mode. CentOS Docker Hub image includes the description of the setup which should be done to activate systemd and keep a container going. The missing is information how to install and set up cron. This article provides a summary of steps and a functioning sample of Dockerfile. Some customization is needed to implement  your cron project.</p>
 <h2>Dockerfile</h2>
 <p>The Dockerfile can be used as a template to design your file. After line #15, you can add your commands to install any packages. You need to replace line #20 with your time zone. Finally, line #22 shows how to add a scheduled job to crontab file.</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24</pre></div></td><td class="code"><div class="highlight"><pre><span></span>ROM centos:7
+<div class="highlight"><pre><span></span>ROM centos:7
 
 <span class="k">ENV</span> container docker
 
@@ -161,7 +138,7 @@ rm -f /lib/systemd/system/anaconda.target.wants/*<span class="p">;</span>
 
 <span class="k">CMD</span> <span class="p">[</span><span class="s2">&quot;/usr/sbin/init&quot;</span><span class="p">]</span>
 </pre></div>
-</td></tr></table>
+
 
 <h3>Dockerfile logical parts</h3>
 <ul>

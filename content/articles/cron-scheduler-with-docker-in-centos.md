@@ -8,7 +8,7 @@ Using cron with the official CentOS Docker image requests activating systemd, ke
 
 The Dockerfile can be used as a template to design your file. After line #15, you can add your commands to install any packages. You need to replace line #20 with your time zone. Finally, line #22 shows how to add a scheduled job to crontab file.
 
-    #!dockerfile
+    :::docker
     ROM centos:7
     
     ENV container docker

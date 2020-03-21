@@ -36,7 +36,7 @@ DISPLAY_RECENT_POSTS_ON_SIDEBAR = True
 
 DEFAULT_PAGINATION = False
 
-PLUGINS = [ 'i18n_subsites', 'tipue_search', 'more_categories' ]
+PLUGINS = [ 'i18n_subsites', 'tipue_search', 'more_categories', 'minify' ]
 PLUGIN_PATHS = [ 'pelican-plugins/', ]
 
 THEME = "pelican-themes/pelican-bootstrap3"
@@ -57,6 +57,12 @@ EXTRA_PATH_METADATA = {
 SITELOGO = 'extra/site_logo.png'
 
 DISQUS_SITENAME = 'techjogging'
+
+MINIFY = {
+  'remove_comments': True,
+  'remove_all_empty_space': True,
+  'remove_optional_attribute_quotes': False
+}
 
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True

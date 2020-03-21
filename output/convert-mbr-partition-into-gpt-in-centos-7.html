@@ -1,133 +1,5 @@
-<!DOCTYPE html>
-<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
-<head>
-    <title>Convert MBR Partition into GPT in CentOS 7 - Vitaly Saversky's Blog</title>
-    <!-- Using the latest rendering mode for IE -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
-
-<link rel="canonical" href="/convert-mbr-partition-into-gpt-in-centos-7.html">
-
-        <meta name="author" content="Vitaly Saversky" />
-        <meta name="keywords" content="mbr,gpt,centos,partition,linux" />
-        <meta name="description" content="Master Boot Record (MBR) partitioned disks are replaced with newer GUID Partition Table (GPT) standard but MBR is still used widely as a default format. GPT layout for the partition tables has a lot of benefits comparing with MBR one. Along with supporting significantly larger size of disks, it introduces …" />
-
-        <meta property="og:site_name" content="Vitaly Saversky's Blog" />
-        <meta property="og:type" content="article"/>
-        <meta property="og:title" content="Convert MBR Partition into GPT in CentOS 7"/>
-        <meta property="og:url" content="/convert-mbr-partition-into-gpt-in-centos-7.html"/>
-        <meta property="og:description" content="Master Boot Record (MBR) partitioned disks are replaced with newer GUID Partition Table (GPT) standard but MBR is still used widely as a default format. GPT layout for the partition tables has a lot of benefits comparing with MBR one. Along with supporting significantly larger size of disks, it introduces …"/>
-        <meta property="article:published_time" content="2020-01-28" />
-            <meta property="article:section" content="Linux" />
-            <meta property="article:tag" content="mbr" />
-            <meta property="article:tag" content="gpt" />
-            <meta property="article:tag" content="centos" />
-            <meta property="article:tag" content="partition" />
-            <meta property="article:tag" content="linux" />
-            <meta property="article:author" content="Vitaly Saversky" />
-
-
-
-    <!-- Bootstrap -->
-        <link rel="stylesheet" href="/theme/css/bootstrap.flatly.min.css" type="text/css"/>
-    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
-
-    <link href="/theme/css/pygments/monokai.css" rel="stylesheet">
-    <link href="/theme/tipuesearch/tipuesearch.css" rel="stylesheet">
-    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
-
-
-
-</head>
-<body>
-
-<div class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <a href="/" class="navbar-brand">
-Vitaly Saversky's Blog            </a>
-        </div>
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <ul class="nav navbar-nav">
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-              <li><span>
-                <form class="navbar-search" action="/search.html">
-                  <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
-                </form></span>
-              </li>
-            </ul>
-        </div>
-        <!-- /.navbar-collapse -->
-    </div>
-</div> <!-- /.navbar -->
-
-<!-- Banner -->
-<!-- End Banner -->
-
-<!-- Content Container -->
-<div class="container">
-    <div class="row">
-        <div class="col-sm-9">
-            <ol class="breadcrumb">
-                <li><a href="" title="Vitaly Saversky's Blog"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="/category/linux.html" title="Linux">Linux</a></li>
-                <li class="active">Convert MBR Partition into GPT in CentOS 7</li>
-            </ol>
-    <section id="content">
-        <article>
-            <header class="page-header">
-                <h1>
-                    <a href="/convert-mbr-partition-into-gpt-in-centos-7.html"
-                       rel="bookmark"
-                       title="Permalink to Convert MBR Partition into GPT in CentOS 7">
-                        Convert MBR Partition into GPT in CentOS 7
-                    </a>
-                </h1>
-            </header>
-            <div class="entry-content">
-                <div class="panel">
-                    <div class="panel-body">
-<footer class="post-info">
-    <span class="label label-default">Date</span>
-    <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2020-01-28T00:00:00-05:00"> Tue 28 January 2020</time>
-    </span>
-
-
-
-        <span class="label label-default">Category</span>
-        <a href="/category/linux.html">Linux</a>
-
-
-<span class="label label-default">Tags</span>
-	<a href="/tag/mbr.html">mbr</a>
-        /
-	<a href="/tag/gpt.html">gpt</a>
-        /
-	<a href="/tag/centos.html">centos</a>
-        /
-	<a href="/tag/partition.html">partition</a>
-        /
-	<a href="/tag/linux.html">linux</a>
-    
-</footer><!-- /.post-info -->                    </div>
-                </div>
-                <p>Master Boot Record (MBR) partitioned disks are replaced with newer GUID Partition Table (GPT) standard but MBR is still used widely as a default format. GPT layout for the partition tables has a lot of benefits comparing with MBR one. Along with supporting significantly larger size of disks, it introduces faster and more stable booting. GPT requests to support Unified Extensible Firmware Interface (UEFI) boot.</p>
-<ol>
-<li>
-<p>Switch to root user.</p>
-<div class="highlight"><pre><span></span>$ sudo su -
-</pre></div>
-
-
-</li>
-<li>
-<p>Run GPT partition tool. Assuming that <strong>sda</strong> disk is bootable and will be converted into GPT.</p>
-<div class="highlight"><pre><span></span>$ gdisk /dev/sda
+<!DOCTYPE html><html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml"><head><title>Convert MBR Partition into GPT in CentOS 7 - Vitaly Saversky's Blog</title><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="canonical" href="/convert-mbr-partition-into-gpt-in-centos-7.html"><meta name="author" content="Vitaly Saversky"><meta name="keywords" content="mbr,gpt,centos,partition,linux"><meta name="description" content="Master Boot Record (MBR) partitioned disks are replaced with newer GUID Partition Table (GPT) standard but MBR is still used widely as a default format. GPT layout for the partition tables has a lot of benefits comparing with MBR one. Along with supporting significantly larger size of disks, it introduces …"><meta property="og:site_name" content="Vitaly Saversky's Blog"><meta property="og:type" content="article"><meta property="og:title" content="Convert MBR Partition into GPT in CentOS 7"><meta property="og:url" content="/convert-mbr-partition-into-gpt-in-centos-7.html"><meta property="og:description" content="Master Boot Record (MBR) partitioned disks are replaced with newer GUID Partition Table (GPT) standard but MBR is still used widely as a default format. GPT layout for the partition tables has a lot of benefits comparing with MBR one. Along with supporting significantly larger size of disks, it introduces …"><meta property="article:published_time" content="2020-01-28"><meta property="article:section" content="Linux"><meta property="article:tag" content="mbr"><meta property="article:tag" content="gpt"><meta property="article:tag" content="centos"><meta property="article:tag" content="partition"><meta property="article:tag" content="linux"><meta property="article:author" content="Vitaly Saversky"><link rel="stylesheet" href="/theme/css/bootstrap.flatly.min.css" type="text/css"><link href="/theme/css/font-awesome.min.css" rel="stylesheet"><link href="/theme/css/pygments/monokai.css" rel="stylesheet"><link href="/theme/tipuesearch/tipuesearch.css" rel="stylesheet"><link rel="stylesheet" href="/theme/css/style.css" type="text/css"></head><body><div class="navbar navbar-default navbar-fixed-top" role="navigation"><div class="container"><div class="navbar-header"><a href="/" class="navbar-brand"> Vitaly Saversky's Blog </a></div><div class="collapse navbar-collapse navbar-ex1-collapse"><ul class="nav navbar-nav"></ul><ul class="nav navbar-nav navbar-right"><li><span><form class="navbar-search" action="/search.html"><input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required></form></span></li></ul></div></div></div><div class="container"><div class="row"><div class="col-sm-9"><ol class="breadcrumb"><li><a href title="Vitaly Saversky's Blog"><i class="fa fa-home fa-lg"></i></a></li><li><a href="/category/linux.html" title="Linux">Linux</a></li><li class="active">Convert MBR Partition into GPT in CentOS 7</li></ol><section id="content"><article><header class="page-header"><h1><a href="/convert-mbr-partition-into-gpt-in-centos-7.html" rel="bookmark" title="Permalink to Convert MBR Partition into GPT in CentOS 7"> Convert MBR Partition into GPT in CentOS 7 </a></h1></header><div class="entry-content"><div class="panel"><div class="panel-body"><footer class="post-info"><span class="label label-default">Date</span><span class="published"><i class="fa fa-calendar"></i><time datetime="2020-01-28T00:00:00-05:00"> Tue 28 January 2020</time></span><span class="label label-default">Category</span><a href="/category/linux.html">Linux</a><span class="label label-default">Tags</span><a href="/tag/mbr.html">mbr</a> / <a href="/tag/gpt.html">gpt</a> / <a href="/tag/centos.html">centos</a> / <a href="/tag/partition.html">partition</a> / <a href="/tag/linux.html">linux</a></footer></div></div><p>Master Boot Record (MBR) partitioned disks are replaced with newer GUID Partition Table (GPT) standard but MBR is still used widely as a default format. GPT layout for the partition tables has a lot of benefits comparing with MBR one. Along with supporting significantly larger size of disks, it introduces faster and more stable booting. GPT requests to support Unified Extensible Firmware Interface (UEFI) boot.</p><ol><li><p>Switch to root user.</p><div class="highlight"><pre><span></span>$ sudo su -
+</pre></div></li><li><p>Run GPT partition tool. Assuming that <strong>sda</strong> disk is bootable and will be converted into GPT.</p><div class="highlight"><pre><span></span>$ gdisk /dev/sda
 
 GPT fdisk (gdisk) version 0.8.10
 
@@ -143,13 +15,7 @@ in memory. THIS OPERATION IS POTENTIALLY DESTRUCTIVE! Exit by
 typing &#39;q&#39; if you don&#39;t want to convert your MBR partitions
 to GPT format!
 ***************************************************************
-</pre></div>
-
-
-</li>
-<li>
-<p>Make sure that there is enough space before the first partition to support a boot partition. <strong>2048</strong> value for the first sector confirms that GPT can be applied to MBR.</p>
-<div class="highlight"><pre><span></span>Command (? for help): p
+</pre></div></li><li><p>Make sure that there is enough space before the first partition to support a boot partition. <strong>2048</strong> value for the first sector confirms that GPT can be applied to MBR.</p><div class="highlight"><pre><span></span>Command (? for help): p
 
 Disk /dev/sda: 52428800 sectors, 25.0 GiB
 Logical sector size: 512 bytes
@@ -164,13 +30,7 @@ Number  Start (sector)    End (sector)  Size       Code  Name
    2         2099200        16777215   7.0 GiB     8E00  Linux LVM
    3        16777216        20971519   2.0 GiB     8E00  Linux LVM
    4        20971520        31457279   5.0 GiB     8E00  Linux LVM
-</pre></div>
-
-
-</li>
-<li>
-<p>Create a new bootable partition. As the first sector, enter <strong>34</strong> and the last sector is <strong>2047</strong>. Partition code is <strong>ef02</strong>.</p>
-<div class="highlight"><pre><span></span>Command (? for help): n
+</pre></div></li><li><p>Create a new bootable partition. As the first sector, enter <strong>34</strong> and the last sector is <strong>2047</strong>. Partition code is <strong>ef02</strong>.</p><div class="highlight"><pre><span></span>Command (? for help): n
 
 Partition number (5-128, default 5): 
 First sector (34-52428766, default = 31457280) or {+-}size{KMGTP}: 34
@@ -178,13 +38,7 @@ Last sector (34-2047, default = 2047) or {+-}size{KMGTP}:
 Current type is &#39;Linux filesystem&#39;
 Hex code or GUID (L to show codes, Enter = 8300): ef02
 Changed type of partition to &#39;BIOS boot partition&#39;
-</pre></div>
-
-
-</li>
-<li>
-<p>Save changes.</p>
-<div class="highlight"><pre><span></span>Command (? for help): w
+</pre></div></li><li><p>Save changes.</p><div class="highlight"><pre><span></span>Command (? for help): w
 
 Final checks complete. About to write GPT data. THIS WILL OVERWRITE EXISTING
 PARTITIONS!!
@@ -194,30 +48,12 @@ OK; writing new GUID partition table (GPT) to /dev/sda.
 Warning: The kernel is still using the old partition table.
 The new table will be used at the next reboot.
 The operation has completed successfully.
-</pre></div>
-
-
-</li>
-<li>
-<p>Notify the operation system about changes. It eliminates rebooting of the system.</p>
-<div class="highlight"><pre><span></span>$ partprobe
-</pre></div>
-
-
-</li>
-<li>
-<p>Install GRUB on the new bootable partition.</p>
-<div class="highlight"><pre><span></span>$ grub2-install /dev/sda
+</pre></div></li><li><p>Notify the operation system about changes. It eliminates rebooting of the system.</p><div class="highlight"><pre><span></span>$ partprobe
+</pre></div></li><li><p>Install GRUB on the new bootable partition.</p><div class="highlight"><pre><span></span>$ grub2-install /dev/sda
 
 Installing for i386-pc platform.
 Installation finished. No error reported.
-</pre></div>
-
-
-</li>
-<li>
-<p>Validate the conversion.</p>
-<div class="highlight"><pre><span></span>$ gdisk /dev/sda
+</pre></div></li><li><p>Validate the conversion.</p><div class="highlight"><pre><span></span>$ gdisk /dev/sda
 
 GPT fdisk (gdisk) version 0.8.10
 
@@ -228,160 +64,7 @@ Partition table scan:
   GPT: present
 
 Found valid GPT with protective MBR; using GPT.
-</pre></div>
-
-
-</li>
-</ol>
-            </div>
-            <!-- /.entry-content -->
-        </article>
-    </section>
-
-        </div>
-        <div class="col-sm-3" id="sidebar">
-            <aside>
-<!-- Sidebar -->
-<section class="well well-sm">
-  <ul class="list-group list-group-flush">
-
-<!-- Sidebar/Recent Posts -->
-<li class="list-group-item">
-  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
-  <ul class="list-group" id="recentposts">
-    <li class="list-group-item"><a href="/convert-mbr-partition-into-gpt-in-centos-7.html">Convert MBR Partition into GPT in CentOS 7</a></li>
-    <li class="list-group-item"><a href="/redirect-http-to-https-in-synology-nas-nginx.html">Redirect HTTP to HTTPS in Synology NAS Nginx</a></li>
-    <li class="list-group-item"><a href="/extract-number-in-microsoft-accessexcel.html">Extract Number in Microsoft Access/Excel</a></li>
-    <li class="list-group-item"><a href="/set-up-scanner-in-centos-7.html">Set Up Scanner in CentOS 7</a></li>
-    <li class="list-group-item"><a href="/clean-up-usb-flash-drive.html">Clean Up USB Flash Drive</a></li>
-  </ul>
-</li>
-<!-- End Sidebar/Recent Posts -->
-
-<!-- Sidebar/Categories -->
-<li class="list-group-item">
-  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4>
-  <ul class="list-group" id="categories">
-    <li class="list-group-item">
-      <a href="/category/linux.html"><i class="fa fa-folder-open fa-lg"></i>Linux</a>
-    </li>
-    <li class="list-group-item">
-      <a href="/category/microsoft-office.html"><i class="fa fa-folder-open fa-lg"></i>Microsoft Office</a>
-    </li>
-    <li class="list-group-item">
-      <a href="/category/synology-nas.html"><i class="fa fa-folder-open fa-lg"></i>Synology NAS</a>
-    </li>
-    <li class="list-group-item">
-      <a href="/category/windows-tools.html"><i class="fa fa-folder-open fa-lg"></i>Windows Tools</a>
-    </li>
-  </ul>
-</li>
-<!-- End Sidebar/Categories -->
-
-<!-- Sidebar/Tag Cloud -->
-<li class="list-group-item">
-  <a href="/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
-  <ul class="list-group list-inline tagcloud" id="tags">
-    <li class="list-group-item tag-4">
-      <a href="/tag/access.html">access</a>
-    </li>
-    <li class="list-group-item tag-1">
-      <a href="/tag/centos.html">centos</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="/tag/diskpart.html">diskpart</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="/tag/dsm.html">dsm</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="/tag/excel.html">excel</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="/tag/gpt.html">gpt</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="/tag/http.html">http</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="/tag/https.html">https</a>
-    </li>
-    <li class="list-group-item tag-1">
-      <a href="/tag/linux.html">linux</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="/tag/mbr.html">mbr</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="/tag/microsoft.html">microsoft</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="/tag/nas.html">nas</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="/tag/nginx.html">nginx</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="/tag/partition.html">partition</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="/tag/redirect.html">redirect</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="/tag/regexp.html">regexp</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="/tag/scanner.html">scanner</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="/tag/setup.html">setup</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="/tag/synology.html">synology</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="/tag/tool.html">tool</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="/tag/usb.html">usb</a>
-    </li>
-    <li class="list-group-item tag-4">
-      <a href="/tag/windows.html">windows</a>
-    </li>
-  </ul>
-</li>
-<!-- End Sidebar/Tag Cloud -->
-  </ul>
-</section>
-<!-- End Sidebar -->            </aside>
-        </div>
-    </div>
-</div>
-<!-- End Content Container -->
-
-<footer>
-   <div class="container">
-      <hr>
-      <div class="row">
-         <div class="col-xs-10">&copy; 2020 Vitaly Saversky
-            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
-            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
-            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
-         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
-      </div>
-   </div>
-</footer>
-<script src="/theme/js/jquery.min.js"></script>
-
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="/theme/js/bootstrap.min.js"></script>
-
-<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
-<script src="/theme/js/respond.min.js"></script>
-
-
-    <!-- Google Analytics -->
-    <script type="text/javascript">
+</pre></div></li></ol></div></article></section></div><div class="col-sm-3" id="sidebar"><aside><section class="well well-sm"><ul class="list-group list-group-flush"><li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4><ul class="list-group" id="recentposts"><li class="list-group-item"><a href="/convert-mbr-partition-into-gpt-in-centos-7.html">Convert MBR Partition into GPT in CentOS 7</a></li><li class="list-group-item"><a href="/redirect-http-to-https-in-synology-nas-nginx.html">Redirect HTTP to HTTPS in Synology NAS Nginx</a></li><li class="list-group-item"><a href="/extract-number-in-microsoft-accessexcel.html">Extract Number in Microsoft Access/Excel</a></li><li class="list-group-item"><a href="/set-up-scanner-in-centos-7.html">Set Up Scanner in CentOS 7</a></li><li class="list-group-item"><a href="/clean-up-usb-flash-drive.html">Clean Up USB Flash Drive</a></li></ul></li><li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4><ul class="list-group" id="categories"><li class="list-group-item"><a href="/category/linux.html"><i class="fa fa-folder-open fa-lg"></i>Linux</a></li><li class="list-group-item"><a href="/category/microsoft-office.html"><i class="fa fa-folder-open fa-lg"></i>Microsoft Office</a></li><li class="list-group-item"><a href="/category/synology-nas.html"><i class="fa fa-folder-open fa-lg"></i>Synology NAS</a></li><li class="list-group-item"><a href="/category/windows-tools.html"><i class="fa fa-folder-open fa-lg"></i>Windows Tools</a></li></ul></li><li class="list-group-item"><a href="/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a><ul class="list-group list-inline tagcloud" id="tags"><li class="list-group-item tag-4"><a href="/tag/access.html">access</a></li><li class="list-group-item tag-1"><a href="/tag/centos.html">centos</a></li><li class="list-group-item tag-4"><a href="/tag/diskpart.html">diskpart</a></li><li class="list-group-item tag-4"><a href="/tag/dsm.html">dsm</a></li><li class="list-group-item tag-4"><a href="/tag/excel.html">excel</a></li><li class="list-group-item tag-4"><a href="/tag/gpt.html">gpt</a></li><li class="list-group-item tag-4"><a href="/tag/http.html">http</a></li><li class="list-group-item tag-4"><a href="/tag/https.html">https</a></li><li class="list-group-item tag-1"><a href="/tag/linux.html">linux</a></li><li class="list-group-item tag-4"><a href="/tag/mbr.html">mbr</a></li><li class="list-group-item tag-4"><a href="/tag/microsoft.html">microsoft</a></li><li class="list-group-item tag-4"><a href="/tag/nas.html">nas</a></li><li class="list-group-item tag-4"><a href="/tag/nginx.html">nginx</a></li><li class="list-group-item tag-4"><a href="/tag/partition.html">partition</a></li><li class="list-group-item tag-4"><a href="/tag/redirect.html">redirect</a></li><li class="list-group-item tag-4"><a href="/tag/regexp.html">regexp</a></li><li class="list-group-item tag-4"><a href="/tag/scanner.html">scanner</a></li><li class="list-group-item tag-4"><a href="/tag/setup.html">setup</a></li><li class="list-group-item tag-4"><a href="/tag/synology.html">synology</a></li><li class="list-group-item tag-4"><a href="/tag/tool.html">tool</a></li><li class="list-group-item tag-4"><a href="/tag/usb.html">usb</a></li><li class="list-group-item tag-4"><a href="/tag/windows.html">windows</a></li></ul></li></ul></section></aside></div></div></div><footer><div class="container"><hr><div class="row"><div class="col-xs-10">&copy; 2020 Vitaly Saversky &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>, <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>, <a href="http://getbootstrap.com" target="_blank">Bootstrap</a></div><div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i><a href="#">Back to top</a></p></div></div></div></footer><script src="/theme/js/jquery.min.js"></script><script src="/theme/js/bootstrap.min.js"></script><script src="/theme/js/respond.min.js"></script><script type="text/javascript">
 
         var _gaq = _gaq || [];
         _gaq.push(['_setAccount', 'UA-156524189-1']);
@@ -395,9 +78,4 @@ Found valid GPT with protective MBR; using GPT.
             var s = document.getElementsByTagName('script')[0];
             s.parentNode.insertBefore(ga, s);
         })();
-    </script>
-    <!-- End Google Analytics Code -->
-
-
-</body>
-</html>
+    </script></body></html>

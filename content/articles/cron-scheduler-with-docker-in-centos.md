@@ -38,7 +38,7 @@ The Dockerfile can be used as a template to design your file. After line #15, yo
 
 * Activating systemd.
 
-        :::bash
+        :::docker
         RUN (cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == \
         systemd-tmpfiles-setup.service ] || rm -f $i; done); \
         rm -f /lib/systemd/system/multi-user.target.wants/*;\
@@ -53,23 +53,23 @@ The Dockerfile can be used as a template to design your file. After line #15, yo
 
 * Install cron.
 
-        ::bash
+        ::docker
         RUN yum install -y cronie && yum clean all
 
 * Set up your time zone.
 
-        ::bash
+        ::docker
         RUN rm -rf /etc/localtime
         RUN ln -s /usr/share/zoneinfo/America/Toronto /etc/localtime
 
 * Add a job in crontab file.
 
-        ::bash
+        ::docker
         RUN crontab -l | { cat; echo "25 04 * * sun,mon,tue python3 /app/do_maintenance.py"; } | crontab -
 
 * Keep container running.
 
-        ::bash
+        ::docker
         CMD ["/usr/sbin/init"]
 
 ## Build conatiner

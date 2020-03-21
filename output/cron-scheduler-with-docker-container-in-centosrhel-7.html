@@ -144,7 +144,7 @@ rm -f /lib/systemd/system/anaconda.target.wants/*<span class="p">;</span>
 <ul>
 <li>
 <p>Activating systemd.</p>
-<div class="highlight"><pre><span></span>RUN <span class="o">(</span><span class="nb">cd</span> /lib/systemd/system/sysinit.target.wants/<span class="p">;</span> <span class="k">for</span> i in *<span class="p">;</span> <span class="k">do</span> <span class="o">[</span> <span class="nv">$i</span> <span class="o">==</span> <span class="se">\</span>
+<div class="highlight"><pre><span></span><span class="k">RUN</span> <span class="o">(</span><span class="nb">cd</span> /lib/systemd/system/sysinit.target.wants/<span class="p">;</span> <span class="k">for</span> i in *<span class="p">;</span> <span class="k">do</span> <span class="o">[</span> <span class="nv">$i</span> <span class="o">==</span> <span class="se">\</span>
 systemd-tmpfiles-setup.service <span class="o">]</span> <span class="o">||</span> rm -f <span class="nv">$i</span><span class="p">;</span> <span class="k">done</span><span class="o">)</span><span class="p">;</span> <span class="se">\</span>
 rm -f /lib/systemd/system/multi-user.target.wants/*<span class="p">;</span><span class="se">\</span>
 rm -f /etc/systemd/system/*.wants/*<span class="p">;</span><span class="se">\</span>
@@ -154,36 +154,36 @@ rm -f /lib/systemd/system/sockets.target.wants/*initctl*<span class="p">;</span>
 rm -f /lib/systemd/system/basic.target.wants/*<span class="p">;</span><span class="se">\</span>
 rm -f /lib/systemd/system/anaconda.target.wants/*<span class="p">;</span>
 
-VOLUME <span class="o">[</span> <span class="s2">&quot;/sys/fs/cgroup&quot;</span> <span class="o">]</span>
+<span class="k">VOLUME</span> <span class="p">[</span> <span class="s2">&quot;/sys/fs/cgroup&quot;</span> <span class="p">]</span>
 </pre></div>
 
 
 </li>
 <li>
 <p>Install cron.</p>
-<div class="highlight"><pre><span></span>RUN yum install -y cronie <span class="o">&amp;&amp;</span> yum clean all
+<div class="highlight"><pre><span></span><span class="k">RUN</span> yum install -y cronie <span class="o">&amp;&amp;</span> yum clean all
 </pre></div>
 
 
 </li>
 <li>
 <p>Set up your time zone.</p>
-<div class="highlight"><pre><span></span>RUN rm -rf /etc/localtime
-RUN ln -s /usr/share/zoneinfo/America/Toronto /etc/localtime
+<div class="highlight"><pre><span></span><span class="k">RUN</span> rm -rf /etc/localtime
+<span class="k">RUN</span> ln -s /usr/share/zoneinfo/America/Toronto /etc/localtime
 </pre></div>
 
 
 </li>
 <li>
 <p>Add a job in crontab file.</p>
-<div class="highlight"><pre><span></span>RUN crontab -l <span class="p">|</span> <span class="o">{</span> cat<span class="p">;</span> <span class="nb">echo</span> <span class="s2">&quot;25 04 * * sun,mon,tue python3 /app/do_maintenance.py&quot;</span><span class="p">;</span> <span class="o">}</span> <span class="p">|</span> crontab -
+<div class="highlight"><pre><span></span><span class="k">RUN</span> crontab -l <span class="p">|</span> <span class="o">{</span> cat<span class="p">;</span> <span class="nb">echo</span> <span class="s2">&quot;25 04 * * sun,mon,tue python3 /app/do_maintenance.py&quot;</span><span class="p">;</span> <span class="o">}</span> <span class="p">|</span> crontab -
 </pre></div>
 
 
 </li>
 <li>
 <p>Keep container running.</p>
-<div class="highlight"><pre><span></span>CMD <span class="o">[</span><span class="s2">&quot;/usr/sbin/init&quot;</span><span class="o">]</span>
+<div class="highlight"><pre><span></span><span class="k">CMD</span> <span class="p">[</span><span class="s2">&quot;/usr/sbin/init&quot;</span><span class="p">]</span>
 </pre></div>
 
 

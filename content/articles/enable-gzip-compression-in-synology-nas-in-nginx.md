@@ -66,28 +66,28 @@ The sample is based on DSM 6.2.2 operation system.
 
 * Use ssh client to access your Synology NAS with a user which has administrative permission. It can be PuTTY tool in Windows or terminal with `ssh` command in Unix. 
 
-* Switch to root user
+* Switch to root user.
 
         :::bash
         sudo su -
 
-* Back up the current moustache template
+* Back up the current moustache template.
 
         :::bash
         cp /usr/syno/share/nginx/WWWService.mustache /usr/syno/share/nginx/WWWService.mustache.bak
 
-* Open the moustache template for editing
+* Open the moustache template for editing.
 
         :::bash
         vi /usr/syno/share/nginx/WWWService.mustache
 
-* Add a line after `gzip on;` command to both HTTP and HTTPS server sections
+* Add a line after `gzip on;` command to both HTTP and HTTPS server sections.
 
         :::text
         gzip_types text/javascript text/css;
 
 
-    The final content should be
+    The final content should be.
 
         :::text
         server {
@@ -119,7 +119,7 @@ The sample is based on DSM 6.2.2 operation system.
             }
         }
 
-* Restart the Nginx web server to apply the changes
+* Restart the Nginx web server to apply the changes.
 
         :::bash
         synoservicecfg --restart nginx

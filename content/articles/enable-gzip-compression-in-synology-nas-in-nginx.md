@@ -2,11 +2,11 @@ Title: Enable gzip Compression in Synology NAS in Nginx
 Date: 2020-03-21
 Category: Synology NAS, gzip, Synology DSM, Nginx
 
-Enabling gzip compression for your website can be done in Synology DiskStation Manager (DSM). HTTP traffic is already compressed with gzip as default. HTTPS protocol needs to be enabled explicitly. DSM manager is doing it in an easy step without rebooting Synology NAS. Also, DSM manager includes text/javascript and text/css MIME types additional to text/html one.
+Enabling gzip compression for your website can be done in Synology DiskStation Manager (DSM). HTTP traffic is already compressed with gzip as default. HTTPS protocol needs to be enabled explicitly. Synology DSM is doing it in an easy step without rebooting Synology NAS. Also, Synology DSM includes text/javascript and text/css MIME types additional to text/html one.
 
 ## 1. Validate Compression
 
-### 1.1 Firefox Browses
+### 1.1 Firefox Web browser
 
 * Open your website in Firefox browser 
 
@@ -36,7 +36,7 @@ Enabling gzip compression for your website can be done in Synology DiskStation M
 
     ![Firefox Developer Tools Network Panel Compression Property]({static}/images/enable-gzip-compression-in-synology-nas-in-nginx/firefox-html-resource-compression.png)</br></br>
 
-### 1.2 Chrome Browser
+### 1.2 Chrome Web browser
 
 The steps to get information are very similar to Firefox. To open Chrome DevTools, press **Command+Option+C** (Mac) or **Ctrl+Shift+C** (Windows, Linux, Chrome OS).
 

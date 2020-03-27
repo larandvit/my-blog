@@ -62,7 +62,7 @@ Output
   
 ## 2. Add New MS SQL Connection
 
-1. Open **New Database Connection** wizard from **Database* menu and select **MS SQL Server** driver.
+1. Open **New Database Connection** wizard from **Database** menu and select **MS SQL Server** driver.
 
     ![DBeaver Select Database Step]({static}/images/connect-dbeaver-to-mssql-server-with-kerberos-ticket-cache-in-windows/select-your-database-step.png)</br></br>
 

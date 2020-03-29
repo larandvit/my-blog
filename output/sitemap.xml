@@ -6,6 +6,10 @@
 
          xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
+   	<loc>https://techjogging.com/connect-dbeaver-to-ms-sql-server-with-jaas-using-kerberos-keytab-file-in-windows.html</loc>
+   	<lastmod>2020-03-29</lastmod>
+   </url>
+   <url>
    	<loc>https://techjogging.com/connect-dbeaver-to-ms-sql-server-with-kerberos-ticket-cache-in-windows.html</loc>
    	<lastmod>2020-03-27</lastmod>
    </url>

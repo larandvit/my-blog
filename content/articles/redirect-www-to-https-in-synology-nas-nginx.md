@@ -6,31 +6,31 @@ WWW website prefix has long history and it was used to classify information what
 
 In any case, we need to address this prefix to keep back compatibility with the old rules. It means that www.sample.com, https://www.sample.com, and https://www.sample.com URLs should be valid and converted to https://www.sample.com one to make a Web connection secured.
 
-# 1. Add WWW CNAME record to DSN.
+## 1. Add WWW CNAME record to DSN.
 
 The sample is based on [noip.com](https://www.noip.com) DSN service.
 
 ![noip Create CNAME Hostname]({static}/images/redirect-www-to-htpps-in-synology-nas-nginx/noip-create-cname-hostname.png)</br></br>
 
-# 2. Create SSL Certificate in Synology DiskStation Manager (DSM)
+## 2. Create SSL Certificate in Synology DiskStation Manager (DSM)
 
 The easiest way to create a SSL certificate is Synology DSM which supports Let's Encrypt natively. Make sure to add WWW to **Subject Alternative Name**.
 
 ![Synology DSM Control Panel Create SSL Certificate]({static}/images/redirect-www-to-htpps-in-synology-nas-nginx/control-panel-create-ssl-certificate.png)</br></br>
 
-# 3. Enable SSH service.
+## 3. Enable SSH service.
 
 ![SSH service enabled]({static}/images/redirect-www-to-htpps-in-synology-nas-nginx/control-panel-terminal.png)</br></br>
 
-# 4. Install Web Station.
+## 4. Install Web Station.
 
 ![Web station installed]({static}/images/redirect-www-to-htpps-in-synology-nas-nginx/web-station-installed.png)</br></br>
 
-# 5. Make Nginx Web Server as Default.
+## 5. Make Nginx Web Server as Default.
 
 ![Web server Nginx]({static}/images/redirect-www-to-htpps-in-synology-nas-nginx/web-server-nginx.png)</br></br>
 
-# 6. Modify Moustache Template 
+## 6. Modify Moustache Template 
 
 Sample is based on DSM 6.2.2 operation system and the original moustache template is.
 
@@ -127,4 +127,3 @@ Sample is based on DSM 6.2.2 operation system and the original moustache templat
         synoservicecfg --restart nginx
 
 7. The last important step is to refresh your browser. When you open your web site with **http**, it's still showing as **http** and don't redirect to **https**. Just click **Ctrl-F5**.
-

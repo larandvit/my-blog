@@ -1,6 +1,7 @@
 Title: Resize Disk in Oracle VM VirtualBox
 Date: 2020-01-30
 Category: Virtualization, VM, VirtualBox
+Cover: /extra/virtualbox-logo.png
 
 Virtualization is flexible in terms of using resources. A virtual machine can be built with minimal assigned resources and later, they can be added when it's needed. Oracle VM VirtualBox allows allocation more space to an existing disk. This procedure is common for all virtualized operation systems. It's similar to replacing your old hard drive with new one which is larger size.
 

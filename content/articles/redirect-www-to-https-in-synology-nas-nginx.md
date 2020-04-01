@@ -1,6 +1,7 @@
 Title: Redirect WWW to HTTPS in Synology NAS Nginx
 Date: 2020-03-30
 Category: Synology NAS, Https, Synology DSM, Nginx
+Cover: /extra/synology-logo.png
 
 WWW website prefix has long history and it was used to classify information what was exposed to users of websites. Another usage of WWW might be for load balancing when web traffic is redirected to a cluster of web servers. Also, some sources tell that WWW was introduced accidently as a mistake but everybody considered it as the new standard and started using it. WWW is not required to be used in URLs. 
 

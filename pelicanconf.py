@@ -54,7 +54,7 @@ EXTRA_PATH_METADATA = {
     'extra/favicon.ico': {'path': 'favicon.ico'}
 }
 
-SITELOGO = 'extra/site_logo.png'
+SITELOGO = 'extra/site-logo.png'
 
 DISQUS_SITENAME = 'techjogging'
 

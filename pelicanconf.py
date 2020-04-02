@@ -49,9 +49,16 @@ DIRECT_TEMPLATES = ['index', 'categories', 'search']
 
 GOOGLE_ANALYTICS = 'UA-156524189-1'
 
+ARTICLE_PATHS = ['articles']
+ARTICLE_EXCLUDES = ['extra']
+
 STATIC_PATHS = ['extra']
 EXTRA_PATH_METADATA = {
-    'extra/favicon.ico': {'path': 'favicon.ico'}
+    'extra/favicon.ico': {'path': 'favicon.ico'},
+    'extra/BingSiteAuth.xml': {'path': 'BingSiteAuth.xml'},
+    'extra/robots.txt': {'path': 'robots.txt'},
+    'extra/sitemap.xml': {'path': 'sitemap.xml'},
+    'extra/yandex_96a264214b85ba90.html': {'path': 'yandex_96a264214b85ba90.html'}
 }
 
 SITELOGO = 'extra/site-logo.png'

@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
+
+         xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+   <url>
+   	<loc>https://techjogging.com/redirect-www-to-https-in-synology-nas-nginx.html</loc>
+   	<lastmod>2020-03-31</lastmod>
+   </url>
+   <url>
+   	<loc>https://techjogging.com/connect-dbeaver-to-ms-sql-server-with-jaas-using-kerberos-keytab-file-in-windows.html</loc>
+   	<lastmod>2020-03-29</lastmod>
+   </url>
+   <url>
+   	<loc>https://techjogging.com/connect-dbeaver-to-ms-sql-server-with-kerberos-ticket-cache-in-windows.html</loc>
+   	<lastmod>2020-03-27</lastmod>
+   </url>
+   <url>
+   	<loc>https://techjogging.com/enable-gzip-compression-in-synology-nas-in-nginx.html</loc>
+   	<lastmod>2020-03-25</lastmod>
+   </url>
+   <url>
+   	<loc>https://techjogging.com/create-keytab-file-for-kerberos-authentication-in-windows.html</loc>
+   	<lastmod>2020-03-25</lastmod>
+   </url>
+   <url>
+   	<loc>https://techjogging.com/build-dbeaver-installation-package-to-access-hive-with-jaas-configuration-using-kerberos-authentication-in-windows.html</loc>
+   	<lastmod>2020-03-25</lastmod>
+   </url>
+   <url>
+   	<loc>https://techjogging.com/connect-dbeaver-to-cloudera-hive-with-jaas-configuration-using-kerberos-authentication-in-windows.html</loc>
+   	<lastmod>2020-03-25</lastmod>
+   </url>
+   <url>
+   	<loc>https://techjogging.com/cron-scheduler-with-docker-container-in-centosrhel-7.html</loc>
+   	<lastmod>2020-03-25</lastmod>
+   </url>
+   <url>
+   	<loc>https://techjogging.com/resize-disk-in-oracle-vm-virtualbox.html</loc>
+   	<lastmod>2020-03-25</lastmod>
+   </url>
+   <url>
+   	<loc>https://techjogging.com/expand-logical-volume-in-centosrhel-7.html</loc>
+   	<lastmod>2020-03-25</lastmod>
+   </url>
+   <url>
+   	<loc>https://techjogging.com/convert-mbr-partition-into-gpt-in-centosrhel-7.html</loc>
+   	<lastmod>2020-03-25</lastmod>
+   </url>
+   <url>
+   	<loc>https://techjogging.com/redirect-http-to-https-in-synology-nas-nginx.html</loc>
+   	<lastmod>2020-03-25</lastmod>
+   </url>
+   <url>
+   	<loc>https://techjogging.com/extract-number-in-microsoft-accessexcel.html</loc>
+   	<lastmod>2020-03-25</lastmod>
+   </url>
+   <url>
+   	<loc>https://techjogging.com/set-up-scanner-in-centos-7.html</loc>
+   	<lastmod>2020-03-25</lastmod>
+   </url>
+
+   <url>
+
+      <loc>https://techjogging.com/clean-up-usb-flash-drive.html</loc>
+
+      <lastmod>2020-03-25</lastmod>
+
+   </url>
+   <url>
+   	<loc>https://techjogging.com/pages/about-blog.html</loc>
+   	<lastmod>2020-03-25</lastmod>
+   </url>
+
+</urlset>

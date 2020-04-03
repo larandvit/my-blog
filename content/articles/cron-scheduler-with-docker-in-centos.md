@@ -1,6 +1,6 @@
 Title: Cron Scheduler with Docker Container in CentOS/RHEL 7
 Date: 2020-02-18
-Category: Docker, Container, Cron, Crontab, CentOS, Linux, RHEL
+Category: Docker, Cron, Linux
 Cover: /extra/docker-logo.png
 
 Using cron with the official CentOS Docker image requests activating systemd, keeping container running, and opening a Docker container in privileged mode. CentOS Docker Hub image includes the description of the setup which should be done to activate systemd and keep a container going. The missing is information how to install and set up cron. This article provides a summary of steps and a functioning sample of Dockerfile. Some customization is needed to implement  your cron project.

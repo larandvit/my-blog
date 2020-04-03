@@ -1,6 +1,6 @@
 Title: Extract Number in Microsoft Access/Excel
 Date: 2020-01-18
-Category: Microsoft Access, Microsoft Excel, Regexp
+Category: Microsoft Access, Microsoft Excel
 Cover: /extra/microsoft-access-logo.png
 
 Microsoft Access and Excel don't include any string functions to extract a number from a string. It should be created a custom function to complete this task. Regular Expressions are a good option to deal with manipulation of text data. Microsoft Access and Excel are lacking of support of regular expressions but they allow to utilize third party libraries. A library of our interest is Microsoft VBScript Regular Expressions 5.5 one.

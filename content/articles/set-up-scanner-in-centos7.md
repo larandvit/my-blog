@@ -1,6 +1,6 @@
 Title: Set Up Scanner in CentOS 7
 Date: 2020-01-16
-Category: Linux, CentOS, Scanner
+Category: Linux
 Cover: /extra/centos-logo.png
 
 As a scanner software can be used [Paperwork](https://openpaper.work/). It's open source software which is available in both Windows and Unix. CentOS 7 includes Paperwork scanner software as a part of the distribution repository.

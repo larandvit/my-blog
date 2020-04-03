@@ -58,7 +58,8 @@ EXTRA_PATH_METADATA = {
     'extra/BingSiteAuth.xml': {'path': 'BingSiteAuth.xml'},
     'extra/robots.txt': {'path': 'robots.txt'},
     'extra/sitemap.xml': {'path': 'sitemap.xml'},
-    'extra/yandex_96a264214b85ba90.html': {'path': 'yandex_96a264214b85ba90.html'}
+    'extra/yandex_96a264214b85ba90.html': {'path': 'yandex_96a264214b85ba90.html'},
+    'extra/missing': {'path': 'missing'}
 }
 
 SITELOGO = 'extra/site-logo.png'

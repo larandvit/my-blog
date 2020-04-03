@@ -1,6 +1,6 @@
 Title: Build DBeaver Installation Package to Access Hive with JAAS Configuration Using Kerberos Authentication in Windows
 Date: 2020-03-10
-Category: DBeaver, Hive, Kerberos Authentication
+Category: DBeaver, Hive, Kerberos
 Cover: /extra/dbeaver-logo.png
 
 When your organization has decided to start using DBeaver, you need to plan how to deploy and setup DBeaver for users. It might not be an issue if you are going to utilize databases/drivers which included in the standard configuration. But let's imagine case when you need to connect to Hive with Kerberos authentication. This task request advanced skills and time for troubleshooting in case of encountering any issues.

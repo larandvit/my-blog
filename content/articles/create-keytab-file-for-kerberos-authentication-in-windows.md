@@ -1,6 +1,6 @@
 Title: Create keytab File for Kerberos Authentication in Windows
 Date: 2020-03-15
-Category: Kerberos Authentication
+Category: Kerberos
 Cover: /extra/kerberos-logo.png
 
 Windows has a limited set of tools to create a keytab file. There are a couple of tools for this purpose. One tool is the Windows Server built-in utility **ktpass**. It can be only run on a Windows Server. Another tool is **ktab** which can be used on any Windows computer. **ktab** tool is a part of Java installation.

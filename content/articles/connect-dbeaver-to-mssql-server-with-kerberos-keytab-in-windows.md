@@ -1,6 +1,6 @@
 Title: Connect DBeaver to MS SQL Server with JAAS Using Kerberos keytab File in Windows
 Date: 2020-03-28
-Category: DBeaver, MS SQL Server, Kerberos Authentication
+Category: DBeaver, MS SQL Server, Kerberos
 Cover: /extra/dbeaver-logo.png
 
 Kerberos authentication can be established by applying Kerberos ticket cache or keytab file. [Kerberos ticket cache method]({filename}/articles/connect-dbeaver-to-mssql-server-with-kerberos-ticket-cache-in-windows.md) has a disadvantage, ticket cache should be renewed on regular basis. If it is not automatic process, it will request our attention. Another option is to use Kerberos keytab file. First of all, it has to be regenerated only in case of changing password for kerberized account. It's beneficial when a service account is involved. In that scenario, an administrator might maintain keytab file and distribute it to users. Also, keytab file be created by users.

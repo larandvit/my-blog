@@ -21,4 +21,4 @@ Virtualization is flexible in terms of using resources. A virtual machine can be
 
     ![New disk size]({static}/images/resize-disk-in-oracle-vm-virtualbox/new-disk-size.png)</br></br>
 
-5. Next steps depend on your operation system. You need to run your virtual machine and consume added space. Follow [article]({filename}/articles/expand-logical-volume-in-centos.md) to set it up for CentOS/RHEL.
+5. Next steps depend on your operation system. You need to run your virtual machine and consume added space. Follow [article]({filename}/articles/expand-logical-volume-in-centosrhel-7.md) to set it up for CentOS/RHEL.

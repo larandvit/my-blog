@@ -27,7 +27,7 @@ The following sample based on **Cloudera Hive JDBC driver v. 2.6.5.1007** and **
                         Cloudera-JDBC-Driver-for-Apache-Hive-Release-Notes.txt
                         third-party-licenses.txt
 
-3. Copy or modify the following configuration files in **C:\dbeaver-ce-7.0.0-win32.win32.x86_64** DBeaver root folder. You can figure out how make them from [Connect DBeaver to Cloudera Hive with JAAS Configuration using Kerberos Authentication in Windows]({filename}/articles/connect-dbeaver-to-hive-with-jaas-configuration-using-kerberos-authentication-in-windows.md) article.
+3. Copy or modify the following configuration files in **C:\dbeaver-ce-7.0.0-win32.win32.x86_64** DBeaver root folder. You can figure out how make them from [Connect DBeaver to Cloudera Hive with JAAS Configuration using Kerberos Authentication in Windows]({filename}/articles/connect-dbeaver-to-cloudera-hive-with-jaas-configuration-using-kerberos-authentication-in-windows.md) article.
 
     1) dbeaver.ini
 
@@ -44,7 +44,7 @@ The following sample based on **Cloudera Hive JDBC driver v. 2.6.5.1007** and **
         WshShell.Run "dbeaver.exe -data ./DBeaverData/workspace6", 0
         Set WshShell = Nothing
 
-5. Run DBeaver with **dbeaver.vbs** launcher and create a Hive driver and a new Hive connection as per [Connect DBeaver to Cloudera Hive with JAAS Configuration using Kerberos Authentication in Windows]({filename}/articles/connect-dbeaver-to-hive-with-jaas-configuration-using-kerberos-authentication-in-windows.md) article. After this step, it has to be created workspace folders by DBeaver.
+5. Run DBeaver with **dbeaver.vbs** launcher and create a Hive driver and a new Hive connection as per [Connect DBeaver to Cloudera Hive with JAAS Configuration using Kerberos Authentication in Windows]({filename}/articles/connect-dbeaver-to-cloudera-hive-with-jaas-configuration-using-kerberos-authentication-in-windows.md) article. After this step, it has to be created workspace folders by DBeaver.
 
         :::text
         C:\dbeaver-ce-7.0.0-win32.win32.x86_64\DBeaverData

@@ -3,7 +3,7 @@
     {% if articles %}
         {% for article in (articles_page.object_list if articles_page else articles) %}
             <article>
-                <div style="padding-bottom: 5px;"><h2 style="display: inline;">{% if article.cover %}<img src="{{ article.cover }}" style="vertical-align: middle;padding-right: 5px;">{% endif %}<a href="{{ SITEURL }}/{{ article.url }}" style="vertical-align: middle;">{{ article.title }}</a></h2></div>
+                <div class="article-title-container"><h2 class="article-header">{% if article.cover %}<img src="{{ article.cover }}" class="article-image">{% endif %}<a href="{{ SITEURL }}/{{ article.url }}" class="article-title-text">{{ article.title }}</a></h2></div>
                 {% if DISPLAY_ARTICLE_INFO_ON_INDEX %}
                     <div class="well well-sm">
                         {% include "includes/article_info.html" %}

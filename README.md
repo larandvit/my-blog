@@ -8,6 +8,6 @@ The included plugins are
 
 The changes to pelican-bootstrap3 theme are
 1. Modified article_info.html template to include more_categories implementation
-2. Modified article_list.html template to line up vertically artile image and header
+2. Modified article_list.html template and style.css to line up vertically artile image and header
 
 The actual blog is located [here](https://techjogging.com).

@@ -239,3 +239,20 @@ figure.floatcenter, .align-center {
 .gap-left {
   margin-left: 10px;
 }
+
+.article-title-container{
+	padding-bottom: 5px;
+}
+
+.article-header {
+	display: inline;
+}
+
+.article-image {
+	vertical-align: middle;
+	padding-right: 5px;
+}
+
+.article-title-text {
+	vertical-align: middle;
+}

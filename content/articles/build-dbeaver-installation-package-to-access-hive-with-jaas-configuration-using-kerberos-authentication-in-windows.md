@@ -1,4 +1,4 @@
-Title: Build DBeaver Installation Package to Access Hive with JAAS Configuration Using Kerberos Authentication in Windows
+Title: Build DBeaver Installation Package to Access Hive with JAAS Using Kerberos Authentication in Windows
 Date: 2020-03-10
 Category: DBeaver, Hive, Kerberos
 Cover: /extra/dbeaver-logo.png

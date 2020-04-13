@@ -1,4 +1,4 @@
-Title: Connect DBeaver to Cloudera Hive with JAAS Configuration using Kerberos Authentication in Windows
+Title: Connect DBeaver to Cloudera Hive with JAAS using Kerberos Authentication in Windows
 Date: 2020-03-07
 Category: DBeaver, Hive, Kerberos
 Cover: /extra/dbeaver-logo.png

@@ -1,4 +1,4 @@
-Title: Enable gzip Compression in Synology NAS in Nginx
+Title: Enable gzip Compression in Synology DSM in Nginx
 Date: 2020-03-21
 Category: Synology DSM, Nginx
 Cover: /extra/synology-logo.png

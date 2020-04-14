@@ -1,4 +1,4 @@
-Title: Redirect WWW to HTTPS in Synology NAS Nginx
+Title: Redirect WWW to HTTPS in Synology DSM Nginx
 Date: 2020-03-30
 Category: HTTPS, Synology DSM, Nginx
 Cover: /extra/synology-logo.png

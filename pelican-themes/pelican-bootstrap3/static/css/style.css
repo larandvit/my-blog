@@ -256,3 +256,20 @@ figure.floatcenter, .align-center {
 .article-title-text {
 	vertical-align: middle;
 }
+
+.navbar-right {
+	margin-right: 0
+}
+
+#tipue_search_input {
+	margin-left: 12px;
+	margin-top: 12px;
+	padding-right: 0;
+	padding-left: 8px;
+	height: 36px;	
+}
+
+.tipue_search_button {
+	height: 36px;
+	margin-top: 12px;
+}

@@ -1,4 +1,4 @@
-Title: Connect DBeaver to MS SQL Server with JAAS Using Kerberos keytab File in Windows
+Title: Connect DBeaver to MS SQL Server with JAAS Using Kerberos Keytab in Windows
 Date: 2020-03-28
 Category: DBeaver, MS SQL Server, Kerberos
 Cover: /extra/dbeaver-logo.png

@@ -1,4 +1,4 @@
-Title: Create keytab File for Kerberos Authentication in Windows
+Title: Create Keytab for Kerberos Authentication in Windows
 Date: 2020-03-15
 Category: Kerberos
 Cover: /extra/kerberos-logo.png

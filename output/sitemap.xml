@@ -6,6 +6,10 @@
 
          xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
+   	<loc>https://techjogging.com/create-oauth-credentials-for-google-analytics-apis.html</loc>
+   	<lastmod>2020-04-19</lastmod>
+   </url>
+   <url>
    	<loc>https://techjogging.com/fast-record-count-in-table-or-tables-in-database-in-sql-server.html</loc>
    	<lastmod>2020-04-07</lastmod>
    </url>

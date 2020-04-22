@@ -94,7 +94,7 @@ All Google tools request a Google account. If you already have a Google email, i
 
 The sample shows a number of sessions for the last 8 days.
 
-Create an HTML file on your server replacing **client_id** with yours in`<meta name="google-signin-client_id" content="109743573222-tu7960r1m6kam5acmigfumlqebf016cf.apps.googleusercontent.com">` line and VIEW_ID in `var VIEW_ID = '209816969';` line, and open it in browser. It will ask for your Google account credentials associated with your Google Analytics.
+Create an HTML file on your Web server replacing (1) **client_id** with yours in`<meta name="google-signin-client_id" content="109743573222-tu7960r1m6kam5acmigfumlqebf016cf.apps.googleusercontent.com">` line and (2) **VIEW_ID** in `var VIEW_ID = '209816969';` line, and then open it in browser. It will ask for your Google account credentials associated with your Google Analytics.
 
     :::html
     <!DOCTYPE html>

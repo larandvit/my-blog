@@ -5,6 +5,8 @@ Cover: /extra/google-analytics-logo.png
 
 One of the ways to implement Google Analytics in your tools or Web sites is to utilize Google Analytics APIs. This way is very flexible as Google Analytics APIs can be used with wide range of the programming languages. Moreover, APIs are mature product which on the market for many years. The latest v4 contains rich set of functionalities which was forged from earliest versions. It's back compatible with previous v3. The first step to start using Google Analytics APIs includes creating of an OAuth credentials. There are many options to proceed with it but we follow a route to generate credentials for a Web site with javascript implementation. It's applicable to other scenarios as well.
 
+The article is based on API v4 and includes a sample of code to test your setup. The sample is extracted from [Google JavaScript quickstart for web applications](https://developers.google.com/analytics/devguides/reporting/core/v4/quickstart/web-js). The original code was modified to show error messages in case of encountering any issues and logout functionality.
+
 ## 1. Create a Google account
 
 All Google tools request a Google account. If you already have a Google email, it can be used as your Google account otherwise follow [link](https://accounts.google.com/signup).
@@ -32,7 +34,7 @@ All Google tools request a Google account. If you already have a Google email, i
 * Click **ENABLE APIS AND SERVICES** button.
 ![Enable Google Analytics APIs]({static}/images/create-oauth-credentials-for-google-analytics-apis/enable-google-analytics-apis.png)</br></br>
 
-* Search for **Google Analytics APIs** from the list of available APIs.
+* Search for **Google Analytics Reporting APIs** from the list of available APIs.
 ![Search Google Analytics APIs]({static}/images/create-oauth-credentials-for-google-analytics-apis/search-google-analytics-apis.png)</br></br>
 
 * Confirm your intention.
@@ -72,180 +74,115 @@ All Google tools request a Google account. If you already have a Google email, i
 * OAuth credentials information can be retrieved if you click on the name of **OAuth 2.0 Client** ID entry.
 ![Google OAuth Credentials Information]({static}/images/create-oauth-credentials-for-google-analytics-apis/google-oauth-credentials-information.png)</br></br>
 
-* Clicking on **DOWNLOAD JSON** downloads your credentials as json file.
+## 7. Grant Account Explorer access to your Google Account
 
-        :::json
-        {"web":
-               {"client_id":"109743573222-tu7960r1m6kam5acmigfumlqebf016cf.apps.googleusercontent.com",
-                "project_id":"tech-jogging-blog",
-                "auth_uri":"https://accounts.google.com/o/oauth2/auth",
-                "token_uri":"https://oauth2.googleapis.com/token",
-                "auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs",
-                "client_secret":"kEbM6uLv3NsgeEpiLDVz8hxS",
-                "javascript_origins":["https://techjogging.com"]
-               }
-        }
+* Open [Account Explorer](https://ga-dev-tools.appspot.com/account-explorer/).
 
-## 7. Sample API v3
+![Account Explorer Authorization]({static}/images/create-oauth-credentials-for-google-analytics-apis/account-explorer-authorization.png)</br></br>
 
-[The sample](https://developers.google.com/analytics/devguides/reporting/core/v3/quickstart/web-js) shows a number of sessions for the last 30 days.
+* Allow Account Explorer access your Google Account.
 
-Create an HTML file on your server replacing CLIENT_ID with yours in`CLIENT_ID = '109743573222-tu7960r1m6kam5acmigfumlqebf016cf.apps.googleusercontent.com'` line, and open it in browser. It will ask for your Google account credentials.
+![Allow Account Explorer Access Google Account]({static}/images/create-oauth-credentials-for-google-analytics-apis/allow-account-explorer-access-google-account.png)</br></br>
+
+* Select your Account, Property, and View.
+
+![Account Explorer]({static}/images/create-oauth-credentials-for-google-analytics-apis/select-accout-property-view-in-account-explorer.png)</br></br>
+
+* **View** field contain **VIEW_ID** requested by Google Analytics API.
+
+## 8. API v4 Sample
+
+The sample shows a number of sessions for the last 8 days.
+
+Create an HTML file on your server replacing **client_id** with yours in`<meta name="google-signin-client_id" content="109743573222-tu7960r1m6kam5acmigfumlqebf016cf.apps.googleusercontent.com">` line and VIEW_ID in `var VIEW_ID = '209816969';` line, and open it in browser. It will ask for your Google account credentials associated with your Google Analytics.
 
     :::html
-        <!DOCTYPE html>
+    <!DOCTYPE html>
     <html>
     <head>
       <meta charset="utf-8">
-      <title>Hello Analytics - A quickstart guide for JavaScript</title>
+      <title>Analytics Reporting API V4 Sample</title>
+      <meta name="google-signin-client_id" content="109743573222-tu7960r1m6kam5acmigfumlqebf016cf.apps.googleusercontent.com">
+      <meta name="google-signin-scope" content="https://www.googleapis.com/auth/analytics.readonly">
     </head>
     <body>
 
-    <button id="auth-button" hidden>Authorize</button>
+    <h1>Analytics Reporting API V4 Sample</h1>
 
-    <h1>Hello Analytics</h1>
+    <!-- The Sign-in button. This will run `queryReports()` on success. -->
+    <p class="g-signin2" data-onsuccess="queryReports"></p>
 
-    <textarea cols="80" rows="20" id="query-output"></textarea>
+    <!-- The Sign-out button. -->
+    <button onclick="signOut()">Logout</button>
+
+
+    <!-- The API response will be printed here. -->
+    <h3>API response</h3>
+    <textarea cols="80" rows="10" id="query-output"></textarea>
+
+    <!-- The errors will be printed here. -->
+    <h3>Error</h3>
+    <textarea cols="80" rows="5" id="query-error"></textarea>
+
 
     <script>
+      // Replace with your view ID.
+      var VIEW_ID = '209816969';
 
-      // Replace with your client ID from the developer console.
-      var CLIENT_ID = '109743573222-tu7960r1m6kam5acmigfumlqebf016cf.apps.googleusercontent.com';
+      // Query the API and print the results to the page.
+      function queryReports() {
 
-      // Set authorized scope.
-      var SCOPES = ['https://www.googleapis.com/auth/analytics.readonly'];
+        try{
 
+          document.getElementById('query-error').value = '';
 
-      function authorize(event) {
-        // Handles the authorization flow.
-        // `immediate` should be false when invoked from the button click.
-        var useImmdiate = event ? false : true;
-        var authData = {
-          client_id: CLIENT_ID,
-          scope: SCOPES,
-          immediate: useImmdiate
-        };
-
-        gapi.auth.authorize(authData, function(response) {
-          var authButton = document.getElementById('auth-button');
-          if (response.error) {
-            authButton.hidden = false;
-          }
-          else {
-            authButton.hidden = true;
-            queryAccounts();
-          }
-        });
+          gapi.client.request({
+            path: '/v4/reports:batchGet',
+            root: 'https://analyticsreporting.googleapis.com/',
+            method: 'POST',
+            body: {
+              reportRequests: [
+                {
+                  viewId: VIEW_ID,
+                  dateRanges: [
+                    {
+                      startDate: '7daysAgo',
+                      endDate: 'today-1'
+                    }
+                  ],
+                  metrics: [
+                    {
+                      expression: 'ga:sessions'
+                    }
+                  ]
+                }
+              ]
+            }
+          }).then(displayResults, displayErrors);
+        }
+        catch(err) {
+          document.getElementById('query-error').value = err;
+        }
       }
 
-
-    function queryAccounts() {
-      // Load the Google Analytics client library.
-      gapi.client.load('analytics', 'v3').then(function() {
-
-        // Get a list of all Google Analytics accounts for this user
-        gapi.client.analytics.management.accounts.list().then(handleAccounts);
-      });
-    }
-
-
-    function handleAccounts(response) {
-      // Handles the response from the accounts list method.
-      if (response.result.items && response.result.items.length) {
-        // Get the first Google Analytics account.
-        var firstAccountId = response.result.items[0].id;
-
-        // Query for properties.
-        queryProperties(firstAccountId);
-      } else {
-        console.log('No accounts found for this user.');
-      }
-    }
-
-
-    function queryProperties(accountId) {
-      // Get a list of all the properties for the account.
-      gapi.client.analytics.management.webproperties.list(
-          {'accountId': accountId})
-        .then(handleProperties)
-        .then(null, function(err) {
-          // Log any errors.
-          console.log(err);
-      });
-    }
-
-
-    function handleProperties(response) {
-      // Handles the response from the webproperties list method.
-      if (response.result.items && response.result.items.length) {
-
-        // Get the first Google Analytics account
-        var firstAccountId = response.result.items[0].accountId;
-
-        // Get the first property ID
-        var firstPropertyId = response.result.items[0].id;
-
-        // Query for Views (Profiles).
-        queryProfiles(firstAccountId, firstPropertyId);
-      } else {
-        console.log('No properties found for this user.');
-      }
-    }
-
-
-    function queryProfiles(accountId, propertyId) {
-      // Get a list of all Views (Profiles) for the first property
-      // of the first Account.
-      gapi.client.analytics.management.profiles.list({
-          'accountId': accountId,
-          'webPropertyId': propertyId
-      })
-      .then(handleProfiles)
-      .then(null, function(err) {
-          // Log any errors.
-          console.log(err);
-      });
-    }
-
-
-    function handleProfiles(response) {
-      // Handles the response from the profiles list method.
-      if (response.result.items && response.result.items.length) {
-        // Get the first View (Profile) ID.
-        var firstProfileId = response.result.items[0].id;
-
-        // Query the Core Reporting API.
-        queryCoreReportingApi(firstProfileId);
-      } else {
-        console.log('No views (profiles) found for this user.');
-      }
-    }
-
-
-    function queryCoreReportingApi(profileId) {
-      // Query the Core Reporting API for the number sessions for
-      // the past seven days.
-      gapi.client.analytics.data.ga.get({
-        'ids': 'ga:' + profileId,
-        'start-date': '30daysAgo',
-        'end-date': 'yesterday',
-        'metrics': 'ga:sessions'
-      })
-      .then(function(response) {
+      function displayResults(response) {
         var formattedJson = JSON.stringify(response.result, null, 2);
         document.getElementById('query-output').value = formattedJson;
-      })
-      .then(null, function(err) {
-          // Log any errors.
-          console.log(err);
-      });
-    }
+      }
 
-      // Add an event listener to the 'auth-button'.
-      document.getElementById('auth-button').addEventListener('click', authorize);
+      function displayErrors(reason) {
+        document.getElementById('query-error').value = reason.result.error.message;
+      }
+
+      function signOut() {
+        gapi.auth2.getAuthInstance().disconnect()
+        document.getElementById('query-output').value = '';
+        document.getElementById('query-error').value = '';
+      }
     </script>
 
-    <script src="https://apis.google.com/js/client.js?onload=authorize"></script>
+    <!-- Load the JavaScript API client and Sign-in library. -->
+    <script src="https://apis.google.com/js/client:platform.js"></script>
 
     </body>
     </html>
@@ -254,43 +191,53 @@ Response is
 
     :::json
     {
-      "kind": "analytics#gaData",
-      "id": "https://www.googleapis.com/analytics/v3/data/ga?ids=ga:209816969&metrics=ga:sessions&start-date=30daysAgo&end-date=yesterday",
-      "query": {
-        "start-date": "30daysAgo",
-        "end-date": "yesterday",
-        "ids": "ga:209816969",
-        "metrics": [
-          "ga:sessions"
-        ],
-        "start-index": 1,
-        "max-results": 1000
-      },
-      "itemsPerPage": 1000,
-      "totalResults": 1,
-      "selfLink": "https://www.googleapis.com/analytics/v3/data/ga?ids=ga:209816969&metrics=ga:sessions&start-date=30daysAgo&end-date=yesterday",
-      "profileInfo": {
-        "profileId": "209816969",
-        "accountId": "156524189",
-        "webPropertyId": "UA-156524189-1",
-        "internalWebPropertyId": "220549817",
-        "profileName": "All Web Site Data",
-        "tableId": "ga:209816969"
-      },
-      "containsSampledData": false,
-      "columnHeaders": [
+      "reports": [
         {
-          "name": "ga:sessions",
-          "columnType": "METRIC",
-          "dataType": "INTEGER"
+          "columnHeader": {
+            "metricHeader": {
+              "metricHeaderEntries": [
+                {
+                  "name": "ga:sessions",
+                  "type": "INTEGER"
+                }
+              ]
+            }
+          },
+          "data": {
+            "rows": [
+              {
+                "metrics": [
+                  {
+                    "values": [
+                      "43"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "totals": [
+              {
+                "values": [
+                  "43"
+                ]
+              }
+            ],
+            "rowCount": 1,
+            "minimums": [
+              {
+                "values": [
+                  "43"
+                ]
+              }
+            ],
+            "maximums": [
+              {
+                "values": [
+                  "43"
+                ]
+              }
+            ]
+          }
         }
-      ],
-      "totalsForAllResults": {
-        "ga:sessions": "94"
-      },
-      "rows": [
-        [
-          "94"
-        ]
       ]
     }

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Analytics Reporting API V4 Sample</title>
+  <meta name="google-signin-client_id" content="109743573222-tu7960r1m6kam5acmigfumlqebf016cf.apps.googleusercontent.com">
+  <meta name="google-signin-scope" content="https://www.googleapis.com/auth/analytics.readonly">
+</head>
+<body>
+
+<h1>Analytics Reporting API V4 Sample</h1>
+
+<!-- The Sign-in button. This will run `queryReports()` on success. -->
+<p class="g-signin2" data-onsuccess="queryReports"></p>
+
+<!-- The Sign-out button. -->
+<button onclick="signOut()">Logout</button>
+
+
+<!-- The API response will be printed here. -->
+<h3>API response</h3>
+<textarea cols="80" rows="10" id="query-output"></textarea>
+
+<!-- The errors will be printed here. -->
+<h3>Error</h3>
+<textarea cols="80" rows="5" id="query-error"></textarea>
+
+
+<script>
+  // Replace with your view ID.
+  var VIEW_ID = '209816969';
+
+  // Query the API and print the results to the page.
+  function queryReports() {
+
+    try{
+
+      document.getElementById('query-error').value = '';
+
+      gapi.client.request({
+        path: '/v4/reports:batchGet',
+        root: 'https://analyticsreporting.googleapis.com/',
+        method: 'POST',
+        body: {
+          reportRequests: [
+            {
+              viewId: VIEW_ID,
+              dateRanges: [
+                {
+                  startDate: '7daysAgo',
+                  endDate: 'today'
+                }
+              ],
+              metrics: [
+                {
+                  expression: 'ga:sessions'
+                }
+              ]
+            }
+          ]
+        }
+      }).then(displayResults, displayErrors);
+    }
+    catch(err) {
+      document.getElementById('query-error').value = err;
+    }
+  }
+
+  function displayResults(response) {
+    var formattedJson = JSON.stringify(response.result, null, 2);
+    document.getElementById('query-output').value = formattedJson;
+  }
+
+  function displayErrors(reason) {
+    document.getElementById('query-error').value = reason.result.error.message;
+  }
+
+  function signOut() {
+    gapi.auth2.getAuthInstance().disconnect()
+    document.getElementById('query-output').value = '';
+    document.getElementById('query-error').value = '';
+  }
+</script>
+
+<!-- Load the JavaScript API client and Sign-in library. -->
+<script src="https://apis.google.com/js/client:platform.js"></script>
+
+</body>
+</html>

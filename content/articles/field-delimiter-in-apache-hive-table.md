@@ -12,7 +12,7 @@ There are 2 major SerDe (Serializer/Deserializer) for text data. SerDe defines i
 
 `LazySimpleSerDe` is more efficient in terms of performance. `OpenCSVSerde has` a limitation to handle only string data type in Hive tables. The default format is `LazySimpleSerDe`.
 
-The main issue with field delimiter is that Java `char` data type is used as an argument to assign a field delimiter. It can hold only 2 bytes. Java `char` data type can understand both ASCII and Unicode characters but it can hold Unicode characters which belong to ASCII table.
+The main issue with field delimiter is that Java `char` data type is used as an argument to assign a field delimiter. It can hold only 2 bytes. Java `char` data type can understand both ASCII and Unicode characters but it can handle Unicode characters which belong to ASCII table.
 
 The rules to assign a filed delimiter are.
 

@@ -1,6 +1,6 @@
 Title: Create OAuth Credentials for Google Analytics APIs
 Date: 2020-04-18
-Category: Google
+Category: Google Analytics
 Cover: /extra/google-analytics-logo.png
 
 One of the ways to implement Google Analytics in your tools or Web sites is to utilize Google Analytics APIs. This way is very flexible as Google Analytics APIs can be used with wide range of the programming languages. Moreover, APIs are mature product which on the market for many years. The latest v4 contains rich set of functionalities which was forged from earliest versions. It's back compatible with previous v3. The first step to start using Google Analytics APIs includes creating of an OAuth credentials. There are many options to proceed with it but we follow a route to generate credentials for a Web site with javascript implementation. It's applicable to other scenarios as well.

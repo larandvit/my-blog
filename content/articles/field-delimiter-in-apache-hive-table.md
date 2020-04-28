@@ -5,14 +5,14 @@ Cover: /extra/apache-hive-logo.png
 
 Not too much official documentation can be found on how to define a field delimiter in a create or an alter Apache Hive statement. This setting is requested for delimited text files placed as source of Hive tables. When a field delimiter is not assigned properly, Hive can't split data into columns, and as a result, the first column will contain all data and the rest of columns will have NULL values. Also, it's critical to know a default field delimiter if field delimiter setting is missed in a create statement.
 
-There are 2 major SerDe (Serializer/Deserializer) for text data. SerDe defines input/output (IO) interface which handles: (1) read data from a Hive table and (2) write it back out to HDFS. `org.apache.hadoop.hive.serde2` is the Hive SerDe library including `TEXTFILE` formats.
+There are 2 major SerDe (Serializer/Deserializer) classes for text data. SerDe defines input/output (IO) interface which handles: (1) read data from a Hive table and (2) write it back out to HDFS. `org.apache.hadoop.hive.serde2` is the Hive SerDe library including `TEXTFILE` formats.
 
 1. `org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe`. The default field delimiter value is `'\001'`.
 2. `org.apache.hadoop.hive.serde2.OpenCSVSerde`The default field delimiter value is `','`.
 
 `LazySimpleSerDe` is more efficient in terms of performance. `OpenCSVSerde has` a limitation to handle only string data type in Hive tables. The default format is `LazySimpleSerDe`.
 
-The main issue with field delimiter is that Java `char` data type is used as an argument to assign a field delimiter. It can hold only 2 bytes. Java `char` data type can understand both ASCII and Unicode characters but it can handle Unicode characters which belong to ASCII table.
+The main issue with field delimiter is that Java `char` data type is used as an argument to assign a field delimiter. It can hold only 2 bytes. Java `char` data type can understand both ASCII and Unicode characters but it can handle Unicode characters which belong to ASCII table. Characters of the first part of ASCII table with codes from 0 to 127 are only accepted as field delimiters. If you need to use the extended ASCII character from 128 to 255 codes, it should be used other SerDe classes, for example, `org.apache.hadoop.hive.contrib.serde2.RegexSerDe`.
 
 The rules to assign a filed delimiter are.
 

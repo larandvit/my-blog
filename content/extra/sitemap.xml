@@ -6,6 +6,10 @@
 
          xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
+   	<loc>https://techjogging.com/multi-character-field-delimiter-in-apache-hive-table.html</loc>
+   	<lastmod>2020-04-29</lastmod>
+   </url>
+   <url>
    	<loc>https://techjogging.com/field-delimiter-in-apache-hive-table.html</loc>
    	<lastmod>2020-04-26</lastmod>
    </url>

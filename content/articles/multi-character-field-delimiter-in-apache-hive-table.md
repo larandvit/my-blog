@@ -46,15 +46,15 @@ One more limitation is that skip header lines functionality (`TBLPROPERTIES ("sk
         :::sql
         CREATE EXTERNAL TABLE `sample_table`(
            `column1` string,
-           `column1` string,
-           `column1` string,
-           `column1` string)
+           `column2` string,
+           `column3` string,
+           `column4` string)
         ROW FORMAT SERDE 'org.apache.hadoop.hive.contrib.serde2.RegexSerDe'
         WITH SERDEPROPERTIES (
           "input.regex" = "(.*)[~][|](.*)[~][|](.*)[~][|](.*)"
         )
         LOCATION
-         /folder/folder2'
+         '/folder/folder2'
         TBLPROPERTIES (
          "skip.header.line.count"="1"
         );

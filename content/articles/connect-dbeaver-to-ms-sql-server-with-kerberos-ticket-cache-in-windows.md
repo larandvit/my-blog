@@ -7,59 +7,7 @@ The easiest way to connect DBeaver to MS SQL Server with Kerberos authentication
 
 ## 1. Create Kerberos Ticket Cache File
 
-There are some ways to proceed with it. 
-
-1. Run `kinit` java tool located in **C:\Program Files\Java\jre[version]\bin** folder. It's generated **C:\Users\windowsuser\krb5cc_windowsuser** Kerberos ticket cache file.
-
-    a) If Kerberos ticket cache is created for a user currently logged in to a Windows computer
-
-        :::bash
-        kinit
-
-    Output
- 
-        :::text
-        Password for windowsuser@SAMPLE.COM:
-        New ticket is stored in cache file C:\Users\windowsuser\krb5cc_windowsuser
-
-    b) If Kerberos ticket cache is created for a different user from currently logged in to a Windows computer
-
-        :::bash
-        kinit windowsuser@SAMPLE.COM
-
-    Output
-
-        :::text
-        Password for windowsuser@SAMPLE.COM:
-        New ticket is stored in cache file C:\Users\windowsuser\krb5cc_windowsuser
-
-2. Use **MIT Kerberos Ticket Manager** interactive tool with user interface. It can be loaded from [MIT Kerberos Distribution Page](https://web.mit.edu/kerberos/dist/).
-
-3. Utilize Kerberos keytab file with kerberized Windows service account provided by your administrator. Notice that a Kerberos ticket cache file is created in context of a current user logged in to a Windows computer. It's the best location as it's the default one.
-
-        :::bash
-        kinit servicewindowsaccount@SAMPLE.COM -k -t keytabname.keytab
-
-    Output
-
-        :::text
-        New ticket is stored in cache file C:\Users\windowsuser\krb5cc_windowsuser
-        
-The created cache file can be validated with `klist` command
-
-    :::bash
-    klist
-
-Output
-
-    :::text
-    Credentials cache: C:\Users\windowsuser\krb5cc_windowsuser
-    
-    Default principal: windowsuser@SAMPLE.COM, 1 entry found.
-    
-    [1]  Service Principal:  krbtgt/SAMPLE.COM@SAMPLE.COM
-         Valid starting:     Mar 26, 2020 21:35:00
-         Expires:            Mar 27, 2020 07:35:00
+See [Create Ticket Cache File for Kerberos Authentication in Windows]({filename}/articles/create-ticket-cache-file-for-kerberos-authentication-in-windows.md) article.
   
 ## 2. Add New MS SQL Connection
 

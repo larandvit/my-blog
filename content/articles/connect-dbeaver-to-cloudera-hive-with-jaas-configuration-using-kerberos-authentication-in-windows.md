@@ -26,7 +26,7 @@ Before going forward, let's get agreed with the initial information used in conf
 
     a) Kerberos credential cache: krb5cc_mywindowsuser. This file contains your Windows kerberized credentials. Using this file will request to renew it.
 
-    b) Kerberos keytab file: mywindowsuser.keytab. This file stores your Windows kerberized credentials. It doesn't request renewal. See [Create keytab File for Kerberos Authentication in Windows]({filename}/articles/create-keytab-file-for-kerberos-authentication-in-windows.md) article.
+    b) Kerberos keytab file: mywindowsuser.keytab. This file stores your Windows kerberized credentials. It doesn't request renewal.
 
 ## Setup
 
@@ -113,30 +113,11 @@ The following sample based on **DBeaver EE v. 6.3.0 64 bit** and **Cloudera Hive
 
     Option #1. Kerberos credential cache.
     
-    Run Windows Command Prompt with the command to create a cache file with your credentials. You can play with settings to accommodate your requirements.
-
-        :::batch
-        "C:\Program Files\Java\jre1.8.0_192\bin\kinit"
-        
-    The successful completion is.
-
-        :::text
-        Password for mywindowsuser@REGION.SAMPLE.COM:
-        New ticket is stored in cache file C:\Users\mywindowsuser\krb5cc_mywindowsuser
+    See [Create Ticket Cache File for Kerberos Authentication in Windows]({filename}/articles/create-ticket-cache-file-for-kerberos-authentication-in-windows.md) article.
 
     Option #2. Kerberos keytab file.
     
-    Run Windows Command Prompt with the command create a new keytab file with your credentials.
-
-        :::batch
-        "C:\Program Files\Java\jre1.8.0_192\bin\ktab" -a mywindowsuser -k mywindowsuser.keytab
-    
-    The successful completion is.
-       
-        :::text
-        Password for mywindowsuser@REGION.SAMPLE.COM:
-        Done!
-        Service key for mywindowsuser is saved in myserviceuser.keytab
+    See [Create keytab File for Kerberos Authentication in Windows]({filename}/articles/create-keytab-file-for-kerberos-authentication-in-windows.md) article.
 
 6. Create a new driver in DBeaver
 

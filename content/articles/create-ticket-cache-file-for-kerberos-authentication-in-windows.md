@@ -7,7 +7,7 @@ Kerberos ticket cache is one of the options to utilize Kerberos authentication i
 
 Kerberos ticket cache file default location and name are `C:\Users\windowsuser\krb5cc_windowsuser` and mostly tools recognizes it.
 
-There are some tools and techniques to generate a ticket file cache file.
+There are some tools and techniques to generate a ticket cache file.
 
 ## 1. Kinit Java tool
 

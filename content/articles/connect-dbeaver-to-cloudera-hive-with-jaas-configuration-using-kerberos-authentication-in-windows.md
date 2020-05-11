@@ -109,8 +109,6 @@ The following sample based on **DBeaver EE v. 6.3.0 64 bit** and **Cloudera Hive
 
 5. Create Kerberos authentication file
     
-    The Kerberos tools are part of java installation and you need to figure out the location of your jre installation. It's assumed java 8 is installed in C:\Program Files\Java\jre1.8.0_192 folder.
-
     Option #1. Kerberos credential cache.
     
     See [Create Ticket Cache File for Kerberos Authentication in Windows]({filename}/articles/create-ticket-cache-file-for-kerberos-authentication-in-windows.md) article.

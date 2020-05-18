@@ -6,6 +6,10 @@
 
          xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
+   	<loc>https://techjogging.com/installing-and-using-pip-on-synology-dsm.html</loc>
+   	<lastmod>2020-05-18</lastmod>
+   </url>
+   <url>
    	<loc>https://techjogging.com/create-ticket-cache-file-for-kerberos-authentication-in-windows.html</loc>
    	<lastmod>2020-05-10</lastmod>
    </url>

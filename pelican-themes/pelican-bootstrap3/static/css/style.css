@@ -273,3 +273,12 @@ figure.floatcenter, .align-center {
 	height: 36px;
 	margin-top: 12px;
 }
+
+.pageviews {
+	display: none;
+}
+
+.article-info-label{
+	padding-left: 2px;
+	padding-right: 4px;
+}

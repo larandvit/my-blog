@@ -13,5 +13,7 @@ The changes to pelican-bootstrap3 theme are
 4. Modified base.html template to add Meta Description Tag. It's mandatory SEO element. **pelicanconf.py** file should have `SITE_DESCRIPTION` variable, for example `SITE_DESCRIPTION = 'A personal blog.'`. 
 5. Modified base.html template to add `alt` attribute to site logo image. The value is `SITENAME`. SEO requests that all images have to have `alt` attribute.
 6. Modified base.html template and style.css to (1) add search icon, (2) reduce search input field height, and (3) line up search input field for desktop and mobile in tipue_search. 
+7. Modified article_list.html to make article labels with left and right paddings.
+8. Added page views counter to article pages.
 
 The actual blog is located [here](https://techjogging.com).

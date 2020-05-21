@@ -110,4 +110,49 @@
     <!-- add shariff support -->
     <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/shariff.min.js"></script>
 {% endif %}
+<script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/report_access.js"></script>
+<script type="text/javascript">
+(function(w,d,s,g,js,fs){
+  g=w.gapi||(w.gapi={});g.analytics={q:[],ready:function(f){this.q.push(f);}};
+  js=d.createElement(s);fs=d.getElementsByTagName(s)[0];
+  js.src='https://apis.google.com/js/platform.js';
+  fs.parentNode.insertBefore(js,fs);js.onload=function(){g.load('analytics');};
+}(window,document,'script'));
+</script>
+<script type="text/javascript">
+gapi.analytics.ready(function() {
+
+	  /**
+	   * Authorize the user with an access token obtained server side.
+	   */
+	  gapi.analytics.auth.authorize({
+	    'serverAuth': {
+	      'access_token': ANALYTICS_TOKEN
+	    }
+	  });
+	  
+	  var pagePathFilter = 'ga:pagePath==' + window.location.pathname;
+	  
+	  var report = new gapi.analytics.report.Data({
+		  query: {
+		    ids: 'ga:209816969',
+		    'start-date': '2020-02-29',
+		    'end-date': 'today',
+		    metrics: 'ga:pageviews',
+		    filters: pagePathFilter
+		  }
+		});
+
+		report.on('success', function(response) {
+			$('#query-output').text(response.totalsForAllResults['ga:pageviews']);
+			for (pageviewsElement of document.getElementsByClassName('pageviews')){
+				pageviewsElement.style.display='initial';
+			}
+		});
+
+		report.execute();
+
+	  
+	});
+</script>
 {% endblock %}

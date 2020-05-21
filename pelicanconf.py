@@ -64,7 +64,8 @@ EXTRA_PATH_METADATA = {
     'extra/robots.txt': {'path': 'robots.txt'},
     'extra/sitemap.xml': {'path': 'sitemap.xml'},
     'extra/yandex_96a264214b85ba90.html': {'path': 'yandex_96a264214b85ba90.html'},
-    'extra/missing': {'path': 'missing'}
+    'extra/missing': {'path': 'missing'},
+    'extra/report_access.js': {'path': 'theme/js/report_access.js'}
 }
 
 SITELOGO = 'extra/site-logo.png'
@@ -78,6 +79,8 @@ MINIFY = {
 }
 
 DELETE_OUTPUT_DIRECTORY = True
+
+DEFAULT_DATE_FORMAT = '%Y-%m-%d'
 
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True

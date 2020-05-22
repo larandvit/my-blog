@@ -4,7 +4,7 @@
         <i class="fa fa-calendar"></i><time datetime="{{ article.date.isoformat() }}"> {{ article.locale_date }}</time>
     </span>
     <span class="label label-default pageviews">Views</span>
-	<a href="#" class="article-info-label"><span class="badge pageviews" id="query-output"></span></a>
+	<span class="article-info-label pageviews"><span class="badge pageviews" id="query-output"></span></span>
     {% if SHOW_DATE_MODIFIED %}
         {% if article.modified %}
           <span class="label label-default">{{ _('Modified') }}</span>

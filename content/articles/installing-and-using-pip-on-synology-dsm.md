@@ -7,6 +7,10 @@ Python3 can be easily installed on Synology DSM through Synology Installation Ce
 
 The article is based on Synology DSM 6.2.2-24922 Update 4 and Python version is 3.5.1.
 
+Python 3.5.1 `bin` folder is `/volume1/@appstore/py3k/usr/local/bin`.
+
+Python 3.5.1 `lib` is located in `/volume1/@appstore/py3k/usr/local/lib/python3.5` folder.
+
 ## 1. Validate Python3 installation and version.
 
     :::bash

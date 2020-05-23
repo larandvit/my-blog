@@ -112,9 +112,12 @@ gapi.analytics.ready(function() {
 		});
 
 		report.on('success', function(response) {
-			$('#query-output').text(response.totalsForAllResults['ga:pageviews']);
-			for (pageviewsElement of document.getElementsByClassName('pageviews')){
-				pageviewsElement.style.display='initial';
+			pageViews = response.totalsForAllResults['ga:pageviews'];
+			if (pageViews!='0') {
+				$('#query-output').text(pageViews);
+				for (pageviewsElement of document.getElementsByClassName('pageviews')){
+					pageviewsElement.style.display='initial';
+				}
 			}
 		});
 

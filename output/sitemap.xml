@@ -6,6 +6,10 @@
 
          xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
+   	<loc>https://techjogging.com/configure-talend-job-connect-sqlserver-windows-integrated-authentication.html</loc>
+   	<lastmod>2020-05-27</lastmod>
+   </url>
+   <url>
    	<loc>https://techjogging.com/installing-and-using-pip-on-synology-dsm.html</loc>
    	<lastmod>2020-05-18</lastmod>
    </url>

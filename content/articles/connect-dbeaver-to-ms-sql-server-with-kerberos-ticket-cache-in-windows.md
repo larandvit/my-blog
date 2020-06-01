@@ -31,7 +31,7 @@ See [Create Ticket Cache File for Kerberos Authentication in Windows]({filename}
 
 ## 3. Upgrade MS SQL Drivers
 
-It's an optional step if you are able to connect to MS SQL Server.
+It's an optional step if you are not able to connect to MS SQL Server.
 
 1. Download [Microsoft JDBC Driver for SQL Server](https://docs.microsoft.com/en-us/sql/connect/jdbc/download-microsoft-jdbc-driver-for-sql-server)
 

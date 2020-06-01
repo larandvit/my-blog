@@ -6,6 +6,10 @@
 
          xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
+   	<loc>https://techjogging.com/create-keytab-file-kerberos-authentication-linux.html</loc>
+   	<lastmod>2020-05-31</lastmod>
+   </url>
+   <url>
    	<loc>https://techjogging.com/add-google-analytics-pageviews-static-web-site.html</loc>
    	<lastmod>2020-05-31</lastmod>
    </url>

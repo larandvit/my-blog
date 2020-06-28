@@ -6,6 +6,10 @@
 
          xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
+   	<loc>https://techjogging.com/access-minio-s3-storage-prestodb-cluster.html</loc>
+   	<lastmod>2020-06-28</lastmod>
+   </url>
+   <url>
    	<loc>https://techjogging.com/create-ticket-cache-kerberos-authentication-linux.html</loc>
    	<lastmod>2020-06-02</lastmod>
    </url>

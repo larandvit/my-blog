@@ -3,13 +3,13 @@ Date: 2020-06-28
 Category: PrestoDB, MinIO
 Cover: /extra/prestodb-logo.png
 
-PrestoDB is aimed to access a variety of data sources by means of connectors. Hive connector is used to access files stored in Hadoop Distributed File System (HDFS) or S3 compatible storages. Metadata can be accessible via Hive metastore. Another option to access metadata is PrestoDB. It simplifies the PrestoDB infrastructure eliminating Hive metastore. Also, in case of Hive metastore, internal tables are stored in HDFS and as a result, it requests installation of Hadoop. PrestoDB can handle both metadata and internal tables.
+PrestoDB is aimed to access a variety of data sources by means of connectors. Hive connector is used to access files stored in Hadoop Distributed File System (HDFS) or S3 compatible storages. Hive metastore can be configured with two options: Thrift or Glue. There is another undocumented option, it is the file metastore. Metadata and data are stored in file system. As a result, the setup is very simple. It is a couple of lines in a configuration file. **This setup is not aimed for production usage**. The main use cases might be demo or PoC projects.
 
 S3 compatible storages are very good alternatives to store big data. They are lightweight, easy to set up, and support. Many of those storages are open source.
 
 When building an enterprise level system, it is important to set up and tune up PrestoDB to work with a coordinator and one or more workers. The setup is different from single node one.
 
-MinIO S3 compatible storage along with hiveless metadata configuration is used in the sample below. Internal tables are stored in a shared folder.
+MinIO S3 compatible storage along with file metadata configuration is used in the sample below. Internal tables are stored in a shared folder.
 
 Hive connector property file is created in `/etc/presto/catalog` folder or it can be deployed by presto-admin tool or other tools. The name might be `minio.properties`. It has to have `.properties` extension name.
 

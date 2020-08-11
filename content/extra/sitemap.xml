@@ -6,6 +6,10 @@
 
          xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
+   	<loc>https://techjogging.com/set-up-nvme-raid-z370-z390-chipset-motherboards.html</loc>
+   	<lastmod>2020-08-11</lastmod>
+   </url>
+   <url>
    	<loc>https://techjogging.com/memory-setup-prestodb-cluster.html</loc>
    	<lastmod>2020-08-09</lastmod>
    </url>

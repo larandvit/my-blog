@@ -1,9 +1,10 @@
 Title: Access MinIO S3 Storage in PrestoDB Cluster
 Date: 2020-06-28
+Modified: 2020-08-12
 Category: PrestoDB, MinIO
 Cover: /extra/prestodb-logo.png
 
-PrestoDB is aimed to access a variety of data sources by means of connectors. Hive connector is used to access files stored in Hadoop Distributed File System (HDFS) or S3 compatible storages. Hive metastore can be configured with two options: Thrift or Glue. There is another undocumented option, it is the file metastore. Metadata and data are stored in file system. As a result, the setup is very simple. It is a couple of lines in a configuration file. **This setup is not aimed for production usage**. The main use cases might be demo or PoC projects.
+PrestoDB is aimed to access a variety of data sources by means of connectors. Hive connector is used to access files stored in Hadoop Distributed File System (HDFS) or S3 compatible storages. Hive metastore can be configured with two options: Thrift or Glue. There is another undocumented option, it is the file metastore. It was developed by [Dain Sundstrom](https://www.linkedin.com/in/dainsundstrom/) in a weekend. Metadata and data are stored in file system. As a result, the setup is very simple. It is a couple of lines in a configuration file. **This setup is not aimed for production usage**. The main use cases might be demo or PoC projects.
 
 S3 compatible storages are very good alternatives to store big data. They are lightweight, easy to set up, and support. Many of those storages are open source.
 

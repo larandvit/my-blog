@@ -39,6 +39,8 @@ DEFAULT_PAGINATION = 10
 DEFAULT_ORPHANS = 2
 PAGINATED_TEMPLATES = {'index': None}
 
+SHOW_DATE_MODIFIED = True
+
 SLUGIFY_SOURCE = 'basename'
 
 PLUGINS = [ 'i18n_subsites', 'tipue_search', 'more_categories', 'minify' ]

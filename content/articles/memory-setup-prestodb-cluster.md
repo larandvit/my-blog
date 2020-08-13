@@ -1,15 +1,15 @@
-Title: Memory Configuration in PrestoDB Cluster
+Title: Memory Configuration in Presto Cluster
 Date: 2020-08-09
-Category: PrestoDB
+Category: Presto
 Cover: /extra/prestodb-logo.png
 
-PrestoDB cluster is sensitive to memory setup. As PrestoDB is developed in Java, Java is foundation to configure it. In many cases, PrestoDB server is not started because of memory configuration. During PrestoDB server launch, the validation rules are applied to make sure that major memory settings are consistent. It does not guarantee of cluster stability and performance so spending time on initial memory setup can contribute to success of your cluster.
+[Presto](https://prestodb.io/) cluster is sensitive to memory setup. As Presto is developed in Java, Java is foundation to configure it. In many cases, Presto server is not started because of memory configuration. During Presto server launch, the validation rules are applied to make sure that major memory settings are consistent. It does not guarantee of cluster stability and performance so spending time on initial memory setup can contribute to success of your cluster.
 
 The article is based on CentOS 7 environment and Starburst version 332-e.1.
 
 ## Disable Linux swap
 
-PrestoDB assumes that memory swap is disabled and is not mounted.
+Presto assumes that memory swap is disabled and is not mounted.
 
 The current swappiness setting can be received.
 
@@ -45,7 +45,7 @@ The setting is defined in `jvm.config` file. It should be set up 70-80% of a ser
     :::ini
     -Xmx480G
 
-## Default PrestoDB configuration
+## Default Presto configuration
 
 The list of memory settings are below. If any value is skipped, it is taken as the default one.
 
@@ -117,6 +117,6 @@ OOM can be mitigated if spilling memory to disk is enabled. It does not cover al
 
 ## Resources
 
-* [PrestoDB Memory Management Properties](https://prestodb.io/docs/current/admin/properties.html#memory-management-properties)
+* [Presto Memory Management Properties](https://prestodb.io/docs/current/admin/properties.html#memory-management-properties)
 * [Starburst Configuring Presto](https://docs.starburstdata.com/latest/presto-admin/installation/presto-configuration.html)
 * Presto The Definitive Guide by O’Reilly

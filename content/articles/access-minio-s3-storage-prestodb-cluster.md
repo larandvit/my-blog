@@ -1,14 +1,14 @@
-Title: Access MinIO S3 Storage in PrestoDB Cluster
+Title: Access MinIO S3 Storage in Presto Cluster
 Date: 2020-06-28
 Modified: 2020-08-12
-Category: PrestoDB, MinIO
+Category: Presto, MinIO
 Cover: /extra/prestodb-logo.png
 
-PrestoDB is aimed to access a variety of data sources by means of connectors. Hive connector is used to access files stored in Hadoop Distributed File System (HDFS) or S3 compatible storages. Hive metastore can be configured with two options: Thrift or Glue. There is another undocumented option, it is the file metastore. It was developed by [Dain Sundstrom](https://www.linkedin.com/in/dainsundstrom/) in a weekend. Metadata and data are stored in file system. As a result, the setup is very simple. It is a couple of lines in a configuration file. **This setup is not aimed for production usage**. The main use cases might be demo or PoC projects.
+[Presto](https://prestodb.io/) is aimed to access a variety of data sources by means of connectors. Hive connector is used to access files stored in Hadoop Distributed File System (HDFS) or S3 compatible storages. Hive metastore can be configured with two options: Thrift or Glue. There is another undocumented option, it is the file metastore. It was developed by [Dain Sundstrom](https://www.linkedin.com/in/dainsundstrom/) in a weekend. Metadata and data are stored in file system. As a result, the setup is very simple. It is a couple of lines in a configuration file. **This setup is not aimed for production usage**. The main use cases might be demo or PoC projects.
 
 S3 compatible storages are very good alternatives to store big data. They are lightweight, easy to set up, and support. Many of those storages are open source.
 
-When building an enterprise level system, it is important to set up and tune up PrestoDB to work with a coordinator and one or more workers. The setup is different from single node one.
+When building an enterprise level system, it is important to set up and tune up Presto to work with a coordinator and one or more workers. The setup is different from single node one.
 
 MinIO S3 compatible storage along with file metadata configuration is used in the sample below. Internal tables are stored in a shared folder.
 

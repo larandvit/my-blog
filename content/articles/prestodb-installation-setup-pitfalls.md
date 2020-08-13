@@ -1,9 +1,9 @@
-Title: PrestoDB Installation and Setup Pitfalls
+Title: Presto Installation and Setup Pitfalls
 Date: 2020-07-03
-Category: PrestoDB
+Category: Presto
 Cover: /extra/prestodb-logo.png
 
-Like other installations and setups, PrestoDB one can contain steps which cause difficulties. How many times you were stuck with something? In mostly cases, it was a trivial issue but you spent countless time to solve it. It's better to have a cheat sheet for discovering those issues before encountering them. The list of pitfalls is based on [Starburst open source distribution](https://www.starburstdata.com/starburst-presto-sql/) version 332-e.1 and CentOS 7.
+Like other installations and setups, [Presto](https://prestodb.io/) one can contain steps which cause difficulties. How many times you were stuck with something? In mostly cases, it was a trivial issue but you spent countless time to solve it. It's better to have a cheat sheet for discovering those issues before encountering them. The list of pitfalls is based on [Starburst open source distribution](https://www.starburstdata.com/starburst-presto-sql/) version 332-e.1 and CentOS 7.
 
 ## Installation steps for cluster setup
 
@@ -23,7 +23,7 @@ To speed up the process of installation, use Presto Admin tool. It can install j
 12. Restart your cluster with Presto Admin.
 
 ## Disable swap on each node
-PrestoDB assumes that swap is not used. Swap can dramatically impact on performance and stability of a Presto cluster. If swap is on, memory consumption will be close to 100% and, as a result, Presto cluster will be slow and many queries will fail.
+Presto assumes that swap is not used. Swap can dramatically impact on performance and stability of a Presto cluster. If swap is on, memory consumption will be close to 100% and, as a result, Presto cluster will be slow and many queries will fail.
 
 The typical error messages are.
 

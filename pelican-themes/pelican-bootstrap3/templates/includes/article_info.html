@@ -3,16 +3,17 @@
     <span class="published article-info-label">
         <i class="fa fa-calendar"></i><time datetime="{{ article.date.isoformat() }}"> {{ article.locale_date }}</time>
     </span>
-    <span class="label label-default pageviews">Views</span>
-	<span class="article-info-label pageviews"><span class="badge pageviews" id="query-output"></span></span>
     {% if SHOW_DATE_MODIFIED %}
         {% if article.modified %}
           <span class="label label-default">{{ _('Modified') }}</span>
-            <span class="modified">
+            <span class="modified article-info-label">
                 <i class="fa fa-calendar"></i><time datetime="{{ article.modified.isoformat() }}"> {{ article.locale_modified }}</time>
             </span>
         {% endif %}
     {% endif %}
+
+    <span class="label label-default pageviews">Views</span>
+	<span class="article-info-label pageviews"><span class="badge pageviews" id="query-output"></span></span>
 
     {% if SHOW_SERIES %}
         {% if article.series %}

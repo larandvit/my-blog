@@ -78,14 +78,14 @@ Heterogeneous networks are common now. Those networks include computers with Win
     In case if receiving `Unable to access location` error, it might be some reasons.
 
     1) Address can not be resolved and you need to use IP address rather than computer name, for example, `192.168.0.2`.<br>
-    2) It is used the SMB version 1 protocol in Files file manager. You might need to try one of the options below.
+    2) It is used the SMB version 1.0 protocol in `Files` file manager. You might need to try one of the options below.
 
        a) Update your computer 
 
         :::bash
         sudo yum update
 
-       b) Downgrade SMB protocol to version 1 in you your Windows server.
+       b) Downgrade SMB protocol to version 1.0 in your Windows server.
 
        * Open `Windows Explorer` and key in `Control Panel\Programs` in address bar
 

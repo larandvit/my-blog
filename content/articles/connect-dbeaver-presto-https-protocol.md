@@ -1,15 +1,16 @@
 Title: Connect DBeaver to Presto with HTTPS Protocol
 Date: 2020-08-25
+Modified: 2020-08-27
 Category: Presto, DBeaver
 Cover: /extra/dbeaver-logo.png
 
-Communication between [Presto](https://prestodb.io/) nodes can be secured with [HTTPS protocol](https://prestodb.io/docs/current/security/internal-communication.html). Java Keystore file containing public/private keys along with the key password are required to connect DBeaver to Presto cluster secured with SSL/TLS. `config.properties` Presto setup file located in `/etc/presto` folder includes the information for establishing a connection.
+Communication between [Presto](https://prestodb.io/) and a client can be secured with [HTTPS protocol](https://prestodb.io/docs/current/security/internal-communication.html). `config.properties` Presto setup file located in `/etc/presto` folder includes the information necessary for establishing a connection to DBeaver. Java Keystore file contains a public key which is required to connect DBeaver to Presto cluster secured with SSL/TLS. 
 
 The sample uses encrypted with SSL/TLS [Starburst](https://www.starburstdata.com/) Presto cluster.
 
 ## Setup
 
-1. Take `keystore.jks` Java Keystore file located in `/etc/presto` or another folder and place it in any location where DBeaver installed. It might be DBeaver root or `C:\Users\[Windows user name]\AppData\Roaming\DBeaverData` folder.
+1. Find a file defined in `http-server.https.keystore.path` variable. The file can be in two formats: Java keystore (`.jks`) or certificate (`.pem`). Java keystore works for DBeaver. Certificate can be converted into Java keystore as well. It is recommended to remove private key from Java key store to remove security issue. Place the file in any location where DBeaver installed. It might be DBeaver root or `C:\Users\[Windows user name]\AppData\Roaming\DBeaverData` folder. 
 
 2. Create PrestoSQL connection.
 

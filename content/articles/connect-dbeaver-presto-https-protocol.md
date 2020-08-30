@@ -10,7 +10,7 @@ The sample uses encrypted with SSL/TLS [Starburst](https://www.starburstdata.com
 
 ## Setup
 
-1. Find a file defined in `http-server.https.keystore.path` variable. The file can be in two formats: Java keystore (`.jks`) or certificate (`.pem`). Java keystore works for DBeaver. Certificate can be converted into Java keystore as well. It is recommended to remove private key from Java key store to remove security issue. Place the file in any location where DBeaver installed. It might be DBeaver root or `C:\Users\[Windows user name]\AppData\Roaming\DBeaverData` folder. 
+1. Find a file defined in `http-server.https.keystore.path` variable. The file can be in two formats: Java keystore (`.jks`) or certificate (`.pem`). Java keystore works for DBeaver. Certificate can be converted into Java keystore as well. It is recommended to [remove private key from Java keystore]({filename}/articles/remove-private-key-java-keystore.md). Place the file in any location where DBeaver installed. It might be DBeaver root or `C:\Users\[Windows user name]\AppData\Roaming\DBeaverData` folder. 
 
 2. Create PrestoSQL connection.
 

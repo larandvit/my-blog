@@ -1,38 +1,83 @@
-Title: Clean Up USB Flash Drive
+Title: Clean Up USB Flash, SSD, Hard Drives
 Date: 2020-01-11
+Modified: 2020-10-03
 Category: Windows
 Cover: /extra/microsoft-windows-logo.png
 
-When a USB flash drive is used in Linux or as an ISO image is recorded to it, USB drive might be is not usable in Windows. **diskpart** Windows tool can be used to clean up and re-partition USB flash drive.
+When a drive has been used in Operation System (OS) different from Windows, for example, Linux, it can get usable in Windows. **Disk Management** Windows GUI tool can't handle those disks but **DiskPart** Windows tool can help clean up and re-partition a drive. The tool is similar to **fdisk** Linux one with comprehensive functionality.
 
-The tool can be run from Windows Command Prompt typing `diskpart`
+## 1. Run the tool typing `diskpart` from Windows Command Prompt or Windows Start
 
-![Command Prompt window]({static}/images/clean-up-usb-flash-drive/command-prompt-diskpart-run.png)</br></br>
+    :::batch
+    Microsoft DiskPart version 10.0.19041.1
 
-The first step is to identify an index of our USB drive. Run `LIST DISK` command
+    Copyright (C) Microsoft Corporation.
+    On computer: MAINCOMPUTER
 
-![diskpart LIST DISK]({static}/images/clean-up-usb-flash-drive/diskpart-list-disk.png)</br></br>
+    DISKPART>
 
-Based on size, our flash drive index is 2 and the next step is to select our drive. Run `SELECT DISK`
+## 2. Identify an index of a drive
+   
+    :::batch
+    DISKPART> LIST DISK
+    
+      Disk ###  Status         Size     Free     Dyn  Gpt
+      --------  -------------  -------  -------  ---  ---
+      Disk 0    Online          931 GB  1024 KB        *
+      Disk 1    Online          953 GB  1024 KB        *
+      Disk 2    Online         1863 GB  1863 GB
 
-![diskpart SELECT DISK]({static}/images/clean-up-usb-flash-drive/diskpart-select-disk.png)</br></br>
+## 3. Select a drive
 
-Now it's time to remove all content from the drive including any partitions. Run `CLEAN` command
+   Based on size, the drive index is 2.
 
-![diskpart CLEAN]({static}/images/clean-up-usb-flash-drive/diskpart-clean.png)</br></br>
+    :::batch
+    DISKPART> SELECT DISK 2
 
-After making our flash drive empty, a new primary partition is created. Run `CREATE PRIMARY PARTITION` command
+    Disk 2 is now the selected disk.
 
-![diskpart CREATE PRIMARY PARTITION]({static}/images/clean-up-usb-flash-drive/diskpart-create-primary-partition.png)</br></br>
+## 4. Clean up drive
 
-Next step is to format flash drive. A list of file systems is FAT, FAT32, NTFS, exFAT. `quick` option allows to complete it very fast. Run `FORMAT` command
+   Remove all partitions from the drive.
 
-![diskpart FORMAT]({static}/images/clean-up-usb-flash-drive/diskpart-format.png)</br></br>
+    :::batch
+    DISKPART> CLEAN
 
-Final step is to assign a letter to access the flash drive in Windows. Run `ASSIGN` command
+    DiskPart succeeded in cleaning the disk.
 
-![diskpart ASSIGN]({static}/images/clean-up-usb-flash-drive/diskpart-assign.png)</br></br>
+   if additionally, the drive's contents has to be removed securely. It will take time as it will write to every sector of the disk.
 
-Close diskpart tool. Run `EXIT`
+    :::batch
+    DISKPART> CLEAN ALL
 
-![diskpart EXIT]({static}/images/clean-up-usb-flash-drive/diskpart-exit.png)</br></br>
+    DiskPart succeeded in cleaning the disk.
+
+## 5. Create a new primary partition
+
+    :::batch
+    DISKPART> CREATE PARTITION PRIMARY
+
+    DiskPart succeeded in creating the specified partition.
+
+## 6. Format the drive
+
+   A list of file systems is FAT, FAT32, NTFS, exFAT. `quick` option allows to complete it very fast
+
+    :::batch
+    DISKPART> FORMAT fs=exFAT quick
+
+      100 percent completed
+
+    DiskPart successfully formatted the volume.
+
+## 7. Assign a letter to access the drive in Windows
+
+    :::batch
+    DISKPART> ASSIGN
+
+    DiskPart successfully assigned the drive letter or mount point.
+
+## 8. Close DiskPart tool
+
+    :::batch
+    DISKPART> EXIT

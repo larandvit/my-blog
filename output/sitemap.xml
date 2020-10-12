@@ -6,6 +6,10 @@
 
          xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
+   	<loc>https://techjogging.com/connect-presto-cloudera-hive-with-kerberos-authentication.html</loc>
+   	<lastmod>2020-10-12</lastmod>
+   </url>
+   <url>
    	<loc>https://techjogging.com/nvme-raid-performance-z390-chipset-motherboards.html</loc>
    	<lastmod>2020-09-30</lastmod>
    </url>

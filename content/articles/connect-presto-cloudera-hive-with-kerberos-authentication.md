@@ -1,6 +1,6 @@
 Title: Connect Presto to Cloudera Hive with Kerberos Authentication
 Date: 2020-10-12
-Category: DBeaver, Hive, Kerberos
+Category: Presto, Hive, Kerberos
 Cover: /extra/prestodb-logo.png
 
 Presto includes Hive connector to access Hive data warehouse. Warehouse data is stored in the Hadoop Distributed File System (HDFS) or in S3 compatible storages. Data files located in Hive warehouse are in varieties of formats and data size can be enormous. Presto uses Hive metastore to discover schemas and tables in undelaying data files and runs its own query engine. Kerberos authentication with keytab is applied to access HDFS and Hive metastore.

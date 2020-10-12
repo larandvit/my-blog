@@ -1,6 +1,6 @@
 Title: Set Up NVMe Raid on Z370/Z390 Motherboards
 Date: 2020-08-10
-Modified: 2020-10-01
+Modified: 2020-10-12
 Category: Hardware
 Cover: /extra/intel-logo.png
 

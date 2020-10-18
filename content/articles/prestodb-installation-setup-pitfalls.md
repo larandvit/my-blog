@@ -1,5 +1,6 @@
 Title: Presto Installation and Setup Pitfalls
 Date: 2020-07-03
+Modified: 2020-10-18
 Category: Presto
 Cover: /extra/prestodb-logo.png
 
@@ -80,10 +81,6 @@ env.sh
 
     :::bash
     JAVA_HOME=/usr/lib/jvm/jre-11
-
-## Coordinator address in configuration files
-
-The correct format in `config.properties` file is `http://<coordinator node name>:<coordinator port>`, for example, `discovery.uri=http://prestoserver:8080`. Do not use fully qualified domain name (FQDN), for example, `discovery.uri=http://prestoserver.com:8080`. It is applicable to both coordinator and workers.
 
 ## Folder format in configuration files
 

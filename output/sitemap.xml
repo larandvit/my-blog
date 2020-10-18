@@ -6,6 +6,10 @@
 
          xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
+   	<loc>https://techjogging.com/install-docker-ce-centosrhel-7.html</loc>
+   	<lastmod>2017-10-18</lastmod>
+   </url>
+   <url>
    	<loc>https://techjogging.com/hide-passwords-sensitive-data-presto-config-files.html</loc>
    	<lastmod>2020-10-17</lastmod>
    </url>

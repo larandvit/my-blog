@@ -1,4 +1,4 @@
-Title: Install Docker CE Edition in CentOS/RHEL 7
+Title: Install Docker CE in CentOS/RHEL 7
 Date: 2020-10-18
 Category: Docker, Linux
 Cover: /extra/docker-logo.png

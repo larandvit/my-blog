@@ -6,6 +6,10 @@
 
          xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
+   	<loc>https://techjogging.com/access-minio-s3-storage-prestodb-cluster-hive-metastore.html</loc>
+   	<lastmod>2020-10-21</lastmod>
+   </url>
+   <url>
    	<loc>https://techjogging.com/standalone-hive-metastore-presto-docker.html</loc>
    	<lastmod>2020-10-20</lastmod>
    </url>

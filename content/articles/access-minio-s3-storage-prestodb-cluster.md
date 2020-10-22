@@ -1,10 +1,10 @@
-Title: Access MinIO S3 Storage in Presto Cluster
+Title: Access MinIO S3 Storage in Presto with File Metastore
 Date: 2020-06-28
-Modified: 2020-08-12
+Modified: 2020-10-21
 Category: Presto, MinIO
 Cover: /extra/prestodb-logo.png
 
-[Presto](https://prestodb.io/) is aimed to access a variety of data sources by means of connectors. Hive connector is used to access files stored in Hadoop Distributed File System (HDFS) or S3 compatible storages. Hive metastore can be configured with two options: Thrift or Glue. There is another undocumented option, it is the file metastore. It was developed by [Dain Sundstrom](https://www.linkedin.com/in/dainsundstrom/) in a weekend. Metadata and data are stored in file system. As a result, the setup is very simple. It is a couple of lines in a configuration file. **This setup is not aimed for production usage**. The main use cases might be demo or PoC projects.
+[Presto](https://prestodb.io/) accesses a variety of data sources by means of connectors. Hive connector is used to access files stored in Hadoop Distributed File System (HDFS) or S3 compatible systems. Metastore can be configured with two options: Hive or AWS Glue Data Catalog. Hive metastore information can be find in [Access MinIO S3 Storage in Presto with Hive Metastore]({filename}/articles/access-minio-s3-storage-prestodb-cluster-hive-metastore.md) article  There is another undocumented option, it is the file metastore. It was developed by [Dain Sundstrom](https://www.linkedin.com/in/dainsundstrom/) in a weekend. Metadata and data are stored in file system. As a result, the setup is very simple. It is a couple of lines in a configuration file. This setup is not aimed for production usage. The main use cases might be demo or PoC projects.
 
 S3 compatible storages are very good alternatives to store big data. They are lightweight, easy to set up, and support. Many of those storages are open source.
 
@@ -12,11 +12,11 @@ When building an enterprise level system, it is important to set up and tune up 
 
 MinIO S3 compatible storage along with file metadata configuration is used in the sample below. Internal tables are stored in a shared folder.
 
-Hive connector property file is created in `/etc/presto/catalog` folder or it can be deployed by presto-admin tool or other tools. The name might be `minio.properties`. It has to have `.properties` extension name.
+Hive connector property file is created in `/etc/presto/catalog` folder or it can be deployed by **presto-admin** tool or other tools. The name might be `minio.properties`. It has to have `.properties` extension name.
 
 A set of mandatory parameters are.
 
-    :::config
+    :::ini
     connector.name=hive-hadoop2
 
     hive.s3.path-style-access=true

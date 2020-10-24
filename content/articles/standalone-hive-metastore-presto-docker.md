@@ -1,5 +1,6 @@
 Title: Hive Standalone Metastore for Presto in Docker
 Date: 2020-10-20
+Modified: 2020-10-23
 Category: Presto, Hive, Docker
 Cover: /extra/prestodb-logo.png
 
@@ -13,7 +14,7 @@ The sample is based on [Starburst](https://www.starburstdata.com/) 343-e open so
 
 ##1. Install Docker
 
-See [Install Docker CE Edition in CentOS/RHEL 7 ]({filename}/articles/install-docker-ce-centosrhel-7.md) article.
+See [Install Docker CE Edition in CentOS/RHEL 7]({filename}/articles/install-docker-ce-centosrhel-7.md) article.
 
 ##2. Create Docker working folder
 
@@ -238,7 +239,7 @@ if more than one metastore, replace port for next metastore.
 
 ##10. Test metastore
 
-* Add Hive connector for MinIO storage, for example, `minio_connector`. It is a catalog level in Presto hierarchy.
+* Add Hive connector for MinIO storage, for example, `minio_connector`. See [Access MinIO S3 Storage in Presto with Hive Metastore]({filename}/articles/access-minio-s3-storage-prestodb-cluster-hive-metastore.md) article. It is a catalog level in Presto hierarchy.
 
 * Create a backet to store your schema, for example, `finance-department`.
 

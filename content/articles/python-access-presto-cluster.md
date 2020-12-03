@@ -1,11 +1,14 @@
 Title: Python Access to Presto Cluster
 Date: 2020-11-30
+Modified: 2020-12-02
 Category: Python, Presto
 Cover: /extra/python-logo.png
 
-There are two Python libraries to access [Presto](https://prestosql.io/) cluster. The first library is [PyHive](https://github.com/dropbox/PyHive) and the second one is [presto-python-client](https://github.com/prestosql/presto-python-client). Both libraries use [Python DB-API](https://www.python.org/dev/peps/pep-0249/) interfaces to access Presto and Hive data. They have limitations to verify SSL certificates for HTTPS requests. SSL certificates must be unencrypted. Because of this limitation, verifying of the SSL certificate is ignored in connection to Presto.
+[Presto](https://prestosql.io/) access is represented by many Python libraries among those are [Dropbox/PyHive](https://github.com/dropbox/PyHive), [prestosql/presto-python-client](https://github.com/prestosql/presto-python-client), [prestodb/presto-python-client](https://github.com/prestodb/presto-python-client), and [easydatawarehousing/prestoclient](https://github.com/easydatawarehousing/prestoclient). Some of libraries use [Python DB-API](https://www.python.org/dev/peps/pep-0249/) interface to access Presto. They have limitations to verify SSL certificates for HTTPS requests. SSL certificates must be unencrypted. Because of this limitation, verifying of the SSL certificate might be ignored in connection to Presto.
 
-Python PyHive library is picked up to demonstrate how to access to Presto cluster.
+Dropbox/PyHive library is universal one as it can be used to access Hive or Presto. prestosql/presto-python-client library is actively supported by Presto developers.
+
+Python Dropbox/PyHive library is picked up to demonstrate how to access to Presto cluster. The sample is run in Python 3 in Windows.
 
 ## 1. Install PyHive library
 
@@ -76,7 +79,4 @@ To disable insecure warnings during https requests, add the code in `import` sec
     urllib3.disable_warnings()
 
 ## Resources
-* [PyHive](https://github.com/dropbox/PyHive)
-* [presto-python-client](https://github.com/prestosql/presto-python-client)
-* [Python DB-API](https://www.python.org/dev/peps/pep-0249/)
 * [SSL Cert Verification](https://2.python-requests.org/en/master/user/advanced/#ssl-cert-verification)

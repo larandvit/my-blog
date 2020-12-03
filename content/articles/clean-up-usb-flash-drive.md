@@ -1,10 +1,10 @@
 Title: Clean Up USB Flash, SSD, Hard Drives
 Date: 2020-01-11
-Modified: 2020-10-03
+Modified: 2020-12-02
 Category: Windows
 Cover: /extra/microsoft-windows-logo.png
 
-When a drive has been used in Operation System (OS) different from Windows, for example, Linux, it can get usable in Windows. **Disk Management** Windows GUI tool can't handle those disks but **DiskPart** Windows tool can help clean up and re-partition a drive. The tool is similar to **fdisk** Linux one with comprehensive functionality.
+When a drive has been used in Operation System (OS) different from Windows, for example, Linux, it can get unusable in Windows. **Disk Management** Windows GUI tool can't handle those disks but **DiskPart** Windows tool can help clean up and re-partition a drive. The tool is similar to **fdisk** Linux one with comprehensive functionality.
 
 ## 1. Run the tool typing `diskpart` from Windows Command Prompt or Windows Start
 
@@ -45,7 +45,7 @@ When a drive has been used in Operation System (OS) different from Windows, for 
 
     DiskPart succeeded in cleaning the disk.
 
-   if additionally, the drive's contents has to be removed securely. It will take time as it will write to every sector of the disk.
+   if additionally, the drive content has to be removed securely, apply `ALL` option. It will take time as it will write to every sector of the disk.
 
     :::batch
     DISKPART> CLEAN ALL

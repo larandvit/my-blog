@@ -6,6 +6,10 @@
 
          xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
+   	<loc>https://techjogging.com/convert-java-keystore-pem-file-format.html</loc>
+   	<lastmod>2020-12-12</lastmod>
+   </url>
+   <url>
    	<loc>https://techjogging.com/python-access-presto-cluster.html</loc>
    	<lastmod>2020-12-01</lastmod>
    </url>

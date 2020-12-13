@@ -1,14 +1,12 @@
-Title: Python Access to Presto Cluster
+Title: Python Access to Presto Cluster with PyHive
 Date: 2020-11-30
-Modified: 2020-12-02
+Modified: 2020-12-12
 Category: Python, Presto
 Cover: /extra/python-logo.png
 
-[Presto](https://prestosql.io/) access is represented by many Python libraries among those are [Dropbox/PyHive](https://github.com/dropbox/PyHive), [prestosql/presto-python-client](https://github.com/prestosql/presto-python-client), [prestodb/presto-python-client](https://github.com/prestodb/presto-python-client), and [easydatawarehousing/prestoclient](https://github.com/easydatawarehousing/prestoclient). Some of libraries use [Python DB-API](https://www.python.org/dev/peps/pep-0249/) interface to access Presto. They have limitations to verify SSL certificates for HTTPS requests. SSL certificates must be unencrypted. Because of this limitation, verifying of the SSL certificate might be ignored in connection to Presto.
+[Presto](https://prestosql.io/) access is represented by many Python libraries among those are [Dropbox/PyHive](https://github.com/dropbox/PyHive), [prestosql/presto-python-client](https://github.com/prestosql/presto-python-client), [prestodb/presto-python-client](https://github.com/prestodb/presto-python-client), and [easydatawarehousing/prestoclient](https://github.com/easydatawarehousing/prestoclient). Mostly of libraries use [Python DB-API](https://www.python.org/dev/peps/pep-0249/) interface to access Presto which uniforms commands.
 
-Dropbox/PyHive library is universal one as it can be used to access Hive or Presto. prestosql/presto-python-client library is actively supported by Presto developers.
-
-Python Dropbox/PyHive library is picked up to demonstrate how to access to Presto cluster. The sample is run in Python 3 in Windows.
+Dropbox/PyHive library is universal one as it can be used to access Hive or Presto. The sample is run with Python 3 in Windows.
 
 ## 1. Install PyHive library
 
@@ -26,36 +24,51 @@ It installs only Presto interface.
 
 ## 2. Include requested libraries
 
-Access to Presto cluster without password.
+   * Access to Presto cluster without password.
 
-    :::python
-    from pyhive import presto
+        :::python
+        from pyhive import presto
 
-Presto cluster is secured by password.
+   * Presto cluster is secured by password.
 
-    :::python
-    from pyhive import presto
-    from requests.auth import HTTPBasicAuth
+        :::python
+        from pyhive import presto
+        from requests.auth import HTTPBasicAuth
 
 ## 3. Establish connection
 
-Access to Presto cluster without password.
+   * Access to Presto cluster without password.
 
-    :::python
-    conn = presto.connect(host='localhost',
-                          port=8080,
-                          catalog='system',
-                          schema='information_schema')
+        :::python
+        conn = presto.connect(host='localhost',
+                                port=8080,
+                                catalog='system',
+                                schema='runtime')
 
-Presto cluster is secured by password.
+   * Presto cluster is secured by password but skip SSL verification. This case might be used during development stage.
 
-    :::python
-    conn = presto.connect(host='localhost',
-                          port=443,
-                          protocol='https',
-                          catalog='system',
-                          schema='information_schema',
-                          requests_kwargs={'auth': HTTPBasicAuth('username', 'userpassword'),'verify':False})
+        :::python
+        conn = presto.connect(host='localhost',
+                              port=443,
+                              protocol='https',
+                              catalog='system',
+                              schema='runtime',
+                              requests_kwargs={'auth': HTTPBasicAuth('<user name>', '<password>'),
+                                               'verify':False})
+
+   * Presto cluster is secured by password.
+
+      Follow instructions in [Convert Java Keystore to PEM File Format]({filename}/articles/convert-java-keystore-pem-file-format.md) article to create `presto.crt` file. The file contains Presto SSL public certificate converted from Java keystore file.
+
+        :::python
+        conn = presto.connect(host='localhost',
+                              port=8443,
+                              protocol='https',
+                              catalog='system',
+                              schema='runtime',
+                              requests_kwargs={'auth': HTTPBasicAuth('<user name>', '<password>'),
+                                               'verify':'presto.crt'})
+
 
 ## 4. Create cursor
 
@@ -66,13 +79,13 @@ Presto cluster is secured by password.
 ## 5. Retrieve data
 
     :::python
-    cur.execute('SELECT column_name FROM columns LIMIT 10')
+    cur.execute('SELECT * FROM nodes')
     for row in cur.fetchall():
-        print(row[0])
+        print(row)
 
 ## 6. Improvements
 
-To disable insecure warnings during https requests, add the code in `import` section.
+To disable insecure warnings during https requests if `verify=False`, add the code in `import` section.
 
     :::python
     import urllib3

@@ -6,6 +6,8 @@ Cover: /extra/python-logo.png
 
 [Presto](https://prestosql.io/) access is represented by many Python libraries among those are [Dropbox/PyHive](https://github.com/dropbox/PyHive), [prestosql/presto-python-client](https://github.com/prestosql/presto-python-client), [prestodb/presto-python-client](https://github.com/prestodb/presto-python-client), and [easydatawarehousing/prestoclient](https://github.com/easydatawarehousing/prestoclient). Mostly of libraries use [Python DB-API](https://www.python.org/dev/peps/pep-0249/) interface to access Presto which uniforms commands.
 
+[Python Access to Presto Cluster with Presto Client]({filename}/articles/python-access-presto-cluster-presto-client.md) article describles Dropbox/PyHive library usage.
+
 Dropbox/PyHive library is universal one as it can be used to access Hive or Presto. The sample is run with Python 3 in Windows.
 
 ## 1. Install PyHive library
@@ -62,7 +64,7 @@ It installs only Presto interface.
 
         :::python
         conn = presto.connect(host='localhost',
-                              port=8443,
+                              port=443,
                               protocol='https',
                               catalog='system',
                               schema='runtime',
@@ -90,6 +92,10 @@ To disable insecure warnings during https requests if `verify=False`, add the co
     :::python
     import urllib3
     urllib3.disable_warnings()
+
+## 7. Troubleshooting
+
+In case of getting `ssl.SSLError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed (_ssl.c:777)` error, check your certificate expiration date. The date has to be valid.
 
 ## Resources
 * [SSL Cert Verification](https://2.python-requests.org/en/master/user/advanced/#ssl-cert-verification)

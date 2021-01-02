@@ -1,5 +1,6 @@
 Title: Access Windows 10 Shared Folder from RHEL/CentOS 7
 Date: 2020-08-16
+Modified: 2021-01-01
 Category: Windows, Linux
 Cover: /extra/centos-logo.png
 
@@ -12,7 +13,7 @@ Heterogeneous networks are common now. Those networks include computers with Win
         :::bash
         sudo yum -y install samba-client samba-common cifs-utils
 
-2. Create mount point
+2. Create mount point.
 
         :::bash
         sudo mkdir -p /mnt/F_drive
@@ -22,7 +23,7 @@ Heterogeneous networks are common now. Those networks include computers with Win
         :::bash
         smbclient -L //window_server -U user_name
 
-4. Access Windows shared folder
+4. Access Windows shared folder.
 
         :::bash
         sudo mount.cifs //window_server/F_shared_drive /mnt/F_drive -o rw,username=user,file_mode=0777,dir_mode=0777
@@ -63,41 +64,50 @@ Heterogeneous networks are common now. Those networks include computers with Win
 
 ## Access with GUI
 
-`Files` is a default file manager in GNOME desktop and it has embedded Samba client.
+**Files** is a default file manager in GNOME desktop and it has embedded Samba client.
 
-1. Open `Files`, go to `Other Locations`, and type in your shared folder path, for example, //window_server/F_shared_drive
+1. Open **Files**, go to **Other Locations**, and type in your shared folder path, for example, `smb://window_server/F_shared_drive`.
 
     ![CentOS Files file manager Other Locations]({static}/images/access-windows-shared-folder-from-centos/files-other-locations-form.png)</br></br>
 
-2. Fill out final connection form
+2. Fill out connection form.
 
     ![CentOS Files file manager Other Locations]({static}/images/access-windows-shared-folder-from-centos/files-final-connection-form.png)</br></br>
 
-3. Troubleshooting
+3. Troubleshooting.
 
-    In case if receiving `Unable to access location` error, it might be some reasons.
+    * **Unable to access location. Failed to retrieve share list from server: No such file or directory** error.
 
-    1) Address can not be resolved and you need to use IP address rather than computer name, for example, `192.168.0.2`.<br>
-    2) It is used the SMB version 1.0 protocol in `Files` file manager. You might need to try one of the options below.
+        There are 2 possible reasons.
 
-       a) Update your computer 
+        1. Address can not be resolved and you need to use IP address rather than computer name, for example, `192.168.0.2`.
 
-        :::bash
-        sudo yum update
+        2. It is used the SMB version 1.0 protocol in **Files** file manager. You might need to try one of the options below.
 
-       b) Downgrade SMB protocol to version 1.0 in your Windows server.
+            a) Update your Linux computer.
 
-       * Open `Windows Explorer` and key in `Control Panel\Programs` in address bar
+                :::bash
+                sudo yum update
 
-          ![Windows Explorer Control Panel Program]({static}/images/access-windows-shared-folder-from-centos/windows-explorer-control-panel-programs.png)</br></br>
+            b) Downgrade SMB protocol to version 1.0 in your Windows server.
 
-       * Go to `Turn Windows features on or off`
+               * Open **Windows Explorer** and key in `Control Panel\Programs` in address bar
 
-          ![Turn Windows features on or off]({static}/images/access-windows-shared-folder-from-centos/turn-windows-features-on-off.png)</br></br>
+                   ![Windows Explorer Control Panel Program]({static}/images/access-windows-shared-folder-from-centos/windows-explorer-control-panel-programs.png)</br></br>
 
-       * Check `SMB 1.0/CIFS Server` setting
+               * Go to **Turn Windows features on or off**
 
-          ![Windows SMB file sharing support]({static}/images/access-windows-shared-folder-from-centos/windows-smb-file-sharing-support.png)</br></br>
+                   ![Turn Windows features on or off]({static}/images/access-windows-shared-folder-from-centos/turn-windows-features-on-off.png)</br></br>
+
+              * Check **SMB 1.0/CIFS Server** setting
+
+                   ![Windows SMB file sharing support]({static}/images/access-windows-shared-folder-from-centos/windows-smb-file-sharing-support.png)</br></br>
+
+    * **Unable to access location. Failed to mount Windows share: Connection time out** error.
+
+        Enable file in printer sharing in Windows 10. Open **Advanced sharing settings** form typing `Control Panel\Network and Internet\Network and Sharing Center\Advanced sharing settings` in **Windows Explorer** address bar.
+
+        ![Windows 10 Advanced sharing settings]({static}/images/access-windows-shared-folder-from-centos/advanced-sharing-settings.jpg)</br></br>
 
 ## Resources
 

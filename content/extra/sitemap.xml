@@ -6,6 +6,10 @@
 
          xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
+   	<loc>https://techjogging.com/custom-built-surveillance-system.html</loc>
+   	<lastmod>2021-01-09</lastmod>
+   </url>
+   <url>
    	<loc>https://techjogging.com/python-access-presto-cluster-presto-client.html</loc>
    	<lastmod>2020-12-13</lastmod>
    </url>

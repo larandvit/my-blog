@@ -1,12 +1,12 @@
 Title: Python Access to Presto Cluster with PyHive
 Date: 2020-11-30
-Modified: 2020-12-12
+Modified: 2021-01-11
 Category: Python, Presto
 Cover: /extra/python-logo.png
 
 [Presto](https://prestosql.io/) access is represented by many Python libraries among those are [Dropbox/PyHive](https://github.com/dropbox/PyHive), [prestosql/presto-python-client](https://github.com/prestosql/presto-python-client), [prestodb/presto-python-client](https://github.com/prestodb/presto-python-client), and [easydatawarehousing/prestoclient](https://github.com/easydatawarehousing/prestoclient). Mostly of libraries use [Python DB-API](https://www.python.org/dev/peps/pep-0249/) interface to access Presto which uniforms commands.
 
-[Python Access to Presto Cluster with Presto Client]({filename}/articles/python-access-presto-cluster-presto-client.md) article describles Dropbox/PyHive library usage.
+[Python Access to Presto Cluster with Presto Client]({filename}/articles/python-access-presto-cluster-presto-client.md) article describes PrestoSQL client library usage.
 
 Dropbox/PyHive library is universal one as it can be used to access Hive or Presto. The sample is run with Python 3 in Windows.
 

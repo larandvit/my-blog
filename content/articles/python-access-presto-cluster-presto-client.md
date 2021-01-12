@@ -49,8 +49,10 @@ Windows. Run as administrator.
                               verify=False)
 
    * Presto cluster is secured by password.
+      
+      Option #1. Follow instructions in [Convert Java Keystore to PEM File Format]({filename}/articles/convert-java-keystore-pem-file-format.md) article to create `presto.crt` file. The file contains Presto SSL public certificate converted from Java keystore file.
 
-      Follow instructions in [Convert Java Keystore to PEM File Format]({filename}/articles/convert-java-keystore-pem-file-format.md) article to create `presto.crt` file. The file contains Presto SSL public certificate converted from Java keystore file.
+      Option #2. Extract `presto.crt` certificate from Internet Browser. Follow [Export TLS/SSL Server Certificate from Internet Browser]({filename}/articles/export-tls-ssl-server-certificate-from-internet-browser.md) article.
 
         :::python
         conn = presto.connect(host='localhost',

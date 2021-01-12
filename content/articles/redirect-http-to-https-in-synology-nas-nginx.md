@@ -1,11 +1,12 @@
 Title: Redirect HTTP to HTTPS in Synology DSM Nginx
 Date: 2020-01-21
+Modified: 2021-01-11
 Category: Synology DSM, Nginx
 Cover: /extra/synology-logo.png
 
 Synology DiskStation Manager (DSM) doesn't include GUI based functionality to set up a redirect HTTP web traffic to secured HTTPS version of your web site. The default web server in DSM 6 is Nginx and the configuration of the web server should be adjusted. It can be accomplished making manual changes to the Nginx web server moustache template.
 
-#### Prerequisites
+## Prerequisites
 
 1. SSL certificate is added to Synology NAS.
 
@@ -23,7 +24,7 @@ Synology DiskStation Manager (DSM) doesn't include GUI based functionality to se
 
     ![Web server Nginx]({static}/images/redirect-http-to-htpps-in-synology-nas-nginx/web-server-nginx.png)</br></br>
 
-#### Environment
+## Environment
 
 * Document is based on DSM 6.2.2 operation system
 * Original moustache template
@@ -56,7 +57,7 @@ Synology DiskStation Manager (DSM) doesn't include GUI based functionality to se
             }
         }
 
-#### Setup
+## Setup
 
 1. Use ssh client to access your Synology NAS with a user which has administrative permission. It can be PuTTY tool in Windows or terminal with `ssh` command in Unix. 
 
@@ -66,6 +67,8 @@ Synology DiskStation Manager (DSM) doesn't include GUI based functionality to se
         sudo su -
 
 3. Back up the current moustache template
+
+     Don't skip it. First of all, in case of any issues with the setup, you can always roll it back. Also, if you decide to add another domain or subdomain, you need your backup copy to do it.
 
         :::bash
         cp /usr/syno/share/nginx/WWWService.mustache /usr/syno/share/nginx/WWWService.mustache.bak
@@ -123,4 +126,8 @@ Synology DiskStation Manager (DSM) doesn't include GUI based functionality to se
         synoservicecfg --restart nginx
 
 7. The last important step is to refresh your browser. When you open your web site with **http**, it's still showing as **http** and don't redirect to **https**. Just click **Ctrl-F5**.
+
+## Add another domain
+
+Adding another domain or subdomain with SSL/TLS encryption will request to do Let's Encrypt authorization again. The easiest way is to roll back WWWService.mustache.bak file created on step #3 of the setup. After creating of a SSL certificate, the modified mustache file is returned back.
 

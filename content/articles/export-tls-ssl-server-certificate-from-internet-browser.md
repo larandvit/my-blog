@@ -1,5 +1,6 @@
 Title: Export TLS/SSL Server Certificate from Internet Browser
 Date: 2021-01-10
+Modified: 2021-01-11
 Category: Security
 Cover: /extra/security-logo.jpg
 
@@ -96,3 +97,7 @@ A sample of a PEM certificate with Bag Attributes.
 ## Microsoft Edge browser
 
 Export steps are the same as for Google Chrome browser.
+
+## Microsoft Internet Explorer browser
+
+Export steps are the same as for Google Chrome browser. The padlock icon is located on the right side of the address bar.

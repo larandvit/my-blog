@@ -6,6 +6,10 @@
 
          xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
+   	<loc>https://techjogging.com/access-minio-secured-ssl-minio-python-sdk.html</loc>
+   	<lastmod>2021-03-06</lastmod>
+   </url>
+   <url>
    	<loc>https://techjogging.com/builtin-system-access-control-catalogs-presto.html</loc>
    	<lastmod>2021-03-04</lastmod>
    </url>

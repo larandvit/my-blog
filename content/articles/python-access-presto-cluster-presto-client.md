@@ -1,6 +1,6 @@
 Title: Python Access to Presto Cluster with Presto Client
 Date: 2020-12-13
-Modified: 2021-01-11
+Modified: 2021-04-15
 Category: Python, Presto
 Cover: /extra/python-logo.png
 
@@ -17,7 +17,7 @@ Linux.
     :::bash
     sudo pip3 install presto-client
 
-Windows. Run as administrator.
+Windows.
 
     :::bash
     pip install presto-client
@@ -32,21 +32,21 @@ Windows. Run as administrator.
    * Access to Presto cluster without password.
 
         :::python
-        conn = presto.connect(host='localhost',
-                                port=8080,
-                                catalog='system',
-                                schema='runtime')
+        conn = presto.dbapi.connect(host='localhost',
+                                    port=8080,
+                                    catalog='system',
+                                    schema='runtime')
 
    * Presto cluster is secured by password but skip SSL verification. This case might be used during development stage.
 
         :::python
-        conn = presto.connect(host='localhost',
-                              port=443,
-                              http_scheme='https',
-                              catalog='system',
-                              schema='runtime',
-                              auth=presto.auth.BasicAuthentication('<user name>', '<password>'),
-                              verify=False)
+        conn = presto.dbapi.connect(host='localhost',
+                                    port=443,
+                                    http_scheme='https',
+                                    catalog='system',
+                                    schema='runtime',
+                                    auth=presto.auth.BasicAuthentication('<user name>', '<password>'),
+                                    verify=False)
 
    * Presto cluster is secured by password.
       
@@ -55,13 +55,13 @@ Windows. Run as administrator.
       Option #2. Extract `presto.crt` certificate from Internet Browser. Follow [Export TLS/SSL Server Certificate from Internet Browser]({filename}/articles/export-tls-ssl-server-certificate-from-internet-browser.md) article.
 
         :::python
-        conn = presto.connect(host='localhost',
-                              port=443,
-                              http_scheme='https',
-                              catalog='system',
-                              schema='runtime',
-                              auth=presto.auth.BasicAuthentication('<user name>', '<password>'),
-                              verify='presto.crt')
+        conn = presto.dbapi.connect(host='localhost',
+                                    port=443,
+                                    http_scheme='https',
+                                    catalog='system',
+                                    schema='runtime',
+                                    auth=presto.auth.BasicAuthentication('<user name>', '<password>'),
+                                    verify='presto.crt')
 
 
 ## 4. Create cursor

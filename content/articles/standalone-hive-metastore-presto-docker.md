@@ -1,7 +1,7 @@
 Title: Hive Standalone Metastore for Presto in Docker
 Date: 2020-10-20
 Modified: 2020-10-23
-Category: Presto, Hive, Docker
+Category: Trino(Presto), Hive, Docker
 Cover: /extra/prestodb-logo.png
 
 Hive connector in Presto can retrieve data from both HDFS and S3 compatible storages. The connector requests Hive metastore as a link to those storages. There are two types of metastores. The first one is beefy one which includes multiple services. The second one is light weight and is called standalone metastore. It contains only Hive service. The standalone metastore is used to connect to S3 compatible storages.

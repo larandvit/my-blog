@@ -1,7 +1,7 @@
 Title: Access MinIO S3 Storage in Presto with Hive Metastore
 Date: 2020-10-21
 Modified: 2020-10-23
-Category: Presto, MinIO
+Category: Trino(Presto), MinIO
 Cover: /extra/prestodb-logo.png
 
 [Presto](https://prestosql.io/) Hive connector is aimed to access HDFS or S3 compatible storages. One of the key components of the connector is metastore which maps data files with schemas and tables. Two production metastore services are Hive and AWS Glue Data Catalog. Hive metastore works transparently with [MinIO](https://min.io/) S3 compatible system. One more non official metastore is file. The information about file metastore can be find in [Access MinIO S3 Storage in Presto with File Metastore]({filename}/articles/access-minio-s3-storage-prestodb-cluster.md) article.

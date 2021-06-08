@@ -1,7 +1,7 @@
 Title: Presto Installation and Setup Pitfalls
 Date: 2020-07-03
 Modified: 2020-10-18
-Category: Presto
+Category: Trino(Presto)
 Cover: /extra/prestodb-logo.png
 
 Like other installations and setups, [Presto](https://prestodb.io/) one can contain steps which cause difficulties. How many times you were stuck with something? In mostly cases, it was a trivial issue but you spent countless time to solve it. It's better to have a cheat sheet for discovering those issues before encountering them. The list of pitfalls is based on [Starburst open source distribution](https://www.starburstdata.com/starburst-presto-sql/) version 332-e.1 and CentOS 7.

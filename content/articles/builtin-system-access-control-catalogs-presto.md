@@ -1,6 +1,6 @@
 Title: Built-in System Access Control to Catalogs in Presto
 Date: 2021-03-04
-Category: Presto
+Category: Trino(Presto)
 Cover: /extra/prestodb-logo.png
 
 [Presto](https://trino.io/) secures access to catalogs with built-in system. This article is not aimed to replace the Presto documentation which provides high level of overview with following details on the implementation of build-in system access control. As any documentation, it does not cover all topics and there are some missing pieces and features. The samples are based on [Trino](https://trino.io/) open-source distribution former known as Presto SQL. 

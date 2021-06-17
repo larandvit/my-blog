@@ -1,6 +1,6 @@
 Title: Add GitHub Repository to DBeaver CE Secured with SSH Protocol
 Date: 2021-06-14
-Category: DBeaver
+Category: DBeaver, Git
 Cover: /extra/dbeaver-logo.png
 
 GitHub is a good addition to DBeaver Community Edition (CE). It allows to store scripts and other files in source control. Even with some limitations in DBeaver CE, GitHub full functionality can be utilized. There are varieties of ways connecting GitHub to DBeaver CE. SSH protocol provides with enhanced security and seamlessly integrated with DBeaver CE. In some cases, it can work when HTTPS one might be problematic.

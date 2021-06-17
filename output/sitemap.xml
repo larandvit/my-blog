@@ -6,6 +6,18 @@
 
          xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
+   	<loc>https://techjogging.com/install-dbeaver-ce-git-extension.html</loc>
+   	<lastmod>2021-06-16</lastmod>
+   </url>
+   <url>
+   	<loc>https://techjogging.com/add-github-repository-dbeaver-ce-ssh-protocol.html</loc>
+   	<lastmod>2021-06-14</lastmod>
+   </url>
+   <url>
+   	<loc>https://techjogging.com/create-ssh-key-dbeaver-ce.html</loc>
+   	<lastmod>2021-06-12</lastmod>
+   </url>
+   <url>
    	<loc>https://techjogging.com/access-minio-secured-ssl-aws-python-sdk.html</loc>
    	<lastmod>2021-03-17</lastmod>
    </url>

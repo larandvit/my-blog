@@ -6,6 +6,10 @@
 
          xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
+   	<loc>https://techjogging.com/how-use-dbeaver-ce-git.html</loc>
+   	<lastmod>2021-06-26</lastmod>
+   </url>
+   <url>
    	<loc>https://techjogging.com/install-dbeaver-ce-git-extension.html</loc>
    	<lastmod>2021-06-16</lastmod>
    </url>

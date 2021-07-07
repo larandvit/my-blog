@@ -1,30 +1,13 @@
-Title: Presto Installation and Setup Pitfalls
+Title: Trino(Presto) Installation and Setup Pitfalls
 Date: 2020-07-03
-Modified: 2020-10-18
+Modified: 2021-07-06
 Category: Trino(Presto)
-Cover: /extra/prestodb-logo.png
+Cover: /extra/trino-logo.png
 
-Like other installations and setups, [Presto](https://prestodb.io/) one can contain steps which cause difficulties. How many times you were stuck with something? In mostly cases, it was a trivial issue but you spent countless time to solve it. It's better to have a cheat sheet for discovering those issues before encountering them. The list of pitfalls is based on [Starburst open source distribution](https://www.starburstdata.com/starburst-presto-sql/) version 332-e.1 and CentOS 7.
-
-## Installation steps for cluster setup
-
-To speed up the process of installation, use Presto Admin tool. It can install java, Presto server and other tools on each node in your cluster including a coordinator. Also, it can deploy setup files to your cluster nodes. The tool is aimed to be run on any Linux computer with `java 8` installed. When you run the tool, you need to be granted sudo access to cluster nodes. Root user is not requested.
-
-1. Download Presto Admin.
-2. Download Presto server RPM file.
-3. Install Presto Admin.
-4. Install `java 11` on each node if requested.
-5. Create `config.properties` Presto Admin file.
-6. Create coordinator and workers setup files.
-7. Install Presto server on each node with Presto Admin.
-8. Start your cluster with Presto Admin.
-9. Validate your cluster with Starburst Cluster Overview. The address is `http://<coordinator node name>:<coordinator port>/ui`, for example, `http://sample:8080/ui`.
-10. Create connector files.
-11. Add connectors to Presto cluster with Presto Admin.
-12. Restart your cluster with Presto Admin.
+Like other installations and setups, [Trino](https://trino.io/) former PrestoSQL can contain steps which cause difficulties. How many times you were stuck with something? In mostly cases, it was a trivial issue but you spent countless time to solve it. It's better to have a cheat sheet for discovering those issues before encountering them. The list of pitfalls is based on [Starburst](https://www.starburst.io/) open-source distribution.
 
 ## Disable swap on each node
-Presto assumes that swap is not used. Swap can dramatically impact on performance and stability of a Presto cluster. If swap is on, memory consumption will be close to 100% and, as a result, Presto cluster will be slow and many queries will fail.
+Trino assumes that swap is not used. Swap can dramatically impact on performance and stability of a Trino cluster. If swap is on, memory consumption will be close to 100% and, as a result, Trino cluster will be slow and many queries will fail.
 
 The typical error messages are.
 
@@ -32,7 +15,6 @@ Error type 1.
 
     :::text
     io.prestosql.spi.PrestoException: Query 20200720_132906_00038_4smph has not been accessed since 2020-07-20T09:42:25.080-04:00: currentTime 2020-07-20T09:52:25.447-04:00
-
 
 Error type 2.
 
@@ -68,24 +50,46 @@ Swap memory information.
 
 OpenJDK JRE folder is `/usr/lib/jvm/jre-11`. It points to the same location as JDK one.
 
-The JRE folder is used in Presto Admin `config.properties` file located in `/PrestoDBMaintainer/.prestoadmin`. Based on the setting, `env.sh` file in `/etc/presto` folder is created.
-
-config.properties 
-
-    :::json
-    {
-      "java_home":"/usr/lib/jvm/jre-11"
-    }
-
-env.sh
-
-    :::bash
-    JAVA_HOME=/usr/lib/jvm/jre-11
-
 ## Folder format in configuration files
 
-Do not specify `file` prefix in `config.properties` file, for example, `experimental.spiller-spill-path=/mnt/presto/data/data_spill'.
+Do not specify `file` prefix in `config.properties` file, for example, `spiller-spill-path=/mnt/trino/data/data_spill'.
 
 ## Folder format in Hive connector file
 
-Specify `file` prefix, for example, 'hive.metastore.catalog.dir=file:///mnt/presto/data/hive_connector'.
+Specify `file` prefix, for example, 'hive.metastore.catalog.dir=file:///mnt/trino/data/hive_connector'.
+
+## SQL Server connector overwhelms SQL Server
+
+When data is written to SQL Server, Trino tries to do it as fast as possible. It will utilize all workers to push data to SQL Server. As a result, it opens a lot of connections at least one per worker and SQL Server can crash. Wideness of an exported table impacts on it as well. The more columns is in your table, the more chances to encounter the issue can be. Also, the number of records in a destination table contributes to the issue.
+
+The error message is 
+
+    :::text
+    io.prestosql.spi.PrestoException: There is insufficient system memory in resource pool 'default' to run this query. 
+       at io.prestosql.plugin.jdbc.JdbcPageSink.appendPage(JdbcPageSink.java:117)
+       at io.prestosql.operator.TableWriterOperator.addInput(TableWriterOperator.java:257)
+       at io.prestosql.operator.Driver.processInternal(Driver.java:384)
+       at io.prestosql.operator.Driver.lambda$processFor$8(Driver.java:283)
+       at io.prestosql.operator.Driver.tryWithLock(Driver.java:675)
+       at io.prestosql.operator.Driver.processFor(Driver.java:276)
+       at io.prestosql.execution.SqlTaskExecution$DriverSplitRunner.processFor(SqlTaskExecution.java:1076)
+       at io.prestosql.execution.executor.PrioritizedSplitRunner.process(PrioritizedSplitRunner.java:163)
+       at io.prestosql.execution.executor.TaskExecutor$TaskRunner.run(TaskExecutor.java:484)
+       at io.prestosql.$gen.Presto_348_e____20210219_123137_2.run(Unknown Source)
+       at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+       at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+       at java.base/java.lang.Thread.run(Thread.java:834)
+    Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: There is insufficient system memory in resource pool 'default' to run this query.
+       at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:254)
+       at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1608)
+       at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.doExecutePreparedStatementBatch(SQLServerPreparedStatement.java:2766)
+       at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement$PrepStmtBatchExecCmd.doExecute(SQLServerPreparedStatement.java:2641)
+       at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7240)
+       at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:2869)
+       at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:243)
+       at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:218)
+       at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.executeBatch(SQLServerPreparedStatement.java:2056)
+       at io.prestosql.plugin.jdbc.JdbcPageSink.appendPage(JdbcPageSink.java:109)
+       ... 12 more
+
+To solve the issue, RAM of SQL Server should be pumped up. You can try to increase SQL Server memory until the issue is gone. For example, if you export a table with 100 columns and your record count is some hundred million records, RAM can be set up to 96GB with 90GB dedicated to SQL Server.

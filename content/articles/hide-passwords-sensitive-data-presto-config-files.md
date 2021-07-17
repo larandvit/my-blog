@@ -1,7 +1,7 @@
 Title: Hide Passwords and Sensitive Data in Presto Configuration Files
 Date: 2020-10-17
 Category: Trino(Presto), Security
-Cover: /extra/prestodb-logo.png
+Cover: /extra/trino-logo.png
 
 Presto configuration files contain passwords and sensitive data in plain text. Corporation security policies are not tolerant with it. That kind of information has to be hidden from users who are not authorized to have access to it. As a rule of thumb, DevOps and security teams are responsible to set up and maintain the part of configuration with sensitive information. It can be achieved by implementing environment variables to supply passwords and sensitive data in Presto configuration files. A Presto property value can be replaced with a name of an environment variable. Populating of environment variables are done during starting of Presto service. Sensitive information can be loaded from different sources, for example, a file located in a secure place outside of Presto.
 

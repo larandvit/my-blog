@@ -1,9 +1,9 @@
 Title: Built-in System Access Control to Catalogs in Presto
 Date: 2021-03-04
 Category: Trino(Presto)
-Cover: /extra/prestodb-logo.png
+Cover: /extra/trino-logo.png
 
-[Presto](https://trino.io/) secures access to catalogs with built-in system. This article is not aimed to replace the Presto documentation which provides high level of overview with following details on the implementation of build-in system access control. As any documentation, it does not cover all topics and there are some missing pieces and features. The samples are based on [Trino](https://trino.io/) open-source distribution former known as Presto SQL. 
+[Presto](https://trino.io/) secures access to catalogs with built-in system. This article is not aimed to replace the Presto documentation which provides high level of overview with following details on the implementation of build-in system access control. As any documentation, it does not cover all topics and there are some missing pieces and features. The samples are based on [Trino](https://trino.io/) open-source distribution former known as PrestoSQL. 
 
 The default global access for mostly types of catalogs is to create tables and insert data. It is applicable, for example, to MySql, PostgreSQL, SQL Server, and other connectors.
 

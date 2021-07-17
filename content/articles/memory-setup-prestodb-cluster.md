@@ -1,7 +1,7 @@
 Title: Memory Configuration in Presto Cluster
 Date: 2020-08-09
 Category: Trino(Presto)
-Cover: /extra/prestodb-logo.png
+Cover: /extra/trino-logo.png
 
 [Presto](https://prestodb.io/) cluster is sensitive to memory setup. As Presto is developed in Java, Java is foundation to configure it. In many cases, Presto server is not started because of memory configuration. During Presto server launch, the validation rules are applied to make sure that major memory settings are consistent. It does not guarantee of cluster stability and performance so spending time on initial memory setup can contribute to success of your cluster.
 

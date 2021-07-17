@@ -1,7 +1,7 @@
 Title: Access MS SQL Server in Presto with Kerberos Keytab Authentication
 Date: 2020-11-12
 Category: Trino(Presto), MS SQL Server
-Cover: /extra/prestodb-logo.png
+Cover: /extra/trino-logo.png
 
 [Presto](https://prestosql.io/) SQL Server connector accesses SQL Server databases using SQL Server credentials. The connector properties contain SQL Server user name and password. This is only an option supported by Presto. Because of using SQL Server jdbc driver in SQL Server connector, it opens more ways to access MS SQL Server. Kerberos keytab is a part of SQL Server jdbc driver setup with Java Authentication and Authorization Service (JAAS).
 

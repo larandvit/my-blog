@@ -1,10 +1,14 @@
 Title: Trino(Presto) Installation and Setup Pitfalls
 Date: 2020-07-03
-Modified: 2021-07-06
+Modified: 2021-07-16
 Category: Trino(Presto)
 Cover: /extra/trino-logo.png
 
-Like other installations and setups, [Trino](https://trino.io/) former PrestoSQL can contain steps which cause difficulties. How many times you were stuck with something? In mostly cases, it was a trivial issue but you spent countless time to solve it. It's better to have a cheat sheet for discovering those issues before encountering them. The list of pitfalls is based on [Starburst](https://www.starburst.io/) open-source distribution.
+Like other installations and setups, [Trino](https://trino.io/) formerly PrestoSQL can contain steps which cause difficulties. How many times you were stuck with something? In mostly cases, it was a trivial issue but you spent countless time to solve it. It's better to have a cheat sheet for discovering those issues before encountering them. The list of pitfalls is based on [Starburst](https://www.starburst.io/) open-source distribution.
+
+## History
+
+[Trino](https://trino.io/) formerly PrestoSQL was originated in 2012 year as [PrestoDB](https://prestodb.io/) open-source project in Facebook. PrestoSQL was started in 2019 by the PrestoDB founders. Facebook forced to rebrand PrestoSQL into Trino in 2020. One of the successful commercial distribution based on Trino is [Starburst](https://www.starburst.io/). Starburst includes both open-source and commercial products.
 
 ## Disable swap on each node
 Trino assumes that swap is not used. Swap can dramatically impact on performance and stability of a Trino cluster. If swap is on, memory consumption will be close to 100% and, as a result, Trino cluster will be slow and many queries will fail.

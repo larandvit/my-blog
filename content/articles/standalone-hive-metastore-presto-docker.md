@@ -1,6 +1,6 @@
 Title: Hive Standalone Metastore for Presto in Docker
 Date: 2020-10-20
-Modified: 2020-10-23
+Modified: 2021-07-27
 Category: Trino(Presto), Hive, Docker
 Cover: /extra/trino-logo.png
 
@@ -265,6 +265,10 @@ if more than one metastore, replace port for next metastore.
         SELECT 'value1.1', 'value1.2';
 
 Everything has to be completed without any error messages and `finance_department` bucket will conatain `test_table` folder with a file.
+
+## Troubleshooting
+
+* [Troubleshooting Access to HTTP/HTTPS Resources in Docker]({filename}/articles/troubleshooting-access-https-resources-docker.md)
 
 ## Resources
 

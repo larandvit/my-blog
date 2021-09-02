@@ -1,7 +1,7 @@
-Title: Access SQL Server with Windows Trusted Connection in Linux with Python
+Title: Access SQL Server with Trusted Connection in Linux with Python Using Kerberos Ticket
 Date: 2021-08-15
-Modified: 2021-08-16
-Category: Python, MS SQL Server
+Modified: 2021-09-01
+Category: Python, MS SQL Server, Kerberos
 Cover: /extra/python-logo.png
 
 Integration of Windows and Linux environments is common in many companies. One of the scenarios is when Windows Active Directory serves for user authentication and Linux servers or containers are used for running applications. Also, MS SQL Server is utilized for storing data. 
@@ -84,8 +84,7 @@ The sample code is developed in CentOS 7 with Python 3 and pyodbc library.
         
         cur = sqlserver_connection().cursor()
                 
-        sql_text = 'SELECT TOP 1 * ' \
-                   'from sample_table'
+        sql_text = 'SELECT @@VERSION'
                    
         cur.execute(sql_text)
         row = cur.fetchone()

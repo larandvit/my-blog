@@ -6,6 +6,10 @@
 
          xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
+   	<loc>https://techjogging.com/create-letsencrypt-certificate-alpine-nginx.html</loc>
+   	<lastmod>2021-09-20</lastmod>
+   </url>
+   <url>
    	<loc>https://techjogging.com/access-sqlserver-trusted-connection-linux-python-kerberos-keytab.html</loc>
    	<lastmod>2021-09-07</lastmod>
    </url>

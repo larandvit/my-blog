@@ -6,6 +6,10 @@
 
          xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
+   	<loc>https://techjogging.com/set_up_starburst_stargate_connector_password_pass_through_authentication.html</loc>
+   	<lastmod>2021-09-21</lastmod>
+   </url>
+   <url>
    	<loc>https://techjogging.com/create-letsencrypt-certificate-alpine-nginx.html</loc>
    	<lastmod>2021-09-20</lastmod>
    </url>

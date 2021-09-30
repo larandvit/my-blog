@@ -1,5 +1,6 @@
 Title: Access SQL Server with Trusted Connection in Linux with Python Using Kerberos Keytab
 Date: 2021-09-07
+Modified: 2021-09-30
 Category: Python, MS SQL Server, Kerberos
 Cover: /extra/python-logo.png
 
@@ -88,11 +89,6 @@ The sample code is developed in CentOS 7 with Python 3 and pyodbc library.
 
         :::bash
         klist
-
-    Or valid ticket(s).
-
-        :::bash
-        klist -s
 
 * Missing Kerberos ticket cache file variable.
 

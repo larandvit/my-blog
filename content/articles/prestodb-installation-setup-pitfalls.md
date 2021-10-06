@@ -1,6 +1,6 @@
 Title: Trino(Presto) Installation and Setup Pitfalls
 Date: 2020-07-03
-Modified: 2021-08-04
+Modified: 2021-10-05
 Category: Trino(Presto)
 Cover: /extra/trino-logo.png
 
@@ -174,4 +174,138 @@ server.log error message when Hive connector is being loaded.
     	at io.trino.hadoop.HadoopNative.loadLibrary(HadoopNative.java:92)
     	at io.trino.hadoop.HadoopNative.requireHadoopNative(HadoopNative.java:47)
     	... 53 more
+
+## Error "FATAL: remaining connection slots are reserved for non-replication superuser connections"
+
+This issue might be caused by Event Logger with Postgres database as a backend when a Trino cluster is not stopped during shutting down Linux computers. In that case, Postgres connections are not closed and after Trino start, enough connections can't be allocated.
+
+To solve it, restart your Trino cluster. It will release Postgres connections after stopping the cluster.
+
+The issue was encountered in Starburst Enterprise edition 360-e.2.
+
+The error message found in the server log.
+
+    :::text
+    2021-10-02T10:47:21.873-0400	INFO	main	io.trino.eventlistener.EventListenerManager	-- Loading event listener etc/event-listener.properties --
+    2021-10-02T10:47:22.424-0400	INFO	main	Bootstrap	PROPERTY                           DEFAULT     RUNTIME                                                                                DESCRIPTION
+    2021-10-02T10:47:22.424-0400	INFO	main	Bootstrap	jdbc.connection-pool.idle-timeout  10.00m      10.00m                                                                                 Maximum amount of time a connection can sit idle in the pool
+    2021-10-02T10:47:22.424-0400	INFO	main	Bootstrap	jdbc.password                      [REDACTED]  [REDACTED]                                                                             Password of the user connecting to the database
+    2021-10-02T10:47:22.424-0400	INFO	main	Bootstrap	jdbc.url                           ----        jdbc:postgresql://sample.com:5432/event_logger                                        URL of the database; for MySQL, include sessionVariables=sql_mode=ANSI
+    2021-10-02T10:47:22.424-0400	INFO	main	Bootstrap	jdbc.user                          ----        sample_user                                                                            User connecting to the database
+    2021-10-02T10:47:22.424-0400	INFO	main	Bootstrap	jdbc.connection-pool.max-size      10          10                                                                                     Maximum number of connections in the pool
+    2021-10-02T10:47:22.424-0400	INFO	main	Bootstrap	jdbc.connection-pool.min-size      1           1                                                                                      Minimum number of connections in the pool
+    2021-10-02T10:47:22.500-0400	INFO	main	com.zaxxer.hikari.HikariDataSource	HikariPool-1 - Starting...
+    2021-10-02T10:47:22.583-0400	ERROR	main	com.zaxxer.hikari.pool.HikariPool	HikariPool-1 - Exception during pool initialization.
+    org.postgresql.util.PSQLException: FATAL: remaining connection slots are reserved for non-replication superuser connections
+    	at org.postgresql.Driver$ConnectThread.getResult(Driver.java:410)
+    	at org.postgresql.Driver.connect(Driver.java:268)
+    	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:677)
+    	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:228)
+    	at org.postgresql.ds.common.BaseDataSource.getConnection(BaseDataSource.java:98)
+    	at org.postgresql.ds.common.BaseDataSource.getConnection(BaseDataSource.java:83)
+    	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:353)
+    	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:201)
+    	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:473)
+    	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:562)
+    	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:115)
+    	at com.zaxxer.hikari.HikariDataSource.<init>(HikariDataSource.java:81)
+    	at com.starburstdata.presto.eventlogger.api.db.PersistenceModule.createDatasource(PersistenceModule.java:77)
+    	at com.starburstdata.presto.eventlogger.api.db.PersistenceModule$$FastClassByGuice$$670968.GUICE$TRAMPOLINE(<generated>)
+    	at com.starburstdata.presto.eventlogger.api.db.PersistenceModule$$FastClassByGuice$$670968.apply(<generated>)
+    	at com.google.inject.internal.ProviderMethod$FastClassProviderMethod.doProvision(ProviderMethod.java:260)
+    	at com.google.inject.internal.ProviderMethod.doProvision(ProviderMethod.java:171)
+    	at com.google.inject.internal.InternalProviderInstanceBindingImpl$CyclicFactory.provision(InternalProviderInstanceBindingImpl.java:185)
+    	at com.google.inject.internal.InternalProviderInstanceBindingImpl$CyclicFactory.access$300(InternalProviderInstanceBindingImpl.java:139)
+    	at com.google.inject.internal.InternalProviderInstanceBindingImpl$CyclicFactory$1.call(InternalProviderInstanceBindingImpl.java:169)
+    	at com.google.inject.internal.ProvisionListenerStackCallback$Provision.provision(ProvisionListenerStackCallback.java:109)
+    	at io.airlift.bootstrap.LifeCycleModule.provision(LifeCycleModule.java:54)
+    	at com.google.inject.internal.ProvisionListenerStackCallback$Provision.provision(ProvisionListenerStackCallback.java:117)
+    	at com.google.inject.internal.ProvisionListenerStackCallback.provision(ProvisionListenerStackCallback.java:66)
+    	at com.google.inject.internal.InternalProviderInstanceBindingImpl$CyclicFactory.get(InternalProviderInstanceBindingImpl.java:164)
+    	at com.google.inject.internal.ProviderToInternalFactoryAdapter.get(ProviderToInternalFactoryAdapter.java:40)
+    	at com.google.inject.internal.SingletonScope$1.get(SingletonScope.java:169)
+    	at com.google.inject.internal.InternalFactoryToProviderAdapter.get(InternalFactoryToProviderAdapter.java:45)
+    	at com.google.inject.internal.InternalInjectorCreator.loadEagerSingletons(InternalInjectorCreator.java:213)
+    	at com.google.inject.internal.InternalInjectorCreator.injectDynamically(InternalInjectorCreator.java:186)
+    	at com.google.inject.internal.InternalInjectorCreator.build(InternalInjectorCreator.java:113)
+    	at com.google.inject.Guice.createInjector(Guice.java:87)
+    	at io.airlift.bootstrap.Bootstrap.initialize(Bootstrap.java:275)
+    	at com.starburstdata.presto.eventlogger.QueryLoggerEventListenerFactory.create(QueryLoggerEventListenerFactory.java:40)
+    	at com.starburstdata.presto.license.LicenceCheckingEventListenerFactory.create(LicenceCheckingEventListenerFactory.java:50)
+    	at io.trino.eventlistener.EventListenerManager.createEventListener(EventListenerManager.java:117)
+    	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+    	at java.base/java.util.Collections$2.tryAdvance(Collections.java:4747)
+    	at java.base/java.util.Collections$2.forEachRemaining(Collections.java:4755)
+    	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:484)
+    	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:474)
+    	at java.base/java.util.stream.ReduceOps$ReduceOp.evaluateSequential(ReduceOps.java:913)
+    	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+    	at java.base/java.util.stream.ReferencePipeline.collect(ReferencePipeline.java:578)
+    	at io.trino.eventlistener.EventListenerManager.configuredEventListeners(EventListenerManager.java:100)
+    	at io.trino.eventlistener.EventListenerManager.loadEventListeners(EventListenerManager.java:85)
+    	at io.trino.server.Server.doStart(Server.java:134)
+    	at io.trino.server.Server.lambda$start$0(Server.java:77)
+    	at io.trino.$gen.Trino_360_e_2____20211002_144649_1.run(Unknown Source)
+    	at io.trino.server.Server.start(Server.java:77)
+    	at com.starburstdata.presto.StarburstTrinoServer.main(StarburstTrinoServer.java:40)
+    
+    
+    2021-10-02T10:47:22.584-0400	ERROR	main	com.starburstdata.presto.eventlogger.api.db.PersistenceModule	Failed to create connection pool; query event logger will be disabled
+    com.zaxxer.hikari.pool.HikariPool$PoolInitializationException: Failed to initialize pool: FATAL: remaining connection slots are reserved for non-replication superuser connections
+    	at com.zaxxer.hikari.pool.HikariPool.throwPoolInitializationException(HikariPool.java:597)
+    	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:576)
+    	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:115)
+    	at com.zaxxer.hikari.HikariDataSource.<init>(HikariDataSource.java:81)
+    	at com.starburstdata.presto.eventlogger.api.db.PersistenceModule.createDatasource(PersistenceModule.java:77)
+    	at com.starburstdata.presto.eventlogger.api.db.PersistenceModule$$FastClassByGuice$$670968.GUICE$TRAMPOLINE(<generated>)
+    	at com.starburstdata.presto.eventlogger.api.db.PersistenceModule$$FastClassByGuice$$670968.apply(<generated>)
+    	at com.google.inject.internal.ProviderMethod$FastClassProviderMethod.doProvision(ProviderMethod.java:260)
+    	at com.google.inject.internal.ProviderMethod.doProvision(ProviderMethod.java:171)
+    	at com.google.inject.internal.InternalProviderInstanceBindingImpl$CyclicFactory.provision(InternalProviderInstanceBindingImpl.java:185)
+    	at com.google.inject.internal.InternalProviderInstanceBindingImpl$CyclicFactory.access$300(InternalProviderInstanceBindingImpl.java:139)
+    	at com.google.inject.internal.InternalProviderInstanceBindingImpl$CyclicFactory$1.call(InternalProviderInstanceBindingImpl.java:169)
+    	at com.google.inject.internal.ProvisionListenerStackCallback$Provision.provision(ProvisionListenerStackCallback.java:109)
+    	at io.airlift.bootstrap.LifeCycleModule.provision(LifeCycleModule.java:54)
+    	at com.google.inject.internal.ProvisionListenerStackCallback$Provision.provision(ProvisionListenerStackCallback.java:117)
+    	at com.google.inject.internal.ProvisionListenerStackCallback.provision(ProvisionListenerStackCallback.java:66)
+    	at com.google.inject.internal.InternalProviderInstanceBindingImpl$CyclicFactory.get(InternalProviderInstanceBindingImpl.java:164)
+    	at com.google.inject.internal.ProviderToInternalFactoryAdapter.get(ProviderToInternalFactoryAdapter.java:40)
+    	at com.google.inject.internal.SingletonScope$1.get(SingletonScope.java:169)
+    	at com.google.inject.internal.InternalFactoryToProviderAdapter.get(InternalFactoryToProviderAdapter.java:45)
+    	at com.google.inject.internal.InternalInjectorCreator.loadEagerSingletons(InternalInjectorCreator.java:213)
+    	at com.google.inject.internal.InternalInjectorCreator.injectDynamically(InternalInjectorCreator.java:186)
+    	at com.google.inject.internal.InternalInjectorCreator.build(InternalInjectorCreator.java:113)
+    	at com.google.inject.Guice.createInjector(Guice.java:87)
+    	at io.airlift.bootstrap.Bootstrap.initialize(Bootstrap.java:275)
+    	at com.starburstdata.presto.eventlogger.QueryLoggerEventListenerFactory.create(QueryLoggerEventListenerFactory.java:40)
+    	at com.starburstdata.presto.license.LicenceCheckingEventListenerFactory.create(LicenceCheckingEventListenerFactory.java:50)
+    	at io.trino.eventlistener.EventListenerManager.createEventListener(EventListenerManager.java:117)
+    	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+    	at java.base/java.util.Collections$2.tryAdvance(Collections.java:4747)
+    	at java.base/java.util.Collections$2.forEachRemaining(Collections.java:4755)
+    	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:484)
+    	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:474)
+    	at java.base/java.util.stream.ReduceOps$ReduceOp.evaluateSequential(ReduceOps.java:913)
+    	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+    	at java.base/java.util.stream.ReferencePipeline.collect(ReferencePipeline.java:578)
+    	at io.trino.eventlistener.EventListenerManager.configuredEventListeners(EventListenerManager.java:100)
+    	at io.trino.eventlistener.EventListenerManager.loadEventListeners(EventListenerManager.java:85)
+    	at io.trino.server.Server.doStart(Server.java:134)
+    	at io.trino.server.Server.lambda$start$0(Server.java:77)
+    	at io.trino.$gen.Trino_360_e_2____20211002_144649_1.run(Unknown Source)
+    	at io.trino.server.Server.start(Server.java:77)
+    	at com.starburstdata.presto.StarburstTrinoServer.main(StarburstTrinoServer.java:40)
+    Caused by: org.postgresql.util.PSQLException: FATAL: remaining connection slots are reserved for non-replication superuser connections
+    	at org.postgresql.Driver$ConnectThread.getResult(Driver.java:410)
+    	at org.postgresql.Driver.connect(Driver.java:268)
+    	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:677)
+    	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:228)
+    	at org.postgresql.ds.common.BaseDataSource.getConnection(BaseDataSource.java:98)
+    	at org.postgresql.ds.common.BaseDataSource.getConnection(BaseDataSource.java:83)
+    	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:353)
+    	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:201)
+    	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:473)
+    	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:562)
+    	... 41 more
+
 

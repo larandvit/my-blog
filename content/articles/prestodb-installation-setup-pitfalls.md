@@ -1,6 +1,6 @@
 Title: Trino(Presto) Installation and Setup Pitfalls
 Date: 2020-07-03
-Modified: 2021-10-05
+Modified: 2021-12-01
 Category: Trino(Presto)
 Cover: /extra/trino-logo.png
 
@@ -308,4 +308,37 @@ The error message found in the server log.
     	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:562)
     	... 41 more
 
+## Expected a string or numeric value for field 'field_name' of type VARCHAR: [value1, value2] [ArrayList]
 
+The error is encountered when Elasticsearch connector is used. The connector can handle only [simple data types](https://trino.io/docs/current/connector/elasticsearch.html#data-types) but Elasticsearch includes list of values in a field.
+
+The message is.
+
+    :::text
+    SQL Error [58]: Query failed (#20211105_183725_88248_kz74f): Expected a string or numeric value for field 'field_name' of type VARCHAR: [value1, value2, value3] [ArrayList]
+
+To fix the issue, a command should be run to notify Trino about those fields in the _meta section of the index mapping. Replace those place holders with yours values: elastic.sample.com:9200, index_name, and field_name.
+
+    :::bash
+    curl --request PUT \
+        --url elastic.sample.com:9200/index_name/doc/_mapping \
+        --header 'content-type: application/json' \
+        --data '
+    {
+        "_meta": {
+            "presto":{
+                "field_name":{
+                    "isArray":true
+                }
+            }
+        }
+    }'
+
+
+The testing can be done running any of those SQL statements.
+
+    :::sql
+    SELECT field_name FROM elastic_catalog."default".index_name WHERE field_name IS NOT NULL;
+    SELECT DISTINCT field_name FROM elastic_catalog."default".index_name;
+
+Trino documentation reference is [Array types](https://trino.io/docs/current/connector/elasticsearch.html#array-types).

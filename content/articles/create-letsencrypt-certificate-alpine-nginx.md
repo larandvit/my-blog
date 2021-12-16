@@ -1,5 +1,6 @@
 Title: Create Let's Encrypt Certificate in Alpine for Nginx
 Date: 2021-09-20
+Modified: 2021-12-15
 Category: Linux, Nginx, Security
 Cover: /extra/alpine-logo.png
 
@@ -30,6 +31,11 @@ The sample is based on Alpine version 3.14.2 with Python 3.9.5 installed. Root u
     certbot --nginx
 
    Follow instructions to create a new certificate.
+
+## 5. Renew certificate interactively
+
+    :::bash
+    certbot renew
 
 ## Resources
 

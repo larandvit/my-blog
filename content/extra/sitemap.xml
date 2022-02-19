@@ -6,6 +6,18 @@
 
          xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
+   	<loc>https://techjogging.com/evolution-sql-language-price-decline-data-transformation-trino-sqlserver.html</loc>
+   	<lastmod>2022-02-19</lastmod>
+   </url>
+   <url>
+   	<loc>https://techjogging.com/store_sensitive_data_locally_windows_using_python.html</loc>
+   	<lastmod>2021-12-14</lastmod>
+   </url>
+   <url>
+   	<loc>https://techjogging.com/trino_insights_database_maintenance.html</loc>
+   	<lastmod>2021-12-12</lastmod>
+   </url>
+   <url>
    	<loc>https://techjogging.com/set_up_starburst_stargate_connector_password_pass_through_authentication.html</loc>
    	<lastmod>2021-09-21</lastmod>
    </url>

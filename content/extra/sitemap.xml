@@ -6,6 +6,10 @@
 
          xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
+   	<loc>https://techjogging.com/trigger_events-aeotec-doorbell6-hubitat.html</loc>
+   	<lastmod>2022-03-26</lastmod>
+   </url>
+   <url>
    	<loc>https://techjogging.com/evolution-sql-language-price-decline-data-transformation-trino-sqlserver.html</loc>
    	<lastmod>2022-02-19</lastmod>
    </url>

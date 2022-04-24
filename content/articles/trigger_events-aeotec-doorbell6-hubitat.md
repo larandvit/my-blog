@@ -1,5 +1,6 @@
 Title: Trigger Events in Aeotec Doorbell 6 in Hubitat
 Date: 2022-03-26
+Modified: 2022-04-24
 Category: Hubitat
 Cover: /extra/hubitat-logo.png
 
@@ -34,6 +35,14 @@ Click **Configure** button. It will be added new properties for extra buttons in
 ![Aeotec Doorbell 6 configure device]({static}/images/trigger_events-aeotec-doorbell6-hubitat/aeotec-doorbell6-configure-device.jpg)</br></br>
 
 ![Aeotec Doorbell 6 new properties]({static}/images/trigger_events-aeotec-doorbell6-hubitat/aeotec-doorbell6-new-properties.jpg)</br></br>
+
+##6. Send notifications in case of events
+
+Doorbell supports `chime is playing` and `chime is stopped` status events associated with the doorbell button. Those events can be caught in Rule Machine.
+
+Create a new rule machine with Custom Attribute capability, then select `status` attribute, and finally select `playing` or `stopped` value.
+
+![Aeotec Doorbell 6 select trigger events]({static}/images/trigger_events-aeotec-doorbell6-hubitat/aeotec-doorbell6-select-trigger-events.jpg)</br></br>
 
 ## Resources
 * [Aeotec doorbell 6 Community Forum](https://community.hubitat.com/t/aeotec-doorbell-6/50006)

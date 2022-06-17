@@ -1,5 +1,6 @@
 Title: Firmware Update Aeotec ZWA039 aërQ Sensor with Hubitat
 Date: 2022-05-22
+Modified: 2022-06-16
 Category: Hubitat
 Cover: /extra/hubitat-logo.png
 
@@ -55,7 +56,16 @@ A set of stages is followed.
 
 ![Hubitat firmware update status last fragement]({static}/images/firmware-update-aeotec-zwa039-aerq-sensor-hubitat/hubitat_firmware_update_status_last_fragement.jpg)</br></br>
 
-##8. Remove and Add Device with Security
+##8. Remove and reinsert battery
+
+If level of your battery is low, it will help reset it.
+
+##9. Remove and Add Device with Security
+
+##10. Considerations
+
+* Firmware update might not start if level of battery is too low. Remove from and insert battery into the sensor as it might help reset the level of battery. Also, some energy can be regained if keep battery out of the device for 1 day.
+* Based on Amazon's reviews, quality of batteries is not good. As a result, they can be depleted very fast which can point out that the sensor works as expected.
 
 ## Resources
 * [Habitat Device Firmware Updater](https://docs.hubitat.com/index.php?title=Device_Firmware_Updater)

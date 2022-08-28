@@ -1,5 +1,6 @@
 Title: Expand Logical Volume in CentOS/RHEL 7
 Date: 2020-01-29
+Modified: 2022-08-27
 Category: Linux
 Cover: /extra/centos-logo.png
 
@@ -46,6 +47,47 @@ As Linux systems have root file systems on a logical volume, it can be used Logi
 
 2. Create a new logical volume partition. Enter **8E00** partition code.
 
+        ::text
+        Command (? for help): n
+
+        Partition number (6-128, default 6): 
+        First sector (31457280-52428766, default = 31457280) or {+-}size{KMGTP}: 
+        Last sector (31457280-52428766, default = 52428766) or {+-}size{KMGTP}: 
+        Current type is 'Linux filesystem'
+        Hex code or GUID (L to show codes, Enter = 8300): 8E00
+        Changed type of partition to 'Linux LVM'
+
+    If you have received the message.
+
+        ::text
+        No free sectors available
+
+    You need to fix the pointer running commands.
+
+    a) Run expert mode.
+
+        ::text
+        Command (? for help): x
+
+    b) Fix the pointer.
+
+        ::text
+        Expert command (? for help): e
+        Relocating backup data structures to the end of the disk
+
+    c) Return to main menu.
+
+        ::text
+        Expert command (? for help): m
+        
+    d) Validate available space, for example.
+
+        ::text
+        Command (? for help): p
+        Total free space is 52428800 sectors (25.0 GiB)
+
+    e) Rerun to create a new logical volume partition command. Enter **8E00** partition code.
+   
         ::text
         Command (? for help): n
 

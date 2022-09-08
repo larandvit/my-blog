@@ -1,10 +1,11 @@
 Title: Convert PEM File Format to Java Keystore
 Date: 2022-09-03
+Modified: 2022-09-07
 Category: Security
 Cover: /extra/security-logo.jpg
 
-There are two major ways to convert PEM file into Java keystore one. The fist way is very easy to use a tool which is capable of direct conversion of those files. As a tool, for example, you can use Oracle Endeca Key Importer utility. It is a part of a commercial solution. 
-The second way is not trivial as the first one as it requests multiple steps, but you can use publicly available tools.
+There are two major ways to convert PEM file into Java keystore one. The fist way is very easy because it is used a tool which is capable of direct conversion of those files. As a tool, for example, you can use [KeyStore Explorer](https://keystore-explorer.org/index.html).
+The second way is not trivial as the first one as it requests multiple steps, but you can use a tool which is already available on your computer. The Java keytool is a command line utility supplied with a Java installation.
 
 The sample is based on a PEM certificate including only public key. The commands are run in Red Hat Linux 7.9.
 
@@ -37,14 +38,21 @@ The sample is based on a PEM certificate including only public key. The commands
 
 2. Add PEM certificate
 
-    a) Add public key
+    a) Review the certificate included in PEM file. This is an optional step
+
+        :::bash
+        keytool -printcert -file  your_certificate.pem
+
+    Your PEM file is **your_certificate.pem**.
+
+    b) Add public key
 
         :::bash
         keytool -import -file your_certificate.pem -alias your_alias -keystore my_java_keystore.jks -deststorepass changeit
 
     Your PEM file with a public key is **your_certificate.pem**. Replace **your_alias** name with yours.
 
-    b) Validate the key store
+    c) Validate the key store
 
         :::bash
         keytool -list -keystore my_java_keystore.jks -storepass changeit

@@ -6,6 +6,10 @@
 
          xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
+   	<loc>https://techjogging.com/cobol-data-types.html</loc>
+   	<lastmod>2022-09-15</lastmod>
+   </url>
+   <url>
    	<loc>https://techjogging.com/convert-pem-file-format-java-keystore.html</loc>
    	<lastmod>2022-09-03</lastmod>
    </url>

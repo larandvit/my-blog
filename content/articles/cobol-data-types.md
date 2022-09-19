@@ -20,22 +20,22 @@ One of the usages of COBOL data type information is to develop a tool to convert
     </thead>
     <tbody>
         <tr>
-            <td>Signed BINARY 1 byte</td>
+            <td><a href="https://techjogging.com/cobol-signed-binary-data-type.html">Signed BINARY 1 byte</a></td>
             <td>PIC S9 to S9(3) COMP</td>
             <td>-128 to 128</td>
         </tr>
        <tr>
-            <td>Signed BINARY 2 bytes</td>
+            <td><a href="https://techjogging.com/cobol-signed-binary-data-type.html">Signed BINARY 2 byte</a></td>
             <td>PIC S9(4) to S9(5) COMP</td>
             <td>-32768 to 32767</td>
         </tr>
        <tr>
-            <td>Signed BINARY 4 bytes</td>
+            <td><a href="https://techjogging.com/cobol-signed-binary-data-type.html">Signed BINARY 4 byte</a></td>
             <td>PIC S9(6) to S9(10) COMP</td>
             <td>-2147483648 to 2147483647</td>
         </tr>
        <tr>
-            <td>Signed BINARY 8 bytes</td>
+            <td><a href="https://techjogging.com/cobol-signed-binary-data-type.html">Signed BINARY 8 byte</a></td>
             <td>PIC S9(11) to S9(19) COMP</td>
             <td>-9223372036854775808 to 9223372036854775807</td>
         </tr>

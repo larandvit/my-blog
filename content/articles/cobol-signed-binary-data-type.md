@@ -1,17 +1,16 @@
 Title: COBOL Signed BINARY Data Type
 Date: 2022-09-18
+Modified: 2022-09-20
 Category: COBOL
 Cover: /extra/cobol-logo.png
 
-Signed integers are represented 0 in the leftmost bit for positive values and 1 for negative ones.
-
-One of the usages of COBOL data type information is to develop a tool to convert COBOL data into or from another format, for example, ASCII. [ebcdic-parser](https://github.com/larandvit/ebcdic-parser) is a tool for converting of mainframe EBCDIC data into Unicode ASCII delimited text.
+This group of values are integer signed data type. They can be from 1 to 8 bytes with maximum range from -9223372036854775808 to 9223372036854775807. Signed integers are represented 0 in the leftmost bit for positive values and 1 for negative ones. The summary of signed BINARY data type can be found in [COBOL Data Types]({filename}/articles/cobol-data-types.md) article.
 
 ## Storage Description
 
 **BINARY 1 (1 byte)**
 
-<table class="table table-condensed table-bordered">
+<table class="table table-condensed table-bordered" style="border-width: 3px">
     <thead>
         <tr>
             <th class="text-center">Bit 7</th>
@@ -40,7 +39,7 @@ One of the usages of COBOL data type information is to develop a tool to convert
 
 **BINARY 2 (2 bytes)**
 
-<table class="table table-condensed table-bordered">
+<table class="table table-condensed table-bordered" style="border-width: 3px">
     <thead>
         <tr>
             <th class="text-center">Bit 15</th>
@@ -69,7 +68,7 @@ One of the usages of COBOL data type information is to develop a tool to convert
 
 **BINARY 4 (4 bytes)**
 
-<table class="table table-condensed table-bordered">
+<table class="table table-condensed table-bordered" style="border-width: 3px">
     <thead>
         <tr>
             <th class="text-center">Bit 31</th>
@@ -98,7 +97,7 @@ One of the usages of COBOL data type information is to develop a tool to convert
 
 **BINARY 8 (8 bytes)**
 
-<table class="table table-condensed table-bordered">
+<table class="table table-condensed table-bordered" style="border-width: 3px">
     <thead>
         <tr>
             <th class="text-center">Bit 63</th>
@@ -129,7 +128,7 @@ One of the usages of COBOL data type information is to develop a tool to convert
 
 **35,791** value
 
-<table class="table table-condensed table-bordered">
+<table class="table table-condensed table-bordered" style="border-width: 3px">
     <thead>
         <tr>
             <th class="text-center">Byte 4</th>
@@ -150,7 +149,7 @@ One of the usages of COBOL data type information is to develop a tool to convert
 
 **Explanation**
 
-<table class="table table-condensed table-bordered">
+<table class="table table-condensed table-bordered" style="border-width: 3px">
     <thead>
         <tr>
             <th class="text-center">Bit 31</th>
@@ -205,7 +204,7 @@ One of the usages of COBOL data type information is to develop a tool to convert
 
 **-35,791** value
 
-<table class="table table-condensed table-bordered">
+<table class="table table-condensed table-bordered" style="border-width: 3px">
     <thead>
         <tr>
             <th class="text-center">Byte 4</th>
@@ -226,7 +225,7 @@ One of the usages of COBOL data type information is to develop a tool to convert
 
 **Explanation**
 
-<table class="table table-condensed table-bordered">
+<table class="table table-condensed table-bordered" style="border-width: 3px">
     <thead>
         <tr>
             <th class="text-center">Bit 31</th>
@@ -281,3 +280,6 @@ One of the usages of COBOL data type information is to develop a tool to convert
 * 01 VAR-BINARY PIC S9(05) USAGE COMP.
 * 01 VAR-BINARY PIC S9(5) COMP.
 * 01 VAR-BINARY PIC S9(5) USAGE COMP.
+
+## Resources
+* [ebcdic-parser](https://github.com/larandvit/ebcdic-parser) tool for converting of mainframe EBCDIC data into Unicode ASCII delimited text

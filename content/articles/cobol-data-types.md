@@ -1,16 +1,14 @@
 Title: COBOL Data Types
 Date: 2022-09-15
-Modified: 2022-09-18
+Modified: 2022-09-20
 Category: COBOL
 Cover: /extra/cobol-logo.png
 
 The article is served as a quick information about COBOL data types without diving into details how data is organized in code. There are 4 major groups of data types in COBOL: (1) alphabetic, (2) alphanumeric, (3) numeric, and (4) decimal. Numeric and decimal data types can include a sign with values '+' or '-'.
 
-One of the usages of COBOL data type information is to develop a tool to convert COBOL data into or from another format, for example, ASCII. [ebcdic-parser](https://github.com/larandvit/ebcdic-parser) is a tool for converting of mainframe EBCDIC data into Unicode ASCII delimited text.
-
 ## Data Types
 
-<table class="table table-condensed table-bordered table-hover">
+<table class="table table-condensed table-bordered table-hover" style="border-width: 3px">
     <thead>
         <tr>
             <th class="text-center">COBOL Type</th>
@@ -98,4 +96,5 @@ One of the usages of COBOL data type information is to develop a tool to convert
 </table>
 
 ## Resources
+* [ebcdic-parser](https://github.com/larandvit/ebcdic-parser) tool for converting of mainframe EBCDIC data into Unicode ASCII delimited text
 * [Data Types and Data Formats](https://www.ibm.com/docs/en/i/7.2?topic=definitions-data-types-data-formats)

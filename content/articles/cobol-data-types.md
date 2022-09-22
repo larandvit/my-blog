@@ -1,6 +1,6 @@
 Title: COBOL Data Types
 Date: 2022-09-15
-Modified: 2022-09-20
+Modified: 2022-09-21
 Category: COBOL
 Cover: /extra/cobol-logo.png
 
@@ -38,22 +38,22 @@ The article is served as a quick information about COBOL data types without divi
             <td>-9223372036854775808 to 9223372036854775807</td>
         </tr>
        <tr>
-            <td>Unsigned BINARY 1 byte</td>
+            <td><a href="https://techjogging.com/cobol-unsigned-binary-data-type.html">Unsigned BINARY 1 byte</a></td>
             <td>PIC 9 to 9(3) COMP</td>
             <td>0 to 255</td>
         </tr>
        <tr>
-            <td>Unsigned BINARY 2 bytes</td>
+            <td><a href="https://techjogging.com/cobol-unsigned-binary-data-type.html">Unsigned BINARY 2 bytes</a></td>
             <td>PIC 9(4) to 9(5) COMP</td>
             <td>0 to 65535</td>
         </tr>
        <tr>
-            <td>Unsigned BINARY 4 bytes</td>
+            <td><a href="https://techjogging.com/cobol-unsigned-binary-data-type.html">Unsigned BINARY 4 bytes</a></td>
             <td>PIC 9(6) to 9(10) COMP</td>
             <td>0 to 4294967295</td>
         </tr>
        <tr>
-            <td>Unsigned BINARY 8 bytes</td>
+            <td><a href="https://techjogging.com/cobol-unsigned-binary-data-type.html">Unsigned BINARY 8 bytes</a></td>
             <td>PIC 9(11) to 9(20) COMP</td>
             <td>0 to 18446744073709551615</td>
         </tr>

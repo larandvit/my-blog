@@ -1,6 +1,6 @@
 Title: COBOL Data Types
 Date: 2022-09-15
-Modified: 2022-09-21
+Modified: 2022-09-24
 Category: COBOL
 Cover: /extra/cobol-logo.png
 
@@ -68,17 +68,17 @@ The article is served as a quick information about COBOL data types without divi
             <td>-1.797693134862315E+308 to -2.225073858507201E-308, 0.0E+0, +2.225073858507201E-308 to +1.797693134862315E+308</td>
         </tr>
        <tr>
-            <td>Alpha CHARACTER (A-Z, a-z, and space)</td>
+            <td><a href="https://techjogging.com/cobol-character-data-type.html">Alpha CHARACTER (A-Z, a-z, and space)</a></td>
             <td>PIC A(n)</td>
             <td>N/A</td>
         </tr>
        <tr>
-            <td>Any CHARACTER</td>
+            <td><a href="https://techjogging.com/cobol-character-data-type.html">Any CHARACTER</a></td>
             <td>PIC X(n)</td>
             <td>N/A</td>
         </tr>
        <tr>
-            <td>Numeric CHARACTER (numbers 0-9)</td>
+            <td><a href="https://techjogging.com/cobol-character-data-type.html">Numeric CHARACTER (numbers 0-9)</a></td>
             <td>PIC 9(n)</td>
             <td>N/A</td>
         </tr>

@@ -1,6 +1,6 @@
 Title: COBOL Data Types
 Date: 2022-09-15
-Modified: 2022-09-24
+Modified: 2022-10-12
 Category: COBOL
 Cover: /extra/cobol-logo.png
 
@@ -83,7 +83,7 @@ The article is served as a quick information about COBOL data types without divi
             <td>N/A</td>
         </tr>
        <tr>
-            <td>DECIMAL</td>
+            <td><a href="https://techjogging.com/cobol-decimal-data-type.html">DECIMAL</td>
             <td>PIC S9(p)V9(s) COMP-3</td>
             <td>N/A</td>
         </tr>

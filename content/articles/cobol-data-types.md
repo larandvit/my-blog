@@ -83,12 +83,12 @@ The article is served as a quick information about COBOL data types without divi
             <td>N/A</td>
         </tr>
        <tr>
-            <td><a href="https://techjogging.com/cobol-decimal-data-type.html">DECIMAL</td>
+            <td><a href="https://techjogging.com/cobol-decimal-data-type.html">DECIMAL</a></td>
             <td>PIC S9(p)V9(s) COMP-3</td>
             <td>N/A</td>
         </tr>
        <tr>
-            <td>DISPLAY NUMERIC</td>
+            <td><a href="https://techjogging.com/cobol-display-decimal-data-type.html">DISPLAY NUMERIC</a></td>
             <td>PIC S9(p)V9(s)</td>
             <td>N/A</td>
         </tr>

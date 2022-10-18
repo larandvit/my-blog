@@ -1,6 +1,6 @@
 Title: COBOL Signed BINARY Data Type
 Date: 2022-09-18
-Modified: 2022-09-20
+Modified: 2022-10-17
 Category: COBOL
 Cover: /extra/cobol-logo.png
 
@@ -276,10 +276,11 @@ This group of values are integer signed data type. They can be from 1 to 8 bytes
 
 ## COBOL Representation Samples
 
-* 01 VAR-BINARY PIC S9(5) USAGE COMP.
-* 01 VAR-BINARY PIC S9(05) USAGE COMP.
-* 01 VAR-BINARY PIC S9(5) COMP.
-* 01 VAR-BINARY PIC S9(5) USAGE COMP.
+    :::cobol
+    01 VAR-BINARY PIC S9(5) USAGE COMP.
+    01 VAR-BINARY PIC S9(05) USAGE COMP.
+    01 VAR-BINARY PIC S9(5) COMP.
+    01 VAR-BINARY PIC S9(5) USAGE COMP.
 
 ## Resources
 * [ebcdic-parser](https://github.com/larandvit/ebcdic-parser) tool for converting of mainframe EBCDIC data into Unicode ASCII delimited text

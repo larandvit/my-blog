@@ -1,5 +1,6 @@
 Title: COBOL Unsigned BINARY Data Type
 Date: 2022-09-20
+Modified: 2022-10-17
 Category: COBOL
 Cover: /extra/cobol-logo.png
 
@@ -186,7 +187,7 @@ This group of values are integer unsigned data type. They can be from 1 to 8 byt
         <tr>
             <td>1000 1011</td>
             <td>1100 1111</td>
-        </tr>
+        </tr>kuY%ta25F
      </tbody>
 </table>
 
@@ -239,10 +240,11 @@ This group of values are integer unsigned data type. They can be from 1 to 8 byt
 
 ## COBOL Representation Samples
 
-* 01 VAR-BINARY PIC 9(5) USAGE COMP.
-* 01 VAR-BINARY PIC 9(05) USAGE COMP.
-* 01 VAR-BINARY PIC 9(5) COMP.
-* 01 VAR-BINARY PIC 9(5) USAGE COMP.
+    :::cobol
+    01 VAR-BINARY PIC 9(5) USAGE COMP.
+    01 VAR-BINARY PIC 9(05) USAGE COMP.
+    01 VAR-BINARY PIC 9(5) COMP.
+    01 VAR-BINARY PIC 9(5) USAGE COMP.
 
 ## Resources
 * [ebcdic-parser](https://github.com/larandvit/ebcdic-parser) tool for converting of mainframe EBCDIC data into Unicode ASCII delimited text

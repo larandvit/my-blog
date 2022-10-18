@@ -1,5 +1,6 @@
 Title: COBOL Decimal Data Type
 Date: 2022-10-12
+Modified: 2022-10-17
 Category: COBOL
 Cover: /extra/cobol-logo.png
 
@@ -71,13 +72,14 @@ It requests less storage than binary or display numeric types. The summary of de
 
 ## COBOL Representation Samples
 
-* 01 VAR-PK-DECIMAL PIC 9(5) USAGE COMP-3.
-* 01 VAR-PK-DECIMAL PIC 9(05) USAGE COMP-3.
-* 01 VAR-PK-DECIMAL PIC 9(5) COMP-3.
-* 01 VAR-PK-DECIMAL PIC S9(5) USAGE COMP-3.
-* 01 VAR-PK-DECIMAL PIC 9(5)V9(2) USAGE COMP-3.
-* 01 VAR-PK-DECIMAL PIC 9(5)V9(2) COMP-3.
-* 01 VAR-PK-DECIMAL PIC S9(5)V9(2) COMP-3.
+    :::cobol
+    01 VAR-PK-DECIMAL PIC 9(5) USAGE COMP-3.
+    01 VAR-PK-DECIMAL PIC 9(05) USAGE COMP-3.
+    01 VAR-PK-DECIMAL PIC 9(5) COMP-3.
+    01 VAR-PK-DECIMAL PIC S9(5) USAGE COMP-3.
+    01 VAR-PK-DECIMAL PIC 9(5)V9(2) USAGE COMP-3.
+    01 VAR-PK-DECIMAL PIC 9(5)V9(2) COMP-3.
+    01 VAR-PK-DECIMAL PIC S9(5)V9(2) COMP-3.
 
 ## Resources
 * [ebcdic-parser](https://github.com/larandvit/ebcdic-parser) tool for converting of mainframe EBCDIC data into Unicode ASCII delimited text

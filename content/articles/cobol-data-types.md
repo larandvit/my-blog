@@ -1,6 +1,6 @@
 Title: COBOL Data Types
 Date: 2022-09-15
-Modified: 2022-10-12
+Modified: 2022-10-17
 Category: COBOL
 Cover: /extra/cobol-logo.png
 
@@ -58,12 +58,12 @@ The article is served as a quick information about COBOL data types without divi
             <td>0 to 18446744073709551615</td>
         </tr>
        <tr>
-            <td>FLOAT 4 bytes</td>
+            <td><a href="https://techjogging.com/cobol-float-data-type.html">FLOAT 4 bytes</a></td>
             <td>PIC S9(p)V9(s) COMP-1</td>
             <td>-3.4028235E+38 to -1.1754944E-38, 0.0E+0, +1.1754944E-38 to +3.4028235E+38</td>
         </tr>
        <tr>
-            <td>FLOAT 8 bytes</td>
+            <td><a href="https://techjogging.com/cobol-float-data-type.html">FLOAT 8 bytes</a></td>
             <td>PIC S9(p)V9(s) COMP-2</td>
             <td>-1.797693134862315E+308 to -2.225073858507201E-308, 0.0E+0, +2.225073858507201E-308 to +1.797693134862315E+308</td>
         </tr>

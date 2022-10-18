@@ -1,5 +1,6 @@
 Title: COBOL Character Data Type
 Date: 2022-09-24
+Modified: 2022-10-17
 Category: COBOL
 Cover: /extra/cobol-logo.png
 
@@ -145,20 +146,25 @@ Hello everybody! in Chinese
 ## COBOL Representation Samples
 
 #### Alpha Characters
-* 01 VAR-CHARACTER PIC A(5).
-* 01 VAR-CHARACTER PIC A(05).
-* 01 VAR-CHARACTER PIC AAAAA.
+
+    :::cobol
+    01 VAR-CHARACTER PIC A(5).
+    01 VAR-CHARACTER PIC A(05).
+    01 VAR-CHARACTER PIC AAAAA.
 
 #### Numeric Characters
-* 01 VAR-CHARACTER PIC 9(5).
-* 01 VAR-CHARACTER PIC 9(05).
-* 01 VAR-CHARACTER PIC 99999.
+
+    :::cobol
+    01 VAR-CHARACTER PIC 9(5).
+    01 VAR-CHARACTER PIC 9(05).
+    01 VAR-CHARACTER PIC 99999.
 
 #### Any Characters
 
-* 01 VAR-CHARACTER PIC X(5).
-* 01 VAR-CHARACTER PIC X(05).
-* 01 VAR-CHARACTER PIC XXXXX.
+    :::cobol
+    01 VAR-CHARACTER PIC X(5).
+    01 VAR-CHARACTER PIC X(05).
+    01 VAR-CHARACTER PIC XXXXX.
 
 ## Resources
 * [ebcdic-parser](https://github.com/larandvit/ebcdic-parser) tool for converting of mainframe EBCDIC data into Unicode ASCII delimited text

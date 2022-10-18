@@ -6,6 +6,10 @@
 
          xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
+   	<loc>https://techjogging.com/cobol-float-data-type.html</loc>
+   	<lastmod>2022-10-17</lastmod>
+   </url>
+   <url>
    	<loc>https://techjogging.com/cobol-display-decimal-data-type.html</loc>
    	<lastmod>2022-10-12</lastmod>
    </url>

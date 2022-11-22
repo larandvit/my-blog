@@ -6,6 +6,10 @@
 
          xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
+   	<loc>https://techjogging.com/hubitat-sensor-logging-visualization-synology-nas.html</loc>
+   	<lastmod>2022-11-10</lastmod>
+   </url>
+   <url>
    	<loc>https://techjogging.com/cobol-float-data-type.html</loc>
    	<lastmod>2022-10-17</lastmod>
    </url>

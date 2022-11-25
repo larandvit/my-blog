@@ -1,7 +1,7 @@
-Title: Trino(Presto) Installation and Setup Pitfalls
+Title: Trino Installation and Setup Pitfalls
 Date: 2020-07-03
-Modified: 2021-12-01
-Category: Trino(Presto)
+Modified: 2022-11-24
+Category: Trino
 Cover: /extra/trino-logo.png
 
 Like other installations and setups, [Trino](https://trino.io/) formerly PrestoSQL can contain steps which cause difficulties. How many times you were stuck with something? In mostly cases, it was a trivial issue but you spent countless time to solve it. It's better to have a cheat sheet for discovering those issues before encountering them. The list of pitfalls is based on [Starburst](https://www.starburst.io/) open-source distribution.

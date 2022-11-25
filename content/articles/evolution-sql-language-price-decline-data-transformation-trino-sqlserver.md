@@ -1,6 +1,7 @@
 Title: Evolution of SQL Language with Price Decline Data Transformation in Trino and SQL Server
 Date: 2022-02-19
-Category: Trino(Presto), MS SQL Server
+Modified: 2022-11-24
+Category: Trino, MS SQL Server
 Cover: /extra/sql-logo.png
 
 SQL language is the most loved and supported language to work with data. It goes back in the early 1970s when it first hit the ground running. Since that time, the language has been developing with fast pace. The latest language standard is SQL 2016 which includes a great deal of new features.

@@ -1,7 +1,7 @@
 Title: Python Access to Presto Cluster with Presto Client
 Date: 2020-12-13
-Modified: 2021-04-15
-Category: Python, Trino(Presto)
+Modified: 2022-11-24
+Category: Python, Trino
 Cover: /extra/python-logo.png
 
 [Presto](https://prestosql.io/) access is represented by many Python libraries among those are [Dropbox/PyHive](https://github.com/dropbox/PyHive), [prestosql/presto-python-client](https://github.com/prestosql/presto-python-client), [prestodb/presto-python-client](https://github.com/prestodb/presto-python-client), and [easydatawarehousing/prestoclient](https://github.com/easydatawarehousing/prestoclient). Mostly of libraries use [Python DB-API](https://www.python.org/dev/peps/pep-0249/) interface to access Presto which uniforms commands.

@@ -1,7 +1,7 @@
 Title: Connect DBeaver to Presto with HTTPS Protocol
 Date: 2020-08-25
-Modified: 2021-03-13
-Category: Trino(Presto), DBeaver
+Modified: 2022-11-24
+Category: Trino, DBeaver
 Cover: /extra/dbeaver-logo.png
 
 Communication between [Presto](https://prestodb.io/) and a client can be secured with [HTTPS protocol](https://prestodb.io/docs/current/security/internal-communication.html). `config.properties` Presto setup file located in `/etc/presto` folder includes the information necessary for establishing a connection to DBeaver. Java Keystore file contains a public key which is required to connect DBeaver to Presto cluster secured with SSL/TLS. Also, it is possible to disable SSL verification.

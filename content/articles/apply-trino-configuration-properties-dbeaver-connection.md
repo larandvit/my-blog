@@ -1,6 +1,7 @@
-Title: Apply Trino (Presto) Configuration Properties in DBeaver Connection
+Title: Apply Trino Configuration Properties in DBeaver Connection
 Date: 2021-07-06
-Category: Trino(Presto), DBeaver
+Modified: 2022-11-24
+Category: Trino, DBeaver
 Cover: /extra/trino-logo.png
 
 Trino configuration properties are used to tune Trino or change its behavior when required. Mostly times, those properties are applied in Trino configuration files. It is required a restarting of a Trino cluster to make it in effect in case if customization is needed. There is another flexible option without restarting a Trino cluster and applying those changes on-fly in a Trino DBeaver connection when a query is submitted for an execution. It can be done as a part of the Trino jdbc driver setup in DBeaver.

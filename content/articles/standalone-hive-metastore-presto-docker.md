@@ -1,14 +1,14 @@
-Title: Hive Standalone Metastore for Presto in Docker
+Title: Hive Standalone Metastore for Trino in Docker
 Date: 2020-10-20
-Modified: 2021-07-27
-Category: Trino(Presto), Hive, Docker
+Modified: 2022-11-24
+Category: Trino, Hive, Docker
 Cover: /extra/trino-logo.png
 
-Hive connector in Presto can retrieve data from both HDFS and S3 compatible storages. The connector requests Hive metastore as a link to those storages. There are two types of metastores. The first one is beefy one which includes multiple services. The second one is light weight and is called standalone metastore. It contains only Hive service. The standalone metastore is used to connect to S3 compatible storages.
+Hive connector in Trino can retrieve data from both HDFS and S3 compatible storages. The connector requests Hive metastore as a link to those storages. There are two types of metastores. The first one is beefy one which includes multiple services. The second one is light weight and is called standalone metastore. It contains only Hive service. The standalone metastore is used to connect to S3 compatible storages.
 
 When there is one S3 endpoint, a coordination or another server can host Hive standalone metastore. In case of many S3 endpoints, it is requested to have a Hive metastore for each endpoint. It is possible to dedicate one metastore but it should be applied a special Apache Ranger setup to separate each S3 endpoint. 
 
-To save resources, a coordinator might be used to set up Hive standalone meatostores. Docker containers host those Hive metastores. This configuration simplifies setup and maintenance of a Presto cluster.
+To save resources, a coordinator might be used to set up Hive standalone meatostores. Docker containers host those Hive metastores. This configuration simplifies setup and maintenance of a Trino cluster.
 
 The sample is based on [Starburst](https://www.starburstdata.com/) 343-e open source distribution with RPM installation, Hive standalone metastoere 3.1.2, MinIO S3 storage, and RHEL 7 Linux distribution.
 
@@ -239,7 +239,7 @@ if more than one metastore, replace port for next metastore.
 
 ##10. Test metastore
 
-* Add Hive connector for MinIO storage, for example, `minio_connector`. See [Access MinIO S3 Storage in Presto with Hive Metastore]({filename}/articles/access-minio-s3-storage-prestodb-cluster-hive-metastore.md) article. It is a catalog level in Presto hierarchy.
+* Add Hive connector for MinIO storage, for example, `minio_connector`. See [Access MinIO S3 Storage in Presto with Hive Metastore]({filename}/articles/access-minio-s3-storage-prestodb-cluster-hive-metastore.md) article. It is a catalog level in Trino hierarchy.
 
 * Create a backet to store your schema, for example, `finance-department`.
 

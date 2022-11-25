@@ -1,7 +1,7 @@
 Title: Memory Configuration in Trino Cluster
 Date: 2020-08-09
-Modified: 2022-11-21
-Category: Trino(Presto)
+Modified: 2022-11-24
+Category: Trino
 Cover: /extra/trino-logo.png
 
 [Trino](https://trino.io/) cluster is sensitive to memory setup. As Trino is developed in Java, Java is foundation to configure it. In many cases, Trino server is not started because of memory configuration. During Trino server launch, the validation rules are applied to make sure that major memory settings are consistent. It does not guarantee of cluster stability and performance, so spending time on initial memory setup can contribute to success of your cluster.

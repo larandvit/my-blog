@@ -1,6 +1,7 @@
 Title: Set Up Starburst Stargate Connector with Password Pass-Through Authentication
 Date: 2021-09-22
-Category: Trino(Presto)
+Modified: 2022-11-24
+Category: Trino
 Cover: /extra/trino-logo.png
 
 [Starburst](https://www.starburst.io/) Stargate connector is aimed to utilize any connectors on remote Starburst clusters as local ones. It simplifies access to data applying one connector to different kinds of data. Setup can be done on one cluster and the rest of clusters are consumers of data in a uniform way. A limitation is that the connector accesses data in read only mode. As a side affect, reading data from a remote cluster does not have the same performance as reading data on the remote cluster. It impacts on performance in case of reading a lot of data from a remote cluster. If you use a remote cluster to return results of calculations with a small portion of data, for example, record count, it should serve perfectly.

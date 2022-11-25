@@ -1,6 +1,7 @@
 Title: Trino Insights Database Maintenance
 Date: 2021-12-12
-Category: Trino(Presto)
+Modified: 2022-11-24
+Category: Trino
 Cover: /extra/trino-logo.png
 
 Insights is a part of functionality included in [Starburst](https://www.starburst.io/) Enterprise platform (SEP). Insights shows cluster history, usage metrics, and query history and details. Data is persisted in the insights database. Postgres, Oracle, or MySql is a list of supported backend database management system which is used to store collected data.

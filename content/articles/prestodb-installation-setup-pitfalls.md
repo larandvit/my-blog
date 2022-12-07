@@ -1,6 +1,6 @@
 Title: Trino Installation and Setup Pitfalls
 Date: 2020-07-03
-Modified: 2022-11-24
+Modified: 2022-12-06
 Category: Trino
 Cover: /extra/trino-logo.png
 
@@ -8,7 +8,7 @@ Like other installations and setups, [Trino](https://trino.io/) formerly PrestoS
 
 ## History
 
-[Trino](https://trino.io/) formerly PrestoSQL was originated in 2012 year as [PrestoDB](https://prestodb.io/) open-source project in Facebook. PrestoSQL was started in 2019 by the PrestoDB founders. Facebook forced to rebrand PrestoSQL into Trino in 2020. One of the successful commercial distribution based on Trino is [Starburst](https://www.starburst.io/). Starburst includes both open-source and commercial products.
+[Trino](https://trino.io/) formerly PrestoSQL was originated in 2012 year as [PrestoDB](https://prestodb.io/) open-source project in Facebook. PrestoSQL was started in 2019 by the PrestoDB founders. Facebook forced to rebrand PrestoSQL into Trino in 2020. One of the successful commercial distributions based on Trino is [Starburst](https://www.starburst.io/). Starburst includes both open-source and commercial products.
 
 ## Disable swap on each node
 Trino assumes that swap is not used. Swap can dramatically impact on performance and stability of a Trino cluster. If swap is on, memory consumption will be close to 100% and, as a result, Trino cluster will be slow and many queries will fail.
@@ -45,18 +45,9 @@ Swap memory information.
     :::bash
     free -m
 
-## Java 11 installation
-
-[OpenJDK 11](https://openjdk.java.net/projects/jdk/11/) can be used. Java 11 does not have JRE dedicated folder. 
-
-    :::bash
-    sudo yum install java-11-openjdk-devel
-
-OpenJDK JRE folder is `/usr/lib/jvm/jre-11`. It points to the same location as JDK one.
-
 ## SQL Server connector overwhelms SQL Server
 
-When data is written to SQL Server, Trino tries to do it as fast as possible. It will utilize all workers to push data to SQL Server. As a result, it opens a lot of connections at least one per worker and SQL Server can crash. Wideness of an exported table impacts on it as well. The more columns is in your table, the more chances to encounter the issue can be. Also, the number of records in a destination table contributes to the issue.
+When data is written to SQL Server, Trino tries to do it as fast as possible. It will utilize all workers to push data to SQL Server. As a result, it opens a lot of connections at least one per worker and SQL Server can crash. Wideness of an exported table impacts on it as well. The more columns are in your table, the more chances to encounter the issue can be. Also, the number of records in a destination table contributes to the issue.
 
 The error message is 
 
@@ -102,7 +93,7 @@ Trino copies Hive connector files in `/tmp` folder during Trino server starup.
 
 The location of the temporary folder can be changes with `-Djava.io.tmpdir` property in jvm.config file.
 
-If `/tmp` folder is not granted emough permissions, Trino server will not start.
+If `/tmp` folder is not granted enough permissions, Trino server will not start.
 
 server.log error message when Hive connector is being loaded.
 
@@ -317,7 +308,7 @@ The message is.
     :::text
     SQL Error [58]: Query failed (#20211105_183725_88248_kz74f): Expected a string or numeric value for field 'field_name' of type VARCHAR: [value1, value2, value3] [ArrayList]
 
-To fix the issue, a command should be run to notify Trino about those fields in the _meta section of the index mapping. Replace those place holders with yours values: elastic.sample.com:9200, index_name, and field_name.
+To fix the issue, a command should be run to notify Trino about those fields in the _meta section of the index mapping. Replace those place holders with your values: elastic.sample.com:9200, index_name, and field_name.
 
     :::bash
     curl --request PUT \
@@ -342,3 +333,464 @@ The testing can be done running any of those SQL statements.
     SELECT DISTINCT field_name FROM elastic_catalog."default".index_name;
 
 Trino documentation reference is [Array types](https://trino.io/docs/current/connector/elasticsearch.html#array-types).
+
+## Failed to list directory. Unable to execute HTTP request: Read timed out
+
+The issue might be caused by MinIO or other S3 storage. Hive metastore tries to access S3 storage (list objects in a bucket), but response time is longer than timeout setting in Hive connector. For example, there are 100k files in a bucket, and it might take over 1 minute to list those files. The case might get worse if S3 cluster is busy.
+
+A solution is to increase Hive metastore timeout to 1-5 minutes in your Hive catalog which accessing S3 storage. The setting is `hive.s3.socket-timeout=3m`.
+
+The message is.
+
+    :::json
+    {
+        "type": "io.trino.spi.TrinoException",
+        "message": "Failed to list directory: s3a://bucket_name/",
+        "cause": {
+            "type": "java.io.IOException",
+            "message": "com.amazonaws.SdkClientException: Unable to execute HTTP request: Read timed out",
+            "cause": {
+                "type": "com.amazonaws.SdkClientException",
+                "message": "Unable to execute HTTP request: Read timed out",
+                "cause": {
+                    "type": "java.net.SocketTimeoutException",
+                    "message": "Read timed out",
+                    "suppressed": [
+                    ],
+                    "stack": [
+                        "java.base/sun.nio.ch.NioSocketImpl.timedRead(NioSocketImpl.java:283)",
+                        "java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:309)",
+                        "java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:350)",
+                        "java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:803)",
+                        "java.base/java.net.Socket$SocketInputStream.read(Socket.java:966)",
+                        "java.base/sun.security.ssl.SSLSocketInputRecord.read(SSLSocketInputRecord.java:478)",
+                        "java.base/sun.security.ssl.SSLSocketInputRecord.readHeader(SSLSocketInputRecord.java:472)",
+                        "java.base/sun.security.ssl.SSLSocketInputRecord.bytesInCompletePacket(SSLSocketInputRecord.java:70)",
+                        "java.base/sun.security.ssl.SSLSocketImpl.readApplicationRecord(SSLSocketImpl.java:1460)",
+                        "java.base/sun.security.ssl.SSLSocketImpl$AppInputStream.read(SSLSocketImpl.java:1064)",
+                        "org.apache.http.impl.io.SessionInputBufferImpl.streamRead(SessionInputBufferImpl.java:137)",
+                        "org.apache.http.impl.io.SessionInputBufferImpl.fillBuffer(SessionInputBufferImpl.java:153)",
+                        "org.apache.http.impl.io.SessionInputBufferImpl.readLine(SessionInputBufferImpl.java:280)",
+                        "org.apache.http.impl.conn.DefaultHttpResponseParser.parseHead(DefaultHttpResponseParser.java:138)",
+                        "org.apache.http.impl.conn.DefaultHttpResponseParser.parseHead(DefaultHttpResponseParser.java:56)",
+                        "org.apache.http.impl.io.AbstractMessageParser.parse(AbstractMessageParser.java:259)",
+                        "org.apache.http.impl.DefaultBHttpClientConnection.receiveResponseHeader(DefaultBHttpClientConnection.java:163)",
+                        "org.apache.http.impl.conn.CPoolProxy.receiveResponseHeader(CPoolProxy.java:157)",
+                        "org.apache.http.protocol.HttpRequestExecutor.doReceiveResponse(HttpRequestExecutor.java:273)",
+                        "com.amazonaws.http.protocol.SdkHttpRequestExecutor.doReceiveResponse(SdkHttpRequestExecutor.java:82)",
+                        "org.apache.http.protocol.HttpRequestExecutor.execute(HttpRequestExecutor.java:125)",
+                        "org.apache.http.impl.execchain.MainClientExec.execute(MainClientExec.java:272)",
+                        "org.apache.http.impl.execchain.ProtocolExec.execute(ProtocolExec.java:186)",
+                        "org.apache.http.impl.client.InternalHttpClient.doExecute(InternalHttpClient.java:185)",
+                        "org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:83)",
+                        "org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:56)",
+                        "com.amazonaws.http.apache.client.impl.SdkHttpClient.execute(SdkHttpClient.java:72)",
+                        "com.amazonaws.http.AmazonHttpClient$RequestExecutor.executeOneRequest(AmazonHttpClient.java:1343)",
+                        "com.amazonaws.http.AmazonHttpClient$RequestExecutor.executeHelper(AmazonHttpClient.java:1154)",
+                        "com.amazonaws.http.AmazonHttpClient$RequestExecutor.doExecute(AmazonHttpClient.java:811)",
+                        "com.amazonaws.http.AmazonHttpClient$RequestExecutor.executeWithTimer(AmazonHttpClient.java:779)",
+                        "com.amazonaws.http.AmazonHttpClient$RequestExecutor.execute(AmazonHttpClient.java:753)",
+                        "com.amazonaws.http.AmazonHttpClient$RequestExecutor.access$500(AmazonHttpClient.java:713)",
+                        "com.amazonaws.http.AmazonHttpClient$RequestExecutionBuilderImpl.execute(AmazonHttpClient.java:695)",
+                        "com.amazonaws.http.AmazonHttpClient.execute(AmazonHttpClient.java:559)",
+                        "com.amazonaws.http.AmazonHttpClient.execute(AmazonHttpClient.java:539)",
+                        "com.amazonaws.services.s3.AmazonS3Client.invoke(AmazonS3Client.java:5453)",
+                        "com.amazonaws.services.s3.AmazonS3Client.invoke(AmazonS3Client.java:5400)",
+                        "com.amazonaws.services.s3.AmazonS3Client.invoke(AmazonS3Client.java:5394)",
+                        "com.amazonaws.services.s3.AmazonS3Client.listObjectsV2(AmazonS3Client.java:971)",
+                        "io.trino.plugin.hive.s3.TrinoS3FileSystem$1.computeNext(TrinoS3FileSystem.java:678)",
+                        "io.trino.plugin.hive.s3.TrinoS3FileSystem$1.computeNext(TrinoS3FileSystem.java:669)",
+                        "com.google.common.collect.AbstractSequentialIterator.next(AbstractSequentialIterator.java:74)",
+                        "com.google.common.collect.TransformedIterator.next(TransformedIterator.java:52)",
+                        "com.google.common.collect.Iterators$ConcatenatedIterator.hasNext(Iterators.java:1400)",
+                        "com.google.common.collect.Iterators$5.computeNext(Iterators.java:671)",
+                        "com.google.common.collect.AbstractIterator.tryToComputeNext(AbstractIterator.java:146)",
+                        "com.google.common.collect.AbstractIterator.hasNext(AbstractIterator.java:141)",
+                        "io.trino.plugin.hive.s3.TrinoS3FileSystem$S3ObjectsV2RemoteIterator.hasNext(TrinoS3FileSystem.java:414)",
+                        "io.trino.plugin.hive.fs.TransactionScopeCachingDirectoryLister$FetchingValueHolder.fetchNextCachedFile(TransactionScopeCachingDirectoryLister.java:252)",
+                        "io.trino.plugin.hive.fs.TransactionScopeCachingDirectoryLister$FetchingValueHolder.getCachedFile(TransactionScopeCachingDirectoryLister.java:236)",
+                        "io.trino.plugin.hive.fs.TransactionScopeCachingDirectoryLister$1.hasNext(TransactionScopeCachingDirectoryLister.java:150)",
+                        "io.trino.plugin.hive.fs.HiveFileIterator$FileStatusIterator.hasNext(HiveFileIterator.java:203)",
+                        "io.trino.plugin.hive.fs.HiveFileIterator.computeNext(HiveFileIterator.java:80)",
+                        "io.trino.plugin.hive.fs.HiveFileIterator.computeNext(HiveFileIterator.java:39)",
+                        "com.google.common.collect.AbstractIterator.tryToComputeNext(AbstractIterator.java:146)",
+                        "com.google.common.collect.AbstractIterator.hasNext(AbstractIterator.java:141)",
+                        "java.base/java.util.Spliterators$IteratorSpliterator.tryAdvance(Spliterators.java:1855)",
+                        "java.base/java.util.stream.StreamSpliterators$WrappingSpliterator.lambda$initPartialTraversalState$0(StreamSpliterators.java:292)",
+                        "java.base/java.util.stream.StreamSpliterators$AbstractWrappingSpliterator.fillBuffer(StreamSpliterators.java:206)",
+                        "java.base/java.util.stream.StreamSpliterators$AbstractWrappingSpliterator.doAdvance(StreamSpliterators.java:169)",
+                        "java.base/java.util.stream.StreamSpliterators$WrappingSpliterator.tryAdvance(StreamSpliterators.java:298)",
+                        "java.base/java.util.Spliterators$1Adapter.hasNext(Spliterators.java:681)",
+                        "io.trino.plugin.hive.BackgroundHiveSplitLoader.loadSplits(BackgroundHiveSplitLoader.java:353)",
+                        "io.trino.plugin.hive.BackgroundHiveSplitLoader$HiveSplitLoaderTask.process(BackgroundHiveSplitLoader.java:274)",
+                        "io.trino.plugin.hive.util.ResumableTasks$1.run(ResumableTasks.java:38)",
+                        "io.trino.$gen.Trino_393_e_1____20221126_012135_2.run(Unknown Source)",
+                        "io.airlift.concurrent.BoundedExecutor.drainQueue(BoundedExecutor.java:80)",
+                        "java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)",
+                        "java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)",
+                        "java.base/java.lang.Thread.run(Thread.java:833)"
+                    ],
+                    "errorCode": {
+                        "code": 65536,
+                        "name": "GENERIC_INTERNAL_ERROR",
+                        "type": "INTERNAL_ERROR"
+                    }
+                },
+                "suppressed": [
+                ],
+                "stack": [
+                    "com.amazonaws.http.AmazonHttpClient$RequestExecutor.handleRetryableException(AmazonHttpClient.java:1216)",
+                    "com.amazonaws.http.AmazonHttpClient$RequestExecutor.executeHelper(AmazonHttpClient.java:1162)",
+                    "com.amazonaws.http.AmazonHttpClient$RequestExecutor.doExecute(AmazonHttpClient.java:811)",
+                    "com.amazonaws.http.AmazonHttpClient$RequestExecutor.executeWithTimer(AmazonHttpClient.java:779)",
+                    "com.amazonaws.http.AmazonHttpClient$RequestExecutor.execute(AmazonHttpClient.java:753)",
+                    "com.amazonaws.http.AmazonHttpClient$RequestExecutor.access$500(AmazonHttpClient.java:713)",
+                    "com.amazonaws.http.AmazonHttpClient$RequestExecutionBuilderImpl.execute(AmazonHttpClient.java:695)",
+                    "com.amazonaws.http.AmazonHttpClient.execute(AmazonHttpClient.java:559)",
+                    "com.amazonaws.http.AmazonHttpClient.execute(AmazonHttpClient.java:539)",
+                    "com.amazonaws.services.s3.AmazonS3Client.invoke(AmazonS3Client.java:5453)",
+                    "com.amazonaws.services.s3.AmazonS3Client.invoke(AmazonS3Client.java:5400)",
+                    "com.amazonaws.services.s3.AmazonS3Client.invoke(AmazonS3Client.java:5394)",
+                    "com.amazonaws.services.s3.AmazonS3Client.listObjectsV2(AmazonS3Client.java:971)",
+                    "io.trino.plugin.hive.s3.TrinoS3FileSystem$1.computeNext(TrinoS3FileSystem.java:678)",
+                    "io.trino.plugin.hive.s3.TrinoS3FileSystem$1.computeNext(TrinoS3FileSystem.java:669)",
+                    "com.google.common.collect.AbstractSequentialIterator.next(AbstractSequentialIterator.java:74)",
+                    "com.google.common.collect.TransformedIterator.next(TransformedIterator.java:52)",
+                    "com.google.common.collect.Iterators$ConcatenatedIterator.hasNext(Iterators.java:1400)",
+                    "com.google.common.collect.Iterators$5.computeNext(Iterators.java:671)",
+                    "com.google.common.collect.AbstractIterator.tryToComputeNext(AbstractIterator.java:146)",
+                    "com.google.common.collect.AbstractIterator.hasNext(AbstractIterator.java:141)",
+                    "io.trino.plugin.hive.s3.TrinoS3FileSystem$S3ObjectsV2RemoteIterator.hasNext(TrinoS3FileSystem.java:414)",
+                    "io.trino.plugin.hive.fs.TransactionScopeCachingDirectoryLister$FetchingValueHolder.fetchNextCachedFile(TransactionScopeCachingDirectoryLister.java:252)",
+                    "io.trino.plugin.hive.fs.TransactionScopeCachingDirectoryLister$FetchingValueHolder.getCachedFile(TransactionScopeCachingDirectoryLister.java:236)",
+                    "io.trino.plugin.hive.fs.TransactionScopeCachingDirectoryLister$1.hasNext(TransactionScopeCachingDirectoryLister.java:150)",
+                    "io.trino.plugin.hive.fs.HiveFileIterator$FileStatusIterator.hasNext(HiveFileIterator.java:203)",
+                    "io.trino.plugin.hive.fs.HiveFileIterator.computeNext(HiveFileIterator.java:80)",
+                    "io.trino.plugin.hive.fs.HiveFileIterator.computeNext(HiveFileIterator.java:39)",
+                    "com.google.common.collect.AbstractIterator.tryToComputeNext(AbstractIterator.java:146)",
+                    "com.google.common.collect.AbstractIterator.hasNext(AbstractIterator.java:141)",
+                    "java.base/java.util.Spliterators$IteratorSpliterator.tryAdvance(Spliterators.java:1855)",
+                    "java.base/java.util.stream.StreamSpliterators$WrappingSpliterator.lambda$initPartialTraversalState$0(StreamSpliterators.java:292)",
+                    "java.base/java.util.stream.StreamSpliterators$AbstractWrappingSpliterator.fillBuffer(StreamSpliterators.java:206)",
+                    "java.base/java.util.stream.StreamSpliterators$AbstractWrappingSpliterator.doAdvance(StreamSpliterators.java:169)",
+                    "java.base/java.util.stream.StreamSpliterators$WrappingSpliterator.tryAdvance(StreamSpliterators.java:298)",
+                    "java.base/java.util.Spliterators$1Adapter.hasNext(Spliterators.java:681)",
+                    "io.trino.plugin.hive.BackgroundHiveSplitLoader.loadSplits(BackgroundHiveSplitLoader.java:353)",
+                    "io.trino.plugin.hive.BackgroundHiveSplitLoader$HiveSplitLoaderTask.process(BackgroundHiveSplitLoader.java:274)",
+                    "io.trino.plugin.hive.util.ResumableTasks$1.run(ResumableTasks.java:38)",
+                    "io.trino.$gen.Trino_393_e_1____20221126_012135_2.run(Unknown Source)",
+                    "io.airlift.concurrent.BoundedExecutor.drainQueue(BoundedExecutor.java:80)",
+                    "java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)",
+                    "java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)",
+                    "java.base/java.lang.Thread.run(Thread.java:833)"
+                ],
+                "errorCode": {
+                    "code": 65536,
+                    "name": "GENERIC_INTERNAL_ERROR",
+                    "type": "INTERNAL_ERROR"
+                }
+            },
+            "suppressed": [
+            ],
+            "stack": [
+                "io.trino.plugin.hive.s3.TrinoS3FileSystem$S3ObjectsV2RemoteIterator.hasNext(TrinoS3FileSystem.java:417)",
+                "io.trino.plugin.hive.fs.TransactionScopeCachingDirectoryLister$FetchingValueHolder.fetchNextCachedFile(TransactionScopeCachingDirectoryLister.java:252)",
+                "io.trino.plugin.hive.fs.TransactionScopeCachingDirectoryLister$FetchingValueHolder.getCachedFile(TransactionScopeCachingDirectoryLister.java:236)",
+                "io.trino.plugin.hive.fs.TransactionScopeCachingDirectoryLister$1.hasNext(TransactionScopeCachingDirectoryLister.java:150)",
+                "io.trino.plugin.hive.fs.HiveFileIterator$FileStatusIterator.hasNext(HiveFileIterator.java:203)",
+                "io.trino.plugin.hive.fs.HiveFileIterator.computeNext(HiveFileIterator.java:80)",
+                "io.trino.plugin.hive.fs.HiveFileIterator.computeNext(HiveFileIterator.java:39)",
+                "com.google.common.collect.AbstractIterator.tryToComputeNext(AbstractIterator.java:146)",
+                "com.google.common.collect.AbstractIterator.hasNext(AbstractIterator.java:141)",
+                "java.base/java.util.Spliterators$IteratorSpliterator.tryAdvance(Spliterators.java:1855)",
+                "java.base/java.util.stream.StreamSpliterators$WrappingSpliterator.lambda$initPartialTraversalState$0(StreamSpliterators.java:292)",
+                "java.base/java.util.stream.StreamSpliterators$AbstractWrappingSpliterator.fillBuffer(StreamSpliterators.java:206)",
+                "java.base/java.util.stream.StreamSpliterators$AbstractWrappingSpliterator.doAdvance(StreamSpliterators.java:169)",
+                "java.base/java.util.stream.StreamSpliterators$WrappingSpliterator.tryAdvance(StreamSpliterators.java:298)",
+                "java.base/java.util.Spliterators$1Adapter.hasNext(Spliterators.java:681)",
+                "io.trino.plugin.hive.BackgroundHiveSplitLoader.loadSplits(BackgroundHiveSplitLoader.java:353)",
+                "io.trino.plugin.hive.BackgroundHiveSplitLoader$HiveSplitLoaderTask.process(BackgroundHiveSplitLoader.java:274)",
+                "io.trino.plugin.hive.util.ResumableTasks$1.run(ResumableTasks.java:38)",
+                "io.trino.$gen.Trino_393_e_1____20221126_012135_2.run(Unknown Source)",
+                "io.airlift.concurrent.BoundedExecutor.drainQueue(BoundedExecutor.java:80)",
+                "java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)",
+                "java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)",
+                "java.base/java.lang.Thread.run(Thread.java:833)"
+            ],
+            "errorCode": {
+                "code": 65536,
+                "name": "GENERIC_INTERNAL_ERROR",
+                "type": "INTERNAL_ERROR"
+            }
+        },
+        "suppressed": [
+        ],
+        "stack": [
+            "io.trino.plugin.hive.fs.HiveFileIterator$FileStatusIterator.processException(HiveFileIterator.java:227)",
+            "io.trino.plugin.hive.fs.HiveFileIterator$FileStatusIterator.hasNext(HiveFileIterator.java:206)",
+            "io.trino.plugin.hive.fs.HiveFileIterator.computeNext(HiveFileIterator.java:80)",
+            "io.trino.plugin.hive.fs.HiveFileIterator.computeNext(HiveFileIterator.java:39)",
+            "com.google.common.collect.AbstractIterator.tryToComputeNext(AbstractIterator.java:146)",
+            "com.google.common.collect.AbstractIterator.hasNext(AbstractIterator.java:141)",
+            "java.base/java.util.Spliterators$IteratorSpliterator.tryAdvance(Spliterators.java:1855)",
+            "java.base/java.util.stream.StreamSpliterators$WrappingSpliterator.lambda$initPartialTraversalState$0(StreamSpliterators.java:292)",
+            "java.base/java.util.stream.StreamSpliterators$AbstractWrappingSpliterator.fillBuffer(StreamSpliterators.java:206)",
+            "java.base/java.util.stream.StreamSpliterators$AbstractWrappingSpliterator.doAdvance(StreamSpliterators.java:169)",
+            "java.base/java.util.stream.StreamSpliterators$WrappingSpliterator.tryAdvance(StreamSpliterators.java:298)",
+            "java.base/java.util.Spliterators$1Adapter.hasNext(Spliterators.java:681)",
+            "io.trino.plugin.hive.BackgroundHiveSplitLoader.loadSplits(BackgroundHiveSplitLoader.java:353)",
+            "io.trino.plugin.hive.BackgroundHiveSplitLoader$HiveSplitLoaderTask.process(BackgroundHiveSplitLoader.java:274)",
+            "io.trino.plugin.hive.util.ResumableTasks$1.run(ResumableTasks.java:38)",
+            "io.trino.$gen.Trino_393_e_1____20221126_012135_2.run(Unknown Source)",
+            "io.airlift.concurrent.BoundedExecutor.drainQueue(BoundedExecutor.java:80)",
+            "java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)",
+            "java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)",
+            "java.base/java.lang.Thread.run(Thread.java:833)"
+        ],
+        "errorCode": {
+            "code": 16777232,
+            "name": "HIVE_FILESYSTEM_ERROR",
+            "type": "EXTERNAL"
+        }
+    }
+
+## Unable to execute HTTP request: Read timed out
+
+This error is so generic, but the core statement in the error message is `com.amazonaws.SdkClientException` which pointing out to MinIO or other S3 storage. Hive connector tries to access S3 storage, but response time is longer than timeout setting in Hive connector.
+
+A solution is to increase Hive metastore timeout to 1-5 minutes in your Hive catalog for accessing S3 storage. The setting is `hive.s3.socket-timeout=3m`.
+
+The message is.
+
+    :::json
+    {
+        "type": "com.amazonaws.SdkClientException",
+        "message": "Unable to execute HTTP request: Read timed out",
+        "cause": {
+            "type": "java.net.SocketTimeoutException",
+            "message": "Read timed out",
+            "suppressed": [
+            ],
+            "stack": [
+                "java.base/sun.nio.ch.NioSocketImpl.timedRead(NioSocketImpl.java:283)",
+                "java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:309)",
+                "java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:350)",
+                "java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:803)",
+                "java.base/java.net.Socket$SocketInputStream.read(Socket.java:966)",
+                "java.base/sun.security.ssl.SSLSocketInputRecord.read(SSLSocketInputRecord.java:478)",
+                "java.base/sun.security.ssl.SSLSocketInputRecord.readHeader(SSLSocketInputRecord.java:472)",
+                "java.base/sun.security.ssl.SSLSocketInputRecord.bytesInCompletePacket(SSLSocketInputRecord.java:70)",
+                "java.base/sun.security.ssl.SSLSocketImpl.readApplicationRecord(SSLSocketImpl.java:1460)",
+                "java.base/sun.security.ssl.SSLSocketImpl$AppInputStream.read(SSLSocketImpl.java:1064)",
+                "org.apache.http.impl.io.SessionInputBufferImpl.streamRead(SessionInputBufferImpl.java:137)",
+                "org.apache.http.impl.io.SessionInputBufferImpl.fillBuffer(SessionInputBufferImpl.java:153)",
+                "org.apache.http.impl.io.SessionInputBufferImpl.readLine(SessionInputBufferImpl.java:280)",
+                "org.apache.http.impl.conn.DefaultHttpResponseParser.parseHead(DefaultHttpResponseParser.java:138)",
+                "org.apache.http.impl.conn.DefaultHttpResponseParser.parseHead(DefaultHttpResponseParser.java:56)",
+                "org.apache.http.impl.io.AbstractMessageParser.parse(AbstractMessageParser.java:259)",
+                "org.apache.http.impl.DefaultBHttpClientConnection.receiveResponseHeader(DefaultBHttpClientConnection.java:163)",
+                "org.apache.http.impl.conn.CPoolProxy.receiveResponseHeader(CPoolProxy.java:157)",
+                "org.apache.http.protocol.HttpRequestExecutor.doReceiveResponse(HttpRequestExecutor.java:273)",
+                "com.amazonaws.http.protocol.SdkHttpRequestExecutor.doReceiveResponse(SdkHttpRequestExecutor.java:82)",
+                "org.apache.http.protocol.HttpRequestExecutor.execute(HttpRequestExecutor.java:125)",
+                "org.apache.http.impl.execchain.MainClientExec.execute(MainClientExec.java:272)",
+                "org.apache.http.impl.execchain.ProtocolExec.execute(ProtocolExec.java:186)",
+                "org.apache.http.impl.client.InternalHttpClient.doExecute(InternalHttpClient.java:185)",
+                "org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:83)",
+                "org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:56)",
+                "com.amazonaws.http.apache.client.impl.SdkHttpClient.execute(SdkHttpClient.java:72)",
+                "com.amazonaws.http.AmazonHttpClient$RequestExecutor.executeOneRequest(AmazonHttpClient.java:1343)",
+                "com.amazonaws.http.AmazonHttpClient$RequestExecutor.executeHelper(AmazonHttpClient.java:1154)",
+                "com.amazonaws.http.AmazonHttpClient$RequestExecutor.doExecute(AmazonHttpClient.java:811)",
+                "com.amazonaws.http.AmazonHttpClient$RequestExecutor.executeWithTimer(AmazonHttpClient.java:779)",
+                "com.amazonaws.http.AmazonHttpClient$RequestExecutor.execute(AmazonHttpClient.java:753)",
+                "com.amazonaws.http.AmazonHttpClient$RequestExecutor.access$500(AmazonHttpClient.java:713)",
+                "com.amazonaws.http.AmazonHttpClient$RequestExecutionBuilderImpl.execute(AmazonHttpClient.java:695)",
+                "com.amazonaws.http.AmazonHttpClient.execute(AmazonHttpClient.java:559)",
+                "com.amazonaws.http.AmazonHttpClient.execute(AmazonHttpClient.java:539)",
+                "com.amazonaws.services.s3.AmazonS3Client.invoke(AmazonS3Client.java:5453)",
+                "com.amazonaws.services.s3.AmazonS3Client.invoke(AmazonS3Client.java:5400)",
+                "com.amazonaws.services.s3.AmazonS3Client.getObject(AmazonS3Client.java:1524)",
+                "io.trino.plugin.hive.s3.TrinoS3FileSystem$TrinoS3InputStream.lambda$openStream$2(TrinoS3FileSystem.java:1335)",
+                "io.trino.plugin.hive.util.RetryDriver.run(RetryDriver.java:130)",
+                "io.trino.plugin.hive.s3.TrinoS3FileSystem$TrinoS3InputStream.openStream(TrinoS3FileSystem.java:1330)",
+                "io.trino.plugin.hive.s3.TrinoS3FileSystem$TrinoS3InputStream.openStream(TrinoS3FileSystem.java:1315)",
+                "io.trino.plugin.hive.s3.TrinoS3FileSystem$TrinoS3InputStream.seekStream(TrinoS3FileSystem.java:1308)",
+                "io.trino.plugin.hive.s3.TrinoS3FileSystem$TrinoS3InputStream.lambda$read$1(TrinoS3FileSystem.java:1252)",
+                "io.trino.plugin.hive.util.RetryDriver.run(RetryDriver.java:130)",
+                "io.trino.plugin.hive.s3.TrinoS3FileSystem$TrinoS3InputStream.read(TrinoS3FileSystem.java:1251)",
+                "java.base/java.io.BufferedInputStream.read1(BufferedInputStream.java:282)",
+                "java.base/java.io.BufferedInputStream.read(BufferedInputStream.java:343)",
+                "java.base/java.io.DataInputStream.read(DataInputStream.java:151)",
+                "java.base/java.io.DataInputStream.read(DataInputStream.java:151)",
+                "org.apache.hadoop.io.compress.DecompressorStream.getCompressedData(DecompressorStream.java:179)",
+                "org.apache.hadoop.io.compress.DecompressorStream.decompress(DecompressorStream.java:163)",
+                "org.apache.hadoop.io.compress.DecompressorStream.read(DecompressorStream.java:105)",
+                "java.base/java.io.InputStream.read(InputStream.java:218)",
+                "org.apache.hadoop.util.LineReader.fillBuffer(LineReader.java:200)",
+                "org.apache.hadoop.util.LineReader.readDefaultLine(LineReader.java:237)",
+                "org.apache.hadoop.util.LineReader.readLine(LineReader.java:193)",
+                "org.apache.hadoop.mapred.LineRecordReader.skipUtfByteOrderMark(LineRecordReader.java:215)",
+                "org.apache.hadoop.mapred.LineRecordReader.next(LineRecordReader.java:253)",
+                "org.apache.hadoop.mapred.LineRecordReader.next(LineRecordReader.java:48)",
+                "org.apache.hadoop.hive.ql.exec.Utilities.skipHeader(Utilities.java:3802)",
+                "io.trino.plugin.hive.util.HiveUtil.createRecordReader(HiveUtil.java:263)",
+                "io.trino.plugin.hive.GenericHiveRecordCursorProvider.lambda$createRecordCursor$1(GenericHiveRecordCursorProvider.java:96)",
+                "io.trino.hdfs.authentication.NoHdfsAuthentication.doAs(NoHdfsAuthentication.java:25)",
+                "io.trino.hdfs.HdfsEnvironment.doAs(HdfsEnvironment.java:94)",
+                "io.trino.plugin.hive.GenericHiveRecordCursorProvider.createRecordCursor(GenericHiveRecordCursorProvider.java:95)",
+                "io.trino.plugin.hive.HivePageSourceProvider.createHivePageSource(HivePageSourceProvider.java:330)",
+                "io.trino.plugin.hive.HivePageSourceProvider.createPageSource(HivePageSourceProvider.java:196)",
+                "com.starburstdata.dynamicfiltering.DynamicRowFilteringPageSourceProvider.createPageSource(DynamicRowFilteringPageSourceProvider.java:54)",
+                "io.trino.plugin.base.classloader.ClassLoaderSafeConnectorPageSourceProvider.createPageSource(ClassLoaderSafeConnectorPageSourceProvider.java:49)",
+                "io.trino.split.PageSourceManager.createPageSource(PageSourceManager.java:62)",
+                "io.trino.operator.ScanFilterAndProjectOperator$SplitToPages.process(ScanFilterAndProjectOperator.java:268)",
+                "io.trino.operator.ScanFilterAndProjectOperator$SplitToPages.process(ScanFilterAndProjectOperator.java:196)",
+                "io.trino.operator.WorkProcessorUtils$3.process(WorkProcessorUtils.java:338)",
+                "io.trino.operator.WorkProcessorUtils$ProcessWorkProcessor.process(WorkProcessorUtils.java:391)",
+                "io.trino.operator.WorkProcessorUtils$3.process(WorkProcessorUtils.java:325)",
+                "io.trino.operator.WorkProcessorUtils$ProcessWorkProcessor.process(WorkProcessorUtils.java:391)",
+                "io.trino.operator.WorkProcessorUtils$3.process(WorkProcessorUtils.java:325)",
+                "io.trino.operator.WorkProcessorUtils$ProcessWorkProcessor.process(WorkProcessorUtils.java:391)",
+                "io.trino.operator.WorkProcessorUtils.getNextState(WorkProcessorUtils.java:240)",
+                "io.trino.operator.WorkProcessorUtils.lambda$processStateMonitor$3(WorkProcessorUtils.java:219)",
+                "io.trino.operator.WorkProcessorUtils$ProcessWorkProcessor.process(WorkProcessorUtils.java:391)",
+                "io.trino.operator.WorkProcessorUtils.getNextState(WorkProcessorUtils.java:240)",
+                "io.trino.operator.WorkProcessorUtils.lambda$finishWhen$4(WorkProcessorUtils.java:234)",
+                "io.trino.operator.WorkProcessorUtils$ProcessWorkProcessor.process(WorkProcessorUtils.java:391)",
+                "io.trino.operator.WorkProcessorSourceOperatorAdapter.getOutput(WorkProcessorSourceOperatorAdapter.java:150)",
+                "io.trino.operator.Driver.processInternal(Driver.java:410)",
+                "io.trino.operator.Driver.lambda$process$10(Driver.java:313)",
+                "io.trino.operator.Driver.tryWithLock(Driver.java:703)",
+                "io.trino.operator.Driver.process(Driver.java:305)",
+                "io.trino.operator.Driver.processForDuration(Driver.java:276)",
+                "io.trino.execution.SqlTaskExecution$DriverSplitRunner.processFor(SqlTaskExecution.java:737)",
+                "io.trino.execution.executor.PrioritizedSplitRunner.process(PrioritizedSplitRunner.java:164)",
+                "io.trino.execution.executor.TaskExecutor$TaskRunner.run(TaskExecutor.java:490)",
+                "io.trino.$gen.Trino_393_e_1____20221126_012135_2.run(Unknown Source)",
+                "java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)",
+                "java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)",
+                "java.base/java.lang.Thread.run(Thread.java:833)"
+            ],
+            "errorCode": {
+                "code": 65536,
+                "name": "GENERIC_INTERNAL_ERROR",
+                "type": "INTERNAL_ERROR"
+            }
+        },
+        "suppressed": [
+            {
+                "type": "com.amazonaws.SdkClientException",
+                "message": "Unable to execute HTTP request: Read timed out",
+                "cause": {
+                    "type": "java.net.SocketTimeoutException",
+                    "message": "Read timed out",
+                    "suppressed": [
+                    ],
+                    "stack": [
+                        "java.base/sun.nio.ch.NioSocketImpl.timedRead(NioSocketImpl.java:283)",
+                        "java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:309)",
+                        "java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:350)",
+                        "java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:803)",
+                        "java.base/java.net.Socket$SocketInputStream.read(Socket.java:966)",
+                        "java.base/sun.security.ssl.SSLSocketInputRecord.read(SSLSocketInputRecord.java:478)",
+                        "java.base/sun.security.ssl.SSLSocketInputRecord.readHeader(SSLSocketInputRecord.java:472)",
+                        "java.base/sun.security.ssl.SSLSocketInputRecord.bytesInCompletePacket(SSLSocketInputRecord.java:70)",
+                        "java.base/sun.security.ssl.SSLSocketImpl.readApplicationRecord(SSLSocketImpl.java:1460)",
+                        "java.base/sun.security.ssl.SSLSocketImpl$AppInputStream.read(SSLSocketImpl.java:1064)",
+                        "org.apache.http.impl.io.SessionInputBufferImpl.streamRead(SessionInputBufferImpl.java:137)",
+                        "org.apache.http.impl.io.SessionInputBufferImpl.fillBuffer(SessionInputBufferImpl.java:153)",
+                        "org.apache.http.impl.io.SessionInputBufferImpl.readLine(SessionInputBufferImpl.java:280)",
+                        "org.apache.http.impl.conn.DefaultHttpResponseParser.parseHead(DefaultHttpResponseParser.java:138)",
+                        "org.apache.http.impl.conn.DefaultHttpResponseParser.parseHead(DefaultHttpResponseParser.java:56)",
+                        "org.apache.http.impl.io.AbstractMessageParser.parse(AbstractMessageParser.java:259)",
+                        "org.apache.http.impl.DefaultBHttpClientConnection.receiveResponseHeader(DefaultBHttpClientConnection.java:163)",
+                        "org.apache.http.impl.conn.CPoolProxy.receiveResponseHeader(CPoolProxy.java:157)",
+                        "org.apache.http.protocol.HttpRequestExecutor.doReceiveResponse(HttpRequestExecutor.java:273)",
+                        "com.amazonaws.http.protocol.SdkHttpRequestExecutor.doReceiveResponse(SdkHttpRequestExecutor.java:82)",
+                        "org.apache.http.protocol.HttpRequestExecutor.execute(HttpRequestExecutor.java:125)",
+                        "org.apache.http.impl.execchain.MainClientExec.execute(MainClientExec.java:272)",
+                        "org.apache.http.impl.execchain.ProtocolExec.execute(ProtocolExec.java:186)",
+                        "org.apache.http.impl.client.InternalHttpClient.doExecute(InternalHttpClient.java:185)",
+                        "org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:83)",
+                        "org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:56)",
+                        "com.amazonaws.http.apache.client.impl.SdkHttpClient.execute(SdkHttpClient.java:72)",
+                        "com.amazonaws.http.AmazonHttpClient$RequestExecutor.executeOneRequest(AmazonHttpClient.java:1343)",
+                        "com.amazonaws.http.AmazonHttpClient$RequestExecutor.executeHelper(AmazonHttpClient.java:1154)",
+                        "com.amazonaws.http.AmazonHttpClient$RequestExecutor.doExecute(AmazonHttpClient.java:811)",
+                        "com.amazonaws.http.AmazonHttpClient$RequestExecutor.executeWithTimer(AmazonHttpClient.java:779)",
+                        "com.amazonaws.http.AmazonHttpClient$RequestExecutor.execute(AmazonHttpClient.java:753)",
+                        "com.amazonaws.http.AmazonHttpClient$RequestExecutor.access$500(AmazonHttpClient.java:713)",
+                        "com.amazonaws.http.AmazonHttpClient$RequestExecutionBuilderImpl.execute(AmazonHttpClient.java:695)",
+                        "com.amazonaws.http.AmazonHttpClient.execute(AmazonHttpClient.java:559)",
+                        "com.amazonaws.http.AmazonHttpClient.execute(AmazonHttpClient.java:539)",
+                        "com.amazonaws.services.s3.AmazonS3Client.invoke(AmazonS3Client.java:5453)",
+                        "com.amazonaws.services.s3.AmazonS3Client.invoke(AmazonS3Client.java:5400)",
+                        "com.amazonaws.services.s3.AmazonS3Client.getObject(AmazonS3Client.java:1524)",
+                        "io.trino.plugin.hive.s3.TrinoS3FileSystem$TrinoS3InputStream.lambda$openStream$2(TrinoS3FileSystem.java:1335)",
+                        "io.trino.plugin.hive.util.RetryDriver.run(RetryDriver.java:130)",
+                        "io.trino.plugin.hive.s3.TrinoS3FileSystem$TrinoS3InputStream.openStream(TrinoS3FileSystem.java:1330)",
+                        "io.trino.plugin.hive.s3.TrinoS3FileSystem$TrinoS3InputStream.openStream(TrinoS3FileSystem.java:1315)",
+                        "io.trino.plugin.hive.s3.TrinoS3FileSystem$TrinoS3InputStream.seekStream(TrinoS3FileSystem.java:1308)",
+                        "io.trino.plugin.hive.s3.TrinoS3FileSystem$TrinoS3InputStream.lambda$read$1(TrinoS3FileSystem.java:1252)",
+                        "io.trino.plugin.hive.util.RetryDriver.run(RetryDriver.java:130)",
+                        "io.trino.plugin.hive.s3.TrinoS3FileSystem$TrinoS3InputStream.read(TrinoS3FileSystem.java:1251)",
+                        "java.base/java.io.BufferedInputStream.read1(BufferedInputStream.java:282)",
+                        "java.base/java.io.BufferedInputStream.read(BufferedInputStream.java:343)",
+                        "java.base/java.io.DataInputStream.read(DataInputStream.java:151)",
+                        "java.base/java.io.DataInputStream.read(DataInputStream.java:151)",
+                        "org.apache.hadoop.io.compress.DecompressorStream.getCompressedData(DecompressorStream.java:179)",
+                        "org.apache.hadoop.io.compress.DecompressorStream.decompress(DecompressorStream.java:163)",
+                        "org.apache.hadoop.io.compress.DecompressorStream.read(DecompressorStream.java:105)",
+                        "java.base/java.io.InputStream.read(InputStream.java:218)",
+                        "org.apache.hadoop.util.LineReader.fillBuffer(LineReader.java:200)",
+                        "org.apache.hadoop.util.LineReader.readDefaultLine(LineReader.java:237)",
+                        "org.apache.hadoop.util.LineReader.readLine(LineReader.java:193)",
+                        "org.apache.hadoop.mapred.LineRecordReader.skipUtfByteOrderMark(LineRecordReader.java:215)",
+                        "org.apache.hadoop.mapred.LineRecordReader.next(LineRecordReader.java:253)",
+                        "org.apache.hadoop.mapred.LineRecordReader.next(LineRecordReader.java:48)",
+                        "org.apache.hadoop.hive.ql.exec.Utilities.skipHeader(Utilities.java:3802)",
+                        "io.trino.plugin.hive.util.HiveUtil.createRecordReader(HiveUtil.java:263)",
+                        "io.trino.plugin.hive.GenericHiveRecordCursorProvider.lambda$createRecordCursor$1(GenericHiveRecordCursorProvider.java:96)",
+                        "io.trino.hdfs.authentication.NoHdfsAuthentication.doAs(NoHdfsAuthentication.java:25)",
+                        "io.trino.hdfs.HdfsEnvironment.doAs(HdfsEnvironment.java:94)",
+                        "io.trino.plugin.hive.GenericHiveRecordCursorProvider.createRecordCursor(GenericHiveRecordCursorProvider.java:95)",
+                        "io.trino.plugin.hive.HivePageSourceProvider.createHivePageSource(HivePageSourceProvider.java:330)",
+                        "io.trino.plugin.hive.HivePageSourceProvider.createPageSource(HivePageSourceProvider.java:196)",
+                        "com.starburstdata.dynamicfiltering.DynamicRowFilteringPageSourceProvider.createPageSource(DynamicRowFilteringPageSourceProvider.java:54)",
+                        "io.trino.plugin.base.classloader.ClassLoaderSafeConnectorPageSourceProvider.createPageSource(ClassLoaderSafeConnectorPageSourceProvider.java:49)",
+                        "io.trino.split.PageSourceManager.createPageSource(PageSourceManager.java:62)",
+                        "io.trino.operator.ScanFilterAndProjectOperator$SplitToPages.process(ScanFilterAndProjectOperator.java:268)",
+                        "io.trino.operator.ScanFilterAndProjectOperator$SplitToPages.process(ScanFilterAndProjectOperator.java:196)",
+                        "io.trino.operator.WorkProcessorUtils$3.process(WorkProcessorUtils.java:338)",
+                        "io.trino.operator.WorkProcessorUtils$ProcessWorkProcessor.process(WorkProcessorUtils.java:391)",
+                        "io.trino.operator.WorkProcessorUtils$3.process(WorkProcessorUtils.java:325)",
+                        "io.trino.operator.WorkProcessorUtils$ProcessWorkProcessor.process(WorkProcessorUtils.java:391)",
+                        "io.trino.operator.WorkProcessorUtils$3.process(WorkProcessorUtils.java:325)",
+                        "io.trino.operator.WorkProcessorUtils$ProcessWorkProcessor.process(WorkProcessorUtils.java:391)",
+                        "io.trino.operator.WorkProcessorUtils.getNextState(WorkProcessorUtils.java:240)",
+                        "io.trino.operator.WorkProcessorUtils.lambda$processStateMonitor$3(WorkProcessorUtils.java:219)",
+                        "io.trino.operator.WorkProcessorUtils$ProcessWorkProcessor.process(WorkProcessorUtils.java:391)",
+                        "io.trino.operator.WorkProcessorUtils.getNextState(WorkProcessorUtils.java:240)",
+                        "io.trino.operator.WorkProcessorUtils.lambda$finishWhen$4(WorkProcessorUtils.java:234)",
+                        "io.trino.operator.WorkProcessorUtils$ProcessWorkProcessor.process(WorkProcessorUtils.java:391)",
+                        "io.trino.operator.WorkProcessorSourceOperatorAdapter.getOutput(WorkProcessorSourceOperatorAdapter.java:150)",
+                        "io.trino.operator.Driver.processInternal(Driver.java:410)",
+                        "io.trino.operator.Driver.lambda$process$10(Driver.java:313)",
+                        "io.trino.operator.Driver.tryWithLock(Driver.java:703)",
+                        "io.trino.operator.Driver.process(Driver.java:305)",
+                        "io.trino.operator.Driver.processForDuration(Driver.java:276)",
+                        "io.trino.execution.SqlTaskExecution$DriverSplitRunner.processFor(SqlTaskExecution.java:737)",
+                        "io.trino.execution.executor.PrioritizedSplitRunner.process(PrioritizedSplitRunner.java:164)",
+                        "io.trino.execution.executor.TaskExecutor$TaskRunner.run(TaskExecutor.java:490)",
+                        "io.trino.$gen.Trino_393_e_1____20221126_012135_2.run(Unknown Source)",
+                        "java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)",
+                        "java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)",
+                        "java.base/java.lang.Thread.run(Thread.java:833)"
+                    ],
+                    "errorCode": {
+                        "code": 65536,
+                        "name": "GENERIC_INTERNAL_ERROR",
+                        "type": "INTERNAL_ERROR"
+                    }
+               ...

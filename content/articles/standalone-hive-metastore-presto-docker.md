@@ -1,6 +1,6 @@
 Title: Hive Standalone Metastore for Trino in Docker
 Date: 2020-10-20
-Modified: 2022-11-24
+Modified: 2022-12-10
 Category: Trino, Hive, Docker
 Cover: /extra/trino-logo.png
 
@@ -207,7 +207,7 @@ In case of creating more than one Hive metastore, replace `VOLUME ["/user/hive/w
 * Make `fs.s3a.connection.ssl.enabled` property `true` if MinIO is secured with `HTTPS` protocol otherwise `false`.
 * Replace `MinIO URL:9000` with MinIO address and port.
 * Replace `Backend URL or name:30684` with backend address and port. If it is installed on a coordinator, use `localhost`.
-* If MySQL is used as backend, replace `javax.jdo.option.ConnectionURL` property with `jdbc:mysql://Backend URL or name:3306/metastorepresto?allowPublicKeyRetrieval=true&amp;useSSL=false&amp;serverTimezone=UTC`.
+* If MySQL is used as backend, replace `javax.jdo.option.ConnectionURL` property with `jdbc:mysql://Backend URL or name:3306/metastoretrino?allowPublicKeyRetrieval=true&amp;useSSL=false&amp;serverTimezone=UTC`.
 * If MySQL is used as backend, replace `javax.jdo.option.ConnectionDriverName` property with `com.mysql.cj.jdbc.Driver`.
 * Replace `Backend user name` with backend user name.
 * Replace `Backend user password` with backend user password.
@@ -239,7 +239,7 @@ if more than one metastore, replace port for next metastore.
 
 ##10. Test metastore
 
-* Add Hive connector for MinIO storage, for example, `minio_connector`. See [Access MinIO S3 Storage in Presto with Hive Metastore]({filename}/articles/access-minio-s3-storage-prestodb-cluster-hive-metastore.md) article. It is a catalog level in Trino hierarchy.
+* Add Hive connector for MinIO storage, for example, `minio_connector`. See [Access MinIO S3 Storage in Trino with Hive Metastore]({filename}/articles/access-minio-s3-storage-prestodb-cluster-hive-metastore.md) article. It is a catalog level in Trino hierarchy.
 
 * Create a backet to store your schema, for example, `finance-department`.
 

@@ -1,5 +1,6 @@
 Title: Create Keytab for Kerberos Authentication in Windows
 Date: 2020-03-15
+Modified: 2022-12-17
 Category: Kerberos
 Cover: /extra/kerberos-logo.png
 
@@ -13,7 +14,7 @@ There are some restrict requirements to run the tool. It must be run on either a
     ktpass -princ [Windows user name]@[Realm name] -pass [Password] -crypto [Encryption type] -ptype [Principle type] -kvno [Key version number] -out [Keytab file path]
 
 * [Windows user name] - mywindowsname.
-* [Real name] - SAMPLE.COM.
+* [Realm name] - SAMPLE.COM.
 * [Password] - mywindowsname user password.
 * [Encryption type] - RC4-HMAC-NT. See [RFC 3961, section 8](https://tools.ietf.org/html/rfc3961#section-8).
 * [Principle type] - KRB5\_NT_PRINCIPAL which is Kerberos protocol 5.
@@ -39,7 +40,7 @@ If multiple encryption types are not accepted in authentication process, it can 
     :::bash
     ktab -d [Windows user name]@[Realm name] -f -e [Number of encryption type] -k [Keytab file path]
 
-* [Number of encryption type] - 16. As per RFC 3961, section 8.
+* [Number of encryption type], for example, 16. See [RFC 3961, section 8](https://tools.ietf.org/html/rfc3961#section-8) for the full list of values.
 
 ## 3. Usage Samples
 
@@ -117,14 +118,6 @@ It should be one encryption type in a keytab file, for example, 23.
         KVNO Principal
         ---- ---------------------------------------------------------------
            0 mywindowsname@SAMPLE.COM (23:RC4 with HMAC)
-
-### 3.3. Windows
-
-It depends on Windows account settings how many encryption types and what types can be used.
-
-Windows account properties dialog contains the next options for Kerberos authentication.
-
-  ![Windows account properties Kerberos authentication options]({static}/images/create_keytab-file-for-kerberos-authentication-in-windows/windows-account-properties-kerberos-authentication-options.png)</br></br>
 
 ## 4. Encryption types
 

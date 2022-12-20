@@ -1,12 +1,12 @@
 Title: Python Access to Trino Cluster with Trino Client
 Date: 2020-12-13
-Modified: 2022-12-19
+Modified: 2022-12-20
 Category: Python, Trino
 Cover: /extra/python-logo.png
 
 [Trino](https://trino.io/) access is represented by many Python libraries among those are [Dropbox/PyHive](https://github.com/dropbox/PyHive), [trinodb/trino-python-client](https://github.com/trinodb/trino-python-client), [PySpark](https://spark.apache.org/), and [PyJDBC](https://github.com/mkleehammer/pyodbc). Mostly of libraries use [Python DB-API](https://www.python.org/dev/peps/pep-0249/) interface to access Trino which uniforms commands.
 
-trinodb/trino-python-client library is actively supported by Trino community and native to Trino. An alternative option to access Trino is described in [Python Access to Trino Cluster with PyHive](https://techjogging.com/python-access-presto-cluster.md) in article.
+trinodb/trino-python-client library is actively supported by Trino community and native to Trino. An alternative option to access Trino is described in [Python Access to Trino Cluster with PyHive]({filename}/articles/python-access-presto-cluster.md) in article.
 
 The sample is run with Python 3.8 in Windows with [Starburst](https://www.starburst.io/) distribution.
 

@@ -1,26 +1,35 @@
 Title: Python Access to Trino Cluster with PyHive
 Date: 2020-11-30
-Modified: 2022-12-18
+Modified: 2022-12-19
 Category: Python, Trino
 Cover: /extra/python-logo.png
 
-[Trino](https://trino.io/) access is represented by many Python libraries among those are [Dropbox/PyHive](https://github.com/dropbox/PyHive), [trinodb/trino-python-client](https://github.com/trinodb/trino-python-client), and [easydatawarehousing/prestoclient](https://github.com/easydatawarehousing/prestoclient). Mostly of libraries use [Python DB-API](https://www.python.org/dev/peps/pep-0249/) interface to access Trino which uniforms commands.
+[Trino](https://trino.io/) access is represented by many Python libraries among those are [Dropbox/PyHive](https://github.com/dropbox/PyHive), [trinodb/trino-python-client](https://github.com/trinodb/trino-python-client), [PySpark](https://spark.apache.org/), and [PyJDBC](https://github.com/mkleehammer/pyodbc). Mostly of libraries use [Python DB-API](https://www.python.org/dev/peps/pep-0249/) interface to access Trino which uniforms commands.
 
-[Python Access to Trino Cluster with Trino Client]({filename}/articles/python-access-presto-cluster-presto-client.md) article describes Trino client library usage.
+Dropbox/PyHive library is universal one as it can be used to access both Hive and Trino. As a result, the library utilizes the Hive query language rather than SQL. It can cause queries to produce unexpected results or failures. If you are interested in native Trino access, [Python Access to Trino Cluster with Trino Client]({filename}/articles/python-access-presto-cluster-presto-client.md) article describes Trino client library usage created by Trino community.
 
-Dropbox/PyHive library is universal one as it can be used to access Hive or Trino. The sample is run with Python 3 in Windows.
+The sample is run with Python 3.8 in Windows with [Starburst](https://www.starburst.io/) distribution.
 
 ## 1. Install PyHive library
 
-Linux.
+**Linux**
+
+With sudo access.
 
     :::bash
     sudo pip3 install 'pyhive[trino]'
 
-Windows. Run as administrator.
+**Windows** 
+
+Run as administrator.
 
     :::bash
     pip install 'pyhive[trino]'
+
+Also, it's possible to install the library without elevated privileges in Linux and Windows.
+
+    :::bash
+    pip3 install --user 'pyhive[trino]'
 
 It installs only Trino interface.
 

@@ -1,6 +1,6 @@
 Title: Expand Logical Volume in CentOS/RHEL 7
 Date: 2020-01-29
-Modified: 2022-08-27
+Modified: 2023-01-30
 Category: Linux
 Cover: /extra/centos-logo.png
 
@@ -98,7 +98,19 @@ As Linux systems have root file systems on a logical volume, it can be used Logi
         Hex code or GUID (L to show codes, Enter = 8300): 8E00
         Changed type of partition to 'Linux LVM'
 
-3. Apply changes.
+3. Validate your new partition
+
+        :::text
+        Command (? for help): p
+
+    The partion name must be `Linux LVM`. If not, change the type running change a partition's type code.
+
+        :::text
+        Command (? for help): t
+        Partition number (1-3): 3
+        Hex code or GUID (L to show codes, Enter = 8300): 8E00
+
+4. Apply changes.
 
         ::text
         Command (? for help): w
@@ -112,12 +124,12 @@ As Linux systems have root file systems on a logical volume, it can be used Logi
         The new table will be used at the next reboot.
         The operation has completed successfully.
 
-4. Notify the operation system about changes in the partition tables.
+5. Notify the operation system about changes in the partition tables.
 
         ::text
         $ partprobe
 
-5. Validate the new created partition. It can be used either fdisk or gdisk partition tool
+6. Validate the new created partition. It can be used either fdisk or gdisk partition tool
 
         ::text
         $ fdisk -l /dev/sda
@@ -139,7 +151,7 @@ As Linux systems have root file systems on a logical volume, it can be used Logi
         5           34         2047   1007K  BIOS boot       BIOS boot partition
         6     31457280     52428766     10G  Linux LVM       Linux LVM
 
-6. Find out what logical groups/volumes are available.
+7. Find out what logical groups/volumes are available.
 
         ::text
         $ lvs
@@ -148,9 +160,9 @@ As Linux systems have root file systems on a logical volume, it can be used Logi
           root centos -wi-ao---- <13.19g
           swap centos -wi-ao---- 820.00m
 
-7. Our intertest is to add space to the root file system. The logical volume path is **centos/root**. In case of RHEL, it might be **rhel/root**.
+8. Our intertest is to add space to the root file system. The logical volume path is **centos/root**. In case of RHEL, it might be **rhel/root**.
 
-8. Create a physical volume.
+9. Create a physical volume.
 
         ::text
         $ pvcreate /dev/sda6
@@ -159,14 +171,14 @@ As Linux systems have root file systems on a logical volume, it can be used Logi
         Wiping ext4 signature on /dev/sda6.
         Physical volume "/dev/sda6" successfully created.
 
-9. Extend **centos** volume group.
+10. Extend **centos** volume group.
 
         ::text
         $ vgextend centos /dev/sda6
          
         Volume group "centos" successfully extended
 
-10. Figure out exact free space in PE. The field name is **Free  PE / Size** and the value in the sample is **2559**
+11. Figure out exact free space in PE. The field name is **Free  PE / Size** and the value in the sample is **2559**
 
         ::text
         $ vgdisplay
@@ -192,7 +204,7 @@ As Linux systems have root file systems on a logical volume, it can be used Logi
         Free  PE / Size       2559 / <10.00 GiB
         VG UUID               ZPaYGz-7hbZ-2H6y-RS9W-x13x-2K81-pXCsA3
 
-11. Extend **centos/root** logical volume
+12. Extend **centos/root** logical volume
 
         ::text
         $ lvextend -l+2559 centos/root
@@ -200,7 +212,7 @@ As Linux systems have root file systems on a logical volume, it can be used Logi
         Size of logical volume centos/root changed from <13.19 GiB (3376 extents) to 23.18 GiB (5935 extents).
         Logical volume centos/root successfully resized.
 
-12. XFS file system may be grown while mounted using the xfs_growfs command.
+13. XFS file system may be grown while mounted using the xfs_growfs command.
 
         ::text
         $ xfs_growfs /dev/centos/root

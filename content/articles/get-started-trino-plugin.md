@@ -3,7 +3,7 @@ Date: 2023-01-30
 Category: Trino
 Cover: /extra/trino-logo.png
 
-Trino is fully customizable with custom plugins. Those plugins can be develop in Java and deploy to Trino clusters. One of the aspects of success in development Trino plugins depends on your development environment. If you are able to mimic the Trino team environment, you might be encounter less issues and problems during development and debug stages. The article shows some mandatory or preferable steps before starting your plugin.
+Trino is fully customizable with custom plugins. Those plugins can be develop in Java and deploy to Trino clusters. One of the aspects of success in development Trino plugins depends on your development environment. If you are able to mimic the Trino team environment, you might  encounter less issues and problems during development and debug stages. The article shows some mandatory or preferable steps before starting your plugin.
 
 The sample is created in CentOS 7 for Trino 393.
 

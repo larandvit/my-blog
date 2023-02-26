@@ -1,6 +1,6 @@
 Title: Hive Standalone Metastore for Trino in Docker
 Date: 2020-10-20
-Modified: 2022-12-10
+Modified: 2023-02-26
 Category: Trino, Hive, Docker
 Cover: /extra/trino-logo.png
 
@@ -267,6 +267,28 @@ if more than one metastore, replace port for next metastore.
 Everything has to be completed without any error messages and `finance_department` bucket will conatain `test_table` folder with a file.
 
 ## Troubleshooting
+
+* Hive metastore accessible
+
+    Validate if Hive metastore is visible from a coordinator and workers.
+
+        :::bash
+        curl -v telnet://hive.example.com:9083
+
+    Success
+
+        :::text
+        *   Trying xx.x.xx.xx:9083...
+        * Connected to hive.example.com (xx.x.xx.xx) port 9083 (#0)
+
+    Failed
+
+        :::text
+        *   Trying xx.x.xx.x:9...
+        * connect to xx.x.xx.xx port 3 failed: Connection refused
+        * Failed to connect to hive.example.com port 3 after 0 ms: Connection refused
+        * Closing connection 0
+        curl: (7) Failed to connect to hive.example.com port 3 after 0 ms: Connection refused
 
 * [Troubleshooting Access to HTTP/HTTPS Resources in Docker]({filename}/articles/troubleshooting-access-https-resources-docker.md)
 

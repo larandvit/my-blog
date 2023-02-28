@@ -1,6 +1,6 @@
 Title: Trino Installation and Setup Pitfalls
 Date: 2020-07-03
-Modified: 2022-12-06
+Modified: 2023-02-27
 Category: Trino
 Cover: /extra/trino-logo.png
 
@@ -794,3 +794,53 @@ The message is.
                         "type": "INTERNAL_ERROR"
                     }
                ...
+
+## Error loading PEM key store
+
+The error might be caused by a pem file with encrypted private key. Trino does not accept it in some cases.
+
+There are some solutions to convert your pem file into different format or type. The first one is to remove encryption from a private key keeping it as a pem file. The second 
+option is to convert pem file into Java keystore or PKCS #12 format with .pfx or .p12 extension.
+
+The message is.
+
+    :::text
+    Caused by: IllegalArgumentException: Error loading PEM key store: /certificate/trino.pem
+            at ReloadableSslContextFactoryProvider.loadKeyStore(ReloadableSslContextFactoryProvider.java:207)
+            at ReloadableSslContextFactoryProvider.loadContextFactory(ReloadableSslContextFactoryProvider.java:107)
+            at ReloadableSslContextFactoryProvider.<init>(ReloadableSslContextFactoryProvider.java:99)
+            at HttpServer.createReloadingSslContextFactory(HttpServer.java:534)
+            at HttpServer.lambda$new$0(HttpServer.java:231)
+            at java.base/Optional.orElseGet(Optional.java:364)
+            at HttpServer.<init>(HttpServer.java:231)
+            at HttpServerProvider.get(HttpServerProvider.java:149)
+            at HttpServerProvider.get(HttpServerProvider.java:46)
+            at ProviderInternalFactory.provision(ProviderInternalFactory.java:86)
+            at BoundProviderFactory.provision(BoundProviderFactory.java:72)
+            at ProviderInternalFactory$1.call(ProviderInternalFactory.java:67)
+            at ProvisionListenerStackCallback$Provision.provision(ProvisionListenerStackCallback.java:109)
+            at LifeCycleModule.provision(LifeCycleModule.java:54)
+            at ProvisionListenerStackCallback$Provision.provision(ProvisionListenerStackCallback.java:117)
+            at ProvisionListenerStackCallback.provision(ProvisionListenerStackCallback.java:66)
+            at ProviderInternalFactory.circularGet(ProviderInternalFactory.java:62)
+            at BoundProviderFactory.get(BoundProviderFactory.java:59)
+            at ProviderToInternalFactoryAdapter.get(ProviderToInternalFactoryAdapter.java:40)
+            at SingletonScope$1.get(SingletonScope.java:169)
+            at InternalFactoryToProviderAdapter.get(InternalFactoryToProviderAdapter.java:45)
+            at InternalInjectorCreator.loadEagerSingletons(InternalInjectorCreator.java:213)
+            at InternalInjectorCreator.injectDynamically(InternalInjectorCreator.java:186)
+            at InternalInjectorCreator.build(InternalInjectorCreator.java:113)
+            at Guice.createInjector(Guice.java:87)
+            at Bootstrap.initialize(Bootstrap.java:270)
+            at Server.doStart(Server.java:130)
+            at Server.lambda$start$0(Server.java:88)
+            at io.trino.$gen.Trino_393_e_6____20230113_210746_1.run(Unknown Source)
+            at Server.start(Server.java:88)
+            at StarburstTrinoServer.main(StarburstTrinoServer.java:46)
+    Caused by: NoSuchAlgorithmException: PBES2 SecretKeyFactory not available
+            at java.base/SecretKeyFactory.<init>(SecretKeyFactory.java:118)
+            at java.base/SecretKeyFactory.getInstance(SecretKeyFactory.java:164)
+            at PemReader.loadPrivateKey(PemReader.java:239)
+            at PemReader.loadPrivateKey(PemReader.java:211)
+            at PemReader.loadKeyStore(PemReader.java:151)
+            at ReloadableSslContextFactoryProvider.loadKeyStore(ReloadableSslContextFactoryProvider.java:203)

@@ -6,6 +6,10 @@
 
          xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
+   	<loc>https://techjogging.com/get-started-custom-connector-plugin-trino.html</loc>
+   	<lastmod>2023-03-05</lastmod>
+   </url>
+   <url>
    	<loc>https://techjogging.com/use_https_protocol_trino_server_pkcs12_store.html</loc>
    	<lastmod>2023-02-10</lastmod>
    </url>

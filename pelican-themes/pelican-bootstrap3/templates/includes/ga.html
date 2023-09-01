@@ -30,3 +30,14 @@
     </script>
     <!-- End Google Analytics Universal Code -->
 {% endif %}
+{% if GOOGLE_ANALYTICS_GA4 %}
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y8W3B3BXLX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            
+            gtag('config', '{{ GOOGLE_ANALYTICS_GA4 }}');
+    </script>
+{% endif %}

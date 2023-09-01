@@ -54,7 +54,7 @@ PYGMENTS_STYLE = 'monokai'
 
 DIRECT_TEMPLATES = ['index', 'categories', 'search']
 
-GOOGLE_ANALYTICS = 'UA-156524189-1'
+GOOGLE_ANALYTICS_GA4 = 'G-Y8W3B3BXLX'
 
 ARTICLE_PATHS = ['articles']
 ARTICLE_EXCLUDES = ['extra']

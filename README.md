@@ -15,5 +15,11 @@ The changes to pelican-bootstrap3 theme are
 6. Modified base.html template and style.css to (1) add search icon, (2) reduce search input field height, and (3) line up search input field for desktop and mobile in tipue_search. 
 7. Modified article_list.html to make article labels with left and right paddings.
 8. Added page views counter to article pages.
+9. Added Google Analytics 4.
+    * blog_metrics.js
+    * ga.html
+    * article.html
+10. Implemented formatting of the page views field.
+    * article.html
 
 The actual blog is located [here](https://techjogging.com).

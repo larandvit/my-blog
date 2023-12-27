@@ -56,7 +56,7 @@
             s.src = '//' + disqus_shortname + '.disqus.com/count.js';
             (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
         }());
-    </script><script src="https://techjogging.com/theme/js/report_access.js"></script><script type="text/javascript">
+    </script><script src="https://techjogging.com/theme/js/report_access.js"></script><script src="https://techjogging.com/theme/js/blog_metrics.js"></script><script type="text/javascript">
 (function(w,d,s,g,js,fs){
   g=w.gapi||(w.gapi={});g.analytics={q:[],ready:function(f){this.q.push(f);}};
   js=d.createElement(s);fs=d.getElementsByTagName(s)[0];
@@ -86,8 +86,17 @@ gapi.analytics.ready(function() {
 
 		report.on('success', function(response) {
 			pageViews = response.totalsForAllResults['ga:pageviews'];
-			if (pageViews!='0') {
-				$('#query-output').text(pageViews);
+			pagePath = window.location.pathname
+			pageViewsAnalytics4 = 0
+			
+			if (blog_views.get(pagePath)) {
+				pageViewsAnalytics4 = blog_views.get(pagePath); 
+			}
+			
+			pageViewTotal = +pageViews + +pageViewsAnalytics4
+			if (pageViewTotal!='0') {
+				formattedPageViewTotal = pageViewTotal.toLocaleString('en-US');
+				$('#query-output').text(formattedPageViewTotal);
 				for (pageviewsElement of document.getElementsByClassName('pageviews')){
 					pageviewsElement.style.display='initial';
 				}

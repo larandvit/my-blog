@@ -1,9 +1,12 @@
-Title: Add Google Analytics Pageviews in Static Web Site
+Title: Add Google Universal Analytics Pageviews in Static Web Site
 Date: 2020-05-31
+Modified: 2023-12-31
 Category: Google Analytics
 Cover: /extra/google-analytics-logo.png
 
-Google Analytics requests authentication to access Google Analytics data/reports. Implementation of Google Analytics can be done in both places client and server. Server APIs support a wide variety of languages and the authentication process is transparent for users. Javascript is a language to access Google Analytics APIs in client implementation. Also, to view Google Analytics in javascript, users have to be authenticated. The process of authentication includes a Google form to enter user credentials. It works perfectly for a set of scenarios but it doesn't work if we want to see pageviews in static web sites.
+Google Analytics requests authentication to access Google Universal Analytics data/reports. Implementation of Google Analytics can be done in both places client and server. Server APIs support a wide variety of languages and the authentication process is transparent for users. Javascript is a language to access Google Analytics APIs in client implementation. Also, to view Google Analytics in javascript, users have to be authenticated. The process of authentication includes a Google form to enter user credentials. It works perfectly for a set of scenarios but it doesn't work if we want to see pageviews in static web sites.
+
+Starting on July 1, 2023, standard Universal Analytics properties stopped processing new data, and all customers will lose access to the Universal Analytics interface and API starting on July 1, 2024. The article can be still be used to retrieve data from Universal Analytics until July 1, 2024.
 
 To solve an issue with authentication, we can use a Google Analytics token. A token allows bypass entering of credentials. It will add an extra step to generate a token and place it in a location accessible by your static web site. Google Analytics token has limited life; it is only 1 hour, so we need to renew our token every hour. It seems complicated but in fact not. It can be used a tool to generate tokens and push it in a static web site. 
 

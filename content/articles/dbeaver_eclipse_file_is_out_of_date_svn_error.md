@@ -1,6 +1,7 @@
 Title: DBeaver/Eclipse "File is out of date" SVN Error
 Date: 2024-01-13
-Category: DBeaver, Git
+Modified: 2024-01-16
+Category: DBeaver
 Cover: /extra/dbeaver-logo.png
 
 DBeaver is Eclipse based Integrated Development Environment (IDE). It can be used with varieties if plug-ins. Subversion (SVN) is one of the plug-ins with source control functionality. It is integrated seamlessly with DBeaver, but Eclipse marketplace is supplied with old version of SVN library. It causes `File is out of date` error in SVN commits. Errors might be different nature and they have different remedies.

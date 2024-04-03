@@ -1,5 +1,6 @@
 Title: Unleash DBeaver Productivity
 Date: 2024-03-31
+Modified: 2024-04-02
 Category: DBeaver
 Cover: /extra/dbeaver-logo.png
 
@@ -15,7 +16,7 @@ DBeaver is supplied with a list of plug-in installations tested with the current
 
 ## Eclipse Marketplace
 
-This is the firts plug-in to start with. It will simplify installation and management of plug-ins. Select **Eclipse 2023-12 - https://download.eclipse.org/releases/2023-12/** in **Work with** and filter by **marketplace**.
+This is the first plug-in to start with. It will simplify installation and management of plug-ins. Select **Eclipse 2023-12 - https://download.eclipse.org/releases/2023-12/** in **Work with** and filter by **marketplace**.
 
 ![Eclipse Marketplace]({static}/images/unleash-dbeaver-productivity/eclipse-marketplace-plugin.png)</br></br>
 
@@ -33,9 +34,9 @@ To start working with the plug-in, add PyDev perspective to DBeaver. Click **Ope
 
 ![DBeaver Open PyDev Perspective]({static}/images/unleash-dbeaver-productivity/dbeaver-open-pydev-perspective.png)</br></br>
 
-## Install DBeaver Supplied Development Tools
+## Install Eclipse Development Tools
 
-If you are looking for development tools, you can use DBeaver supplied ones. Those development tools are part of Eclipse 2023-12 version. To see those installations, run **Install New Software...** menu item in **Help** menu, then select **Eclipse 2023-12 - https://download.eclipse.org/releases/2023-12/** in **Work with**. Scroll to **Programming Languages**.
+If you are looking for development tools, you can use Eclipse ones. Those development tools are part of Eclipse 2023-12 version. To see those installations, run **Install New Software...** menu item in **Help** menu, then select **Eclipse 2023-12 - https://download.eclipse.org/releases/2023-12/** in **Work with**. Scroll to **Programming Languages**.
 
 ![Eclipse Programming Languages]({static}/images/unleash-dbeaver-productivity/eclipse-programming-languages.png)</br></br>
 

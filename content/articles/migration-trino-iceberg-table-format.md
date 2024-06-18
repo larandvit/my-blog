@@ -1,5 +1,6 @@
 Title: Migration to Trino Iceberg Table Format
 Date: 2024-06-16
+Modified: 2024-06-17
 Category: Trino
 Cover: /extra/trino-logo.png
 
@@ -80,6 +81,36 @@ Use cases might be.
 * INSERT INTO statement. Iceberg catalog redirects a request to Hive catalog. The table stays in Hive table format.
 * CREATE TABLE statement. Iceberg table is created.
 * MERGE statement. Iceberg catalog redirects a request to Hive catalog. The table stays in Hive table format.
+
+##6. Track progress
+
+If Trino is connected to Hive metastore database by means of a catalog, the report can be generated showing the progress.
+
+    :::sql
+    WITH data_format AS (
+    SELECT
+        t.tbl_name
+        ,coalesce(p.param_value, 'HIVE') AS table_format
+    FROM
+        hive_metastore.public.tbls t
+    LEFT JOIN
+        hive_metastore.public.table_params p ON
+            t.tbl_id=p.tbl_id 
+            AND param_key='table_type')
+    ,count_format AS (
+    SELECT
+        count(*) FILTER (WHERE table_format='HIVE') AS hive_tables
+        ,count(*) FILTER (WHERE table_format='ICEBERG') AS iceberg_table
+        ,count(*) AS total_tables
+    FROM
+        data_format)
+    SELECT
+        hive_tables
+        ,iceberg_table
+        ,total_tables
+        ,cast(1.0000 * iceberg_table / total_tables * 100 AS DECIMAL(4,2)) AS iceberg_tables_pct
+    FROM
+        count_format;
 
 ## Consideration for migration
 

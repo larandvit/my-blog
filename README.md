@@ -21,5 +21,8 @@ The changes to pelican-bootstrap3 theme are
     * article.html
 10. Implemented formatting of the page views field.
     * article.html
+11. Replaced Google Universal live analytics with historical one as Universal analytics is retired Jun 1, 2024.
+     * blog_metrics_universal.js
+     * article.html
 
 The actual blog is located [here](https://techjogging.com).

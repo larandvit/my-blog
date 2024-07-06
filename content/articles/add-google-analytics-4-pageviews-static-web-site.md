@@ -1,4 +1,4 @@
-Title: Add Google Universal Analytics 4 Pageviews in Static Web Site
+Title: Add Google Analytics 4 Pageviews in Static Web Site
 Date: 2024-07-05
 Category: Google Analytics
 Cover: /extra/google-analytics-logo.png

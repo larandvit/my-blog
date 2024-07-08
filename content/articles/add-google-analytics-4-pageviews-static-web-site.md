@@ -1,5 +1,6 @@
 Title: Add Google Analytics 4 Pageviews in Static Web Site
 Date: 2024-07-05
+Modified: 2024-07-07
 Category: Google Analytics
 Cover: /extra/google-analytics-logo.png
 
@@ -103,6 +104,10 @@ The file name might be pageviews.js. It will be embedded in each of your Web pag
 ## 6. Schedule Generate Google Analytics Data tool to be run every hour
 
 It can be done in many different ways, for example, Linux - cron, Windows - Task Scheduler, Synology DSM - Task Scheduler.
+
+## 7. Improvements
+
+You can combine Google Analytics 4 with Google Universal Analytics. The sample is [Embed Google Universal Analytics Pageviews in Static Web Site]({filename}/articles/embed-google-universal-analytics-pageviews-static-web-site.md).
 
 ## Resources
 

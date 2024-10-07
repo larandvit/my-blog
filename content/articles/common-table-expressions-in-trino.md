@@ -1,11 +1,12 @@
 Title: Common Table Expressions in Trino
 Date: 2024-09-28
+Modified: 2024-10-06
 Category: Trino
 Cover: /extra/trino-logo.png
 
 Common table expression (CTE) helps organize your code and make it more efficient utilizing the same data multiple times. It is how it works in relational database management systems (RDBMSs). [Trino](https://trino.io/) handles CTEs differently because it is a query engine and it can't store temporary named result sets. CTEs are inlined before sending for execution by Trino. This limitation makes usage of CTE in Trino inefficient. Moreover, CTE can produce incorrect results as named result set is non-deterministic and the results may be different each time.
 
-Instead of using a CTE, it can be created a temporary table. This way, you make your code more efficient retrieving data only once if a named result set is going to be used more than one time in your CTE statement. Otherwise, Trino executes the same named result set as many times as the named result set is referred in your statement.
+Instead of using a CTE in Trino, it can be created a temporary table. This way, you make your code more efficient retrieving data only once if a named result set is going to be used more than one time in your CTE statement. Otherwise, Trino executes the same named result set as many times as the named result set is referred in your statement.
 
 Some products rely on CTEs heavily, for example, [dbt](https://www.getdbt.com/) and it impacts on usage of those products with Trino.
 
@@ -188,7 +189,7 @@ Submitted to Trino statement
         cte21
     JOIN
         cte22 
-        ON cte21.id=cte22;
+        ON cte21.id=cte22.id;
 
 Executed by Trino statement
 
@@ -221,7 +222,7 @@ Executed by Trino statement
             FROM
                 data_source) cte1
         ) cte22
-        ON cte21.id=cte22;
+        ON cte21.id=cte22.id;
 
 ## Resources
 * [WITH clause in Trino](https://trino.io/docs/current/sql/select.html#with-clause)

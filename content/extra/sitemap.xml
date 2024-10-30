@@ -6,6 +6,42 @@
 
          xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
+   	<loc>https://techjogging.com/install-self-host-prefect-server.html</loc>
+   	<lastmod>2024-10-27</lastmod>
+   </url>
+   <url>
+   	<loc>https://techjogging.com/common-table-expressions-in-trino.html</loc>
+   	<lastmod>2024-09-28</lastmod>
+   </url>
+   <url>
+   	<loc>https://techjogging.com/embed-google-universal-analytics-pageviews-static-web-site.html</loc>
+   	<lastmod>2024-07-07</lastmod>
+   </url>
+   <url>
+   	<loc>https://techjogging.com/add-google-analytics-4-pageviews-static-web-site.html</loc>
+   	<lastmod>2024-07-05</lastmod>
+   </url>
+   <url>
+   	<loc>https://techjogging.com/migration-trino-iceberg-table-format.html</loc>
+   	<lastmod>2024-06-16</lastmod>
+   </url>
+   <url>
+   	<loc>https://techjogging.com/unleash-dbeaver-productivity.html</loc>
+   	<lastmod>2024-03-31</lastmod>
+   </url>
+   <url>
+   	<loc>https://techjogging.com/dbeaver_eclipse_file_is_out_of_date_svn_error.html</loc>
+   	<lastmod>2024-01-13</lastmod>
+   </url>
+   <url>
+   	<loc>https://techjogging.com/set-up-tplink-router-access-point.html</loc>
+   	<lastmod>2023-09-19</lastmod>
+   </url>
+   <url>
+   	<loc>https://techjogging.com/rename-worksheet-dynamically-excel.html</loc>
+   	<lastmod>2023-08-31</lastmod>
+   </url>
+   <url>
    	<loc>https://techjogging.com/get-started-custom-connector-plugin-trino.html</loc>
    	<lastmod>2023-03-05</lastmod>
    </url>
@@ -124,6 +160,14 @@
    <url>
    	<loc>https://techjogging.com/access-minio-secured-ssl-minio-python-sdk.html</loc>
    	<lastmod>2021-03-06</lastmod>
+   </url>
+   <url>
+   	<loc>https://techjogging.com/connect-yoosee-sd-m5-doorbell-synology-dsm.html</loc>
+   	<lastmod>2021-02-21</lastmod>
+   </url>
+   <url>
+   	<loc>https://techjogging.com/obtain-identity-value-sqlserver-insert-python.html</loc>
+   	<lastmod>2021-02-04</lastmod>
    </url>
    <url>
    	<loc>https://techjogging.com/export-tls-ssl-server-certificate-from-internet-browser.html</loc>
